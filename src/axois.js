@@ -1,6 +1,7 @@
 import axios from 'axios'
 import store from './store'
 import router from './router'
+axios.defaults.baseURL='http://localhost:8080/mockData'
 
 axios.interceptors.request.use(config=>{
     console.log("请求拦截");
@@ -8,21 +9,17 @@ axios.interceptors.request.use(config=>{
 })
 
 axios.interceptors.response.use(response=>{
-    const res = response.data;
     console.log("响应拦截");
-    if(res.code === 200) return response;
-    else{
-        console.log(response.data.msg);
-        return Promise.reject(response.data.msg);
-    }
+    if(response.status === 200){ console.log('success');return Promise.resolve(response.data);}
+    else {console.log('fail');return Promise.reject(response.data.msg);}
 },
 error=>{
     console.log('error', error);
-    if(error.response.data) error.message = error.response.data.msg;
-    switch(error.response.status){
+    if(error.response.data) error.message = error.response.msg;
+    switch(error.response.code){
         case 401:
             store.commit('REMOVE_INFO');
-            router.push({path: /user/loginIn});
+            router.push({path: '/user/loginIn'});
             error.message = "请重新登录";
             break;
         case 403:

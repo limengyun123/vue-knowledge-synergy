@@ -74,7 +74,7 @@ export default {
             let _this = this;
             this.$refs[formName].validate((valid)=>{
                 if (valid) {
-                    loginApi.login(this.loginForm).then(function (result) {
+                    loginApi.login(this.loginForm).then( (result)=> {
                         // if (result && result.code === 1) {
                         //     _this.setUserName(_this.loginForm.userName);
                         //     _this.$router.push({ path: '/' });
@@ -84,13 +84,13 @@ export default {
                         alert("登录成功");
                         const token = result.headers['authorization'];
                         _this.$store.commit('SET_TOKEN', token);
-                        _this.$store.commit('SET_USERINFO', result.data);
+                        _this.$store.commit('SET_USERINFO', {userName:this.loginForm.userName });
                         //_this.$router.push('/home');
                         
-                    }).catch(function (reason) {
-                        alert("用户名或密码错误");
+                    }).catch((reason) =>{
+                        alert('error',reason);
                     })
-        } 
+                } 
                 else{
                     console.log("error submit.");
                     return false;
