@@ -1,6 +1,6 @@
 import router from './router'
 
-router.beforeEach((to, from next)=>{
+router.beforeEach((to, from, next)=>{
     if(to.matched.some(record=>record.meta.requireAuth)){
         const toen = localStorage.getItem("token");
         if(token){
