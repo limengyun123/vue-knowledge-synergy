@@ -1,9 +1,9 @@
 <template>
-    <div>欢迎</div>
+    <div>个人设置</div>
 </template>
 
 <script>
 export default {
-    name: 'Main'
+    name: 'Setting'
 }
 </script>

@@ -9,6 +9,16 @@ const routes = [
 	{ path: '/user/loginIn', name: 'loginIn', component: () => import(/* webpackChunkName: "loginIn" */ '../views/user/loginIn.vue') },
 	{ path: '/user/register', name: 'register', component: () => import(/* webpackChunkName: "register" */ '../views/user/register.vue') },
 	{ path: '/user/forgetPassword', name: 'forgetPassword',  meta: {requireAuth: true}, component: () => import(/* webpackChunkName: "forgetPassword" */ '../views/user/forgetPassword.vue') },
+	{ 
+		path: '/common', 
+		name: 'common',
+		component: ()=> import('../views/home/commonNav.vue'),
+		redirect: '/common/main',
+		children:[
+			{ path: 'main', component: ()=> import('../views/home/main.vue') },
+			{ path: 'profile', component: ()=> import('../views/profile/setting.vue') }
+		]
+	},
 	{ path: '*', name: 'error', component: () => import('../components/error.vue') }, 
 ]
 
