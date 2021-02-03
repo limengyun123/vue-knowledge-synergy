@@ -1,12 +1,12 @@
-import axios from 'axios'
-import store from './store'
-import router from './router'
-axios.defaults.baseURL='http://localhost:8080/mockData'
+import axios from 'axios';
+import store from './store';
+import router from './router';
+axios.defaults.baseURL='http://localhost:8080';
 
 axios.interceptors.request.use(config=>{
     console.log("请求拦截");
     return config;
-})
+});
 
 axios.interceptors.response.use(response=>{
     console.log("响应拦截");

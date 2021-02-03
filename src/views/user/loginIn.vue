@@ -79,7 +79,9 @@ export default {
                         
                         const token = result.headers['authorization'];
                         this.$store.commit('SET_TOKEN', token);
-                        this.$store.commit('SET_USERINFO', Object.assign({},this.loginForm, result.data));
+                        result.data.userName = this.loginForm.userName;
+                        console.log(this.loginForm.userName);
+                        this.$store.commit('SET_USERINFO', Object.assign({},result.data));
                         this.$message({
                             message: '登录成功',
                             type: 'success',

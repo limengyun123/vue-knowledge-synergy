@@ -8,6 +8,7 @@ import axios from 'axios'
 import './axois.js'
 // import './permission.js'
 import './mock'
+import 'normalize.css/normalize.css'
 
 Vue.prototype.$axios = axios 
 

@@ -5,8 +5,9 @@ export const login_result_suc = {
     headers:{'authorization': 'hfos93789yhef139hfw3827rhg8'},
     data: {
         actualName: '赵天泽',
-        telephone: '17305827492',
-        IDNumber: '230187199803018472'
+        sex: '女',
+        mobile: '17305827492',
+        email:'184221934@qq.com'
     }
 }
 
