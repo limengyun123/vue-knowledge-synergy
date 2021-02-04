@@ -5,10 +5,10 @@
             <el-alert class="error-alert" :title="errorMessage" v-if="showError" type="error" show-icon></el-alert>
             <el-form :model="loginForm" :rules="rules" ref="loginForm" status-icon >
                 <el-form-item prop="userName">
-                    <el-input type="text" v-model="loginForm.userName" @focus="hideError" prefix-icon="el-icon-user-solid" placeholder="请输入用户名"></el-input>
+                    <el-input v-model="loginForm.userName" @focus="hideError" prefix-icon="el-icon-user-solid" placeholder="请输入用户名"></el-input>
                 </el-form-item>
                 <el-form-item prop="password">
-                    <el-input type="text" v-model="loginForm.password" @focus="hideError" prefix-icon="el-icon-lock" :show-password=true auto-complete="off" placeholder="请输入密码"></el-input>
+                    <el-input v-model="loginForm.password" @focus="hideError" prefix-icon="el-icon-lock" :show-password=true auto-complete="off" placeholder="请输入密码"></el-input>
                 </el-form-item>
                 <el-form-item>
                     <el-button type="primary" @click="submitForm('loginForm')" class="login-button">登 录</el-button>
@@ -79,9 +79,8 @@ export default {
                         
                         const token = result.headers['authorization'];
                         this.$store.commit('SET_TOKEN', token);
-                        result.data.userName = this.loginForm.userName;
-                        console.log(this.loginForm.userName);
-                        this.$store.commit('SET_USERINFO', Object.assign({},result.data));
+                        this.loginForm.password = this.loginForm.password.replace(/\w/g, '*');
+                        this.$store.commit('SET_USERINFO', Object.assign({},this.loginForm,result.data));
                         this.$message({
                             message: '登录成功',
                             type: 'success',
