@@ -16,10 +16,12 @@ const routes = [
 		redirect: '/common/main',
 		children:[
 			{ path: 'main', component: ()=> import('../views/home/main.vue') },
+			{ path: 'team', component: ()=> import('../views/team/myTeam.vue') },
 			{ path: 'profile/siteSetting', component: ()=> import('../views/profile/siteSetting.vue') },
 		]
 	},
 	{ path: '/personalInfo', component: ()=> import('../views/profile/personalInfo.vue') },
+	{ path: '/common/team/createTeam', component: ()=> import('../views/team/createTeam.vue') },
 	{ path: '*', name: 'error', component: () => import('../components/error.vue') }, 
 ]
 

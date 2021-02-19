@@ -1,6 +1,7 @@
 import Mock from 'mockjs'
 import loginApi from './user'
 import infoApi from './profile'
+import teamApi from './team'
 
 /**
  * Mock.mock( rurl, rtype, template )
@@ -23,3 +24,12 @@ Mock.mock("http://localhost:8080/profile/pswd", "post", infoApi.change_pswd_suc)
 
 Mock.mock("http://localhost:8080/profile/info", "post", infoApi.change_info_suc);
 // Mock.mock("http://localhost:8080/profile/info", "post", infoApi.change_info_fai);
+
+Mock.mock("http://localhost:8080/team/getTeams", "post", teamApi.get_teams_suc);
+// Mock.mock("http://localhost:8080/team/getTeams", "post", teamApi.get_teams_fai);
+
+Mock.mock("http://localhost:8080/team/getProjects", "post", teamApi.get_projects_suc);
+// Mock.mock("http://localhost:8080/team/getProjects", "post", teamApi.get_projects_fai);
+
+Mock.mock("http://localhost:8080/team/createTeam", "post", teamApi.create_team_suc);
+// Mock.mock("http://localhost:8080/team/createTeam", "post", teamApi.create_team_fai);

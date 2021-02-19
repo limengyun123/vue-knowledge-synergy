@@ -5,14 +5,9 @@
             <el-col :span="14">  
                 <el-menu router :default-active="$route.path" class="navigation" mode="horizontal">  
                     <el-menu-item index="/common/main">主页</el-menu-item>
-                    <el-submenu index="2">
-                        <template slot="title">团队协同</template>
-                        <el-menu-item index="2-1">项目团队</el-menu-item>
-                        <el-menu-item index="2-2">科研团队</el-menu-item>
-                        <el-menu-item index="2-3">课题组</el-menu-item>
-                    </el-submenu>
-                    <el-menu-item index="3">个人仓库</el-menu-item>
-                    <el-menu-item index="/common/profile">设置中心</el-menu-item>
+                    <el-menu-item index="/common/team">团队协同</el-menu-item>
+                    <el-menu-item index="3">个人空间</el-menu-item>
+                    <el-menu-item index="/common/profile/siteSetting">设置中心</el-menu-item>
                 </el-menu>
             </el-col>
             <el-col :span="2" :offset="1">

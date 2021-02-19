@@ -120,26 +120,21 @@ export default {
                 }
             },
             pswdRules:{
-                oldPassword: [
-                    {
-                        validator: pswdValidator,
-                        trigger: 'blur'
+                oldPassword: {
+                    validator: pswdValidator,
+                    trigger: 'blur'
+                }
+                ,
+                newPassword: {
+                    validator: pswdValidator,
+                    trigger: 'blur'
+                },
+                ensurePassword: {
+                    validator:(rule, value, callback) => {
+                        if (this.passwordForm.newPassword===value) callback();
+                        else callback(new Error('两次密码输入不匹配'));
                     }
-                ],
-                newPassword: [
-                    {
-                        validator: pswdValidator,
-                        trigger: 'blur'
-                    }
-                ],
-                ensurePassword: [
-                    {
-                        validator:(rule, value, callback) => {
-                            if (this.passwordForm.newPassword===value) callback();
-                            else callback(new Error('两次密码输入不匹配'));
-                        }
-                    }
-                ]
+                }
             }
         }
     },
