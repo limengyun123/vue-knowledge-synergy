@@ -33,3 +33,6 @@ Mock.mock("http://localhost:8080/team/getProjects", "post", teamApi.get_projects
 
 Mock.mock("http://localhost:8080/team/createTeam", "post", teamApi.create_team_suc);
 // Mock.mock("http://localhost:8080/team/createTeam", "post", teamApi.create_team_fai);
+
+Mock.mock("http://localhost:8080/team/createProject", "post", teamApi.create_project_suc);
+// Mock.mock("http://localhost:8080/team/createProject", "post", teamApi.create_project_fai);

@@ -20,12 +20,12 @@
             </el-col>
             <el-col :span="18">
                 <div v-if="teamChosenId">
+                    <el-button type="primary" class='add-project-button'><router-link to="/common/team/createProject">新建项目</router-link></el-button>
                     <div v-for="project in myProjects" :key='project.pId'><p>{{project.pName}}</p></div>
                 </div>
                 <div v-else>
                     <div>empty</div>
                 </div>
-                <el-button type="primary" class='add-project-button'>新建项目</el-button>
             </el-col>
         </el-row>
     </div>

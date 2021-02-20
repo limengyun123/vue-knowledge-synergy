@@ -12,9 +12,6 @@
             </div>
             <div class="fixed-bg bg3">
             </div>
-            <div class="fixed-bg bg4">
-            </div>
-            <div class="fixed-bg bg5">
             </div>
 
         </div>
@@ -61,24 +58,17 @@ export default {
 
 
 .bg1 {
-    background-image: url('http://pic1.win4000.com/wallpaper/f/555594cfb0e50.jpg');
+    background-image: url('~@/assets/img/bg_1.jpg');
 }
 
 .bg2{
-    background-image: url('http://pic1.win4000.com/wallpaper/f/555594d20d8df.jpg');
+    background-image: url('~@/assets/img/bg_2.jpg');
 }
 
 .bg3{
-    background-image: url('http://pic1.win4000.com/wallpaper/f/555594d72e8ba.jpg');
+    background-image: url('~@/assets/img/bg_3.jpg');
 }
 
-.bg4{
-    background-image: url('http://pic1.win4000.com/wallpaper/f/555594ce1b3ce.jpg');
-}
-
-.bg5 {
-    background-image: url('http://pic1.win4000.com/wallpaper/f/555594da3a03f.jpg');
-}
 
 
 </style>

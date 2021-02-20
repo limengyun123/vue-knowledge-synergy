@@ -63,4 +63,18 @@ export default{
             data: { }
         }
     },
+    create_project_suc:(param)=>{
+        return {
+            code: 200,
+            msg: "创建成功",
+            data:{} 
+        }
+    },
+    create_project_fai:(param)=>{
+        return {
+            code: 403,
+            msg: "项目名称重复",
+            data: { }
+        }
+    },
 }

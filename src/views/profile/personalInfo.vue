@@ -1,6 +1,6 @@
 <template>
     <div>
-        <el-header class='info-head'><span class="el-icon-back" @click="getBack"></span> </el-header>
+        <GoBackHead />
         <el-row>
             <el-col :span="10">
                 <el-card class="box-card">
@@ -68,9 +68,13 @@
 
 <script>
 import {changePswdApi, changeInfoApi} from '../../api/profile';
+import GoBackHead from '../../components/goBackHead'
 
 export default {
     name: "PersonalInfo",
+    components: {
+        'GoBackHead': GoBackHead
+    },
     data(){
         var pswdValidator = function(rule, value, callback){
             console.log(value);
@@ -147,9 +151,6 @@ export default {
         Object.assign(this.userInfo,this.$store.state.userInfo);
     },
     methods:{
-        getBack(){
-            this.$router.back(-1);
-        },
         submitInfoForm(formName){
             this.$refs[formName].validate((valid)=>{
                 if(valid){
@@ -197,12 +198,6 @@ export default {
 </script>
 
 <style scoped>
-.info-head{
-    background-color: blue;
-    font-size: 2rem;
-    color:white;
-    padding: 0.4rem 1rem;
-}
 .box-card{
     width: 20rem;
     margin: 5rem;
@@ -211,7 +206,7 @@ export default {
 }
 .user-info-form{
     width: 25rem;
-    margin: 2rem 5rem;
-    padding: 2rem;
+    margin: 2rem 5rem 0rem;
+    padding: 2rem 2rem 0;
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <el-header class='create-team-head'><span class="el-icon-back" @click="getBack"></span></el-header>
+        <GoBackHead />
         <div class="create-team-body">
             <el-alert class="error-alert" :title="errorInfoMessage" v-if="showInfoError" type="error" show-icon></el-alert>
             <el-form :model="teamInfo" status-icon ref="teamInfo" :rules="infoRules" label-width="100px" class="team-info-form">
@@ -33,9 +33,13 @@
 
 <script>
 import {createTeamApi} from '../../api/team'
+import GoBackHead from '../../components/goBackHead'
 
 export default {
     name: "CreateTeam",
+    components: {
+        'GoBackHead': GoBackHead
+    },
     data(){
         return {
             showInfoError: false,
@@ -70,11 +74,7 @@ export default {
         this.teamInfo.teamLeader = this.$store.state.userInfo.userName;
     },
     methods:{
-        getBack(){
-            this.$router.back(-1);
-        },
         submitTeam(){
-            console.log(123);
             this.$refs["teamInfo"].validate((valid)=>{
                 if(valid){
                     createTeamApi(this.teamInfo).then((result)=>{
@@ -97,12 +97,6 @@ export default {
 </script>
 
 <style scoped>
-.create-team-head{
-    background-color: blue;
-    font-size: 2rem;
-    color:white;
-    padding: 0.4rem 1rem;
-}
 
 .create-team-body{
     width:30rem;

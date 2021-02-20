@@ -11,3 +11,7 @@ export const getProjectsApi = (teamId)=>{
 export const createTeamApi = (teamInfo)=>{
     return axios.post('team/createTeam', teamInfo);
 }
+
+export const createProjectApi = (projectInfo)=>{
+    return axios.post('team/createProject', projectInfo);
+}
