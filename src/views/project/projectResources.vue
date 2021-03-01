@@ -1,6 +1,5 @@
 <template>
     <div>
-        <div>项目资源</div>
         <div v-if="resources.length">
             <div v-for="item in resources" :key="item.rId" class="project-resources">
                 <p><span>{{item.rName}}</span><span>{{item.rUploadTime}}</span><span>{{item.rAuthorName}}</span></p>
@@ -14,6 +13,7 @@
             layout="total, sizes, prev, pager, next, jumper"
             :total="paginationInfo.totalNum"
             :pager-count="paginationInfo.paperCount"
+            hide-on-single-page
             >
         </el-pagination>
         </div>
@@ -69,12 +69,11 @@ export default {
 
 <style scoped>
     .project-resources{
-        width: 80%;
-        margin: 1rem 10%;
         border-bottom: #bbbbbb 1px solid;
         height: 3rem;
     }
     .pagination{
+        margin-top: 3rem;
         text-align: center;
     }
 </style>

@@ -1,31 +1,32 @@
 <template>
     <div>
         <el-row>
-            <el-col :span="6" class="left-content">
-                <div class="team-head">
-                    <b>已加入的团队</b>
-                    <el-dropdown class="team-add">
-                        <span class="el-icon-circle-plus-outline" style="font-size: 1.5rem;"></span>
+            <el-col :span="6" class="left">
+                <div v-if="myTeams.length">
+                    <el-dropdown @command="handleCommand">
+                        <div class='team-chosen'>{{myTeams[teamChosenId-1].tName}}<i class="el-icon-arrow-down el-icon--right"></i></div>
                         <el-dropdown-menu slot="dropdown">
-                            <el-dropdown-item><router-link to="/common/team/createTeam">新建团队</router-link></el-dropdown-item>
-                            <el-dropdown-item>加入团队</el-dropdown-item>
+                            <el-dropdown-item v-for="team in myTeams" :key="team.tId" :command='team.tId'>
+                                <div :class="['my-team', {selected: team.tId==teamChosenId}]">{{team.tName}}</div>
+                            </el-dropdown-item>
                         </el-dropdown-menu>
                     </el-dropdown>
-                </div>
-                <div @click="handleCommand" class="my-teams">
-                    <div v-for="team in myTeams" :key="team.tId" >
-                        <div :index='team.tId' :class="['my-team', {selected: team.tId==teamChosenId}]">{{team.tName}}</div>
+                    <div>
+                        
+                        <div v-for="project in myProjects" :key='project.pId' class='team-project'>
+                            <router-link :to="'/common/team/project/'+project.pId">{{project.pName}}</router-link>
+                        </div>
+                        <div class='team-project'>
+                            <router-link to="/common/team/createProject"><span class="el-icon-circle-plus-outline"></span> 新建项目</router-link>
+                        </div>
                     </div>
+                </div>
+                <div v-else>
+                    <button icon="el-icon-circle-plus-outline">新建/加入团队</button>
                 </div>
             </el-col>
             <el-col :span="18">
-                <div v-if="teamChosenId">
-                    <el-button type="primary" class='add-project-button'><router-link to="/common/team/createProject">新建项目</router-link></el-button>
-                    <div v-for="project in myProjects" :key='project.pId' class='team-project'><router-link :to="'/project/'+project.pId">{{project.pName}}</router-link></div>
-                </div>
-                <div v-else>
-                    <div>empty</div>
-                </div>
+                <router-view />
             </el-col>
         </el-row>
     </div>
@@ -38,7 +39,7 @@ export default {
     name:"MyTeam",
     data(){
         return {
-            teamChosenId: 0,
+            teamChosenId: -1,
             myTeams:[],
             myProjects:[]
         }
@@ -46,24 +47,29 @@ export default {
     mounted(){
         getTeamsApi(this.$store.state.userInfo.userName).then((result)=>{
             this.myTeams = result.data;
+            if(this.myTeams.length){
+                this.teamChosenId = this.myTeams[0].tId;
+                console.log(this.teamChosenId);
+                this.getTeamProject();
+            }
+            console.log("this.teamChosenId",this.teamChosenId);
+            
         }).catch((reason)=>{
             this.$message.error(reason);
         });
-        this.teamChosenId = this.$store.state.teamChosenId;
-        if(this.teamChosenId) this.getTeamProject();
+
     },
     methods:{
-        handleCommand(e) {
-            let index = e.target.getAttribute("index");
-            if(index){
-                this.teamChosenId = index;
-                this.getTeamProject();
-                this.$store.commit('SET_TEAMCHOSENID', this.teamChosenId);
-            }
+        handleCommand(index) {
+            console.log(index);
+            this.teamChosenId = index;
+            this.getTeamProject();
+            // this.$store.commit('SET_TEAMCHOSENID', this.teamChosenId);
 		},
         getTeamProject(){
             // 请求项目数据
             getProjectsApi(this.teamChosenId).then((result)=>{
+                console.log(result.data);
                 this.myProjects = result.data;
             }).catch((reason)=>{
                 this.$message.error(reason);
@@ -74,32 +80,23 @@ export default {
 </script>
 
 <style scoped>
-    .left-content{
-        padding: 1rem;
+
+    .team-chosen{
+        margin: 1rem 0.5rem;
+        text-align: center;
+        font-size: 1.2rem;
+        width: 100%;
     }
-
-    .team-head{
-        padding: 1rem 0.2rem;
-        border-bottom: solid #dddddd 2px;
-    }
-
-    /* .right-content{
-
-    } */
+    
     .team-add{
         float: right;
     }
 
-    .add-project-button{
-        position: fixed;
-        top: 5rem;
-        right: 1.5rem;
-    }
+
     .my-team{
         width:100%;
-        height:3rem;
-        line-height: 3rem;
-        border-bottom: solid #dddddd 1px;
+        height: 2rem;
+        line-height: 2rem;
         padding: 0.2rem;
     }
     .my-teams .selected{
@@ -109,7 +106,6 @@ export default {
     .team-project{
         width: 80%;
         margin: 1rem 10%;
-        border-bottom: #bbbbbb 1px solid;
-        height: 3rem;
+        height: 2rem;
     }
 </style>

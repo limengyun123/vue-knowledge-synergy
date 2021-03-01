@@ -35,6 +35,7 @@ export default{
         }
     },
     get_projects_suc:(param)=>{
+        console.log("param",param);
         return {
             code: 200,
             msg: "查询成功",

@@ -24,18 +24,23 @@ const routes = [
 		redirect: '/common/main',
 		children:[
 			{ path: 'main', component: ()=> import('../views/home/main.vue') },
-			{ path: 'team', component: ()=> import('../views/team/myTeams.vue') },
+			{ 
+				path: 'team', 
+				component: ()=> import('../views/team/myTeams.vue'),
+				children:[
+					{ 
+						path: 'project/:id', 
+						name: '/common/team/project',
+						component: ()=> import('../views/project/project.vue'),
+						redirect: 'project/:id/resources', 
+						children:[
+							{ path: 'resources', name:'/common/team/project/resources', component: ()=> import('../views/project/projectResources.vue') },
+							{ path: 'tasks', name:'/common/team/project/tasks', component: ()=> import('../views/project/projectTasks.vue') },
+						]
+					},
+				]
+			},
 			{ path: 'profile/siteSetting', component: ()=> import('../views/profile/siteSetting.vue') },
-		]
-	},
-	{ 
-		path: '/project/:id', 
-		name: 'project',
-		component: ()=> import('../views/project/project.vue'),
-		redirect: '/project/:id/resources', 
-		children:[
-			{ path: 'resources', name:'/project/resources', component: ()=> import('../views/project/projectResources.vue') },
-			{ path: 'tasks', name:'/project/tasks', component: ()=> import('../views/project/projectTasks.vue') },
 		]
 	},
 	{ path: '/personalInfo', component: ()=> import('../views/profile/personalInfo.vue') },
