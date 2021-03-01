@@ -6,9 +6,17 @@ Vue.use(VueRouter)
 
 const routes = [
 	{ path: '/', name: 'Home', component: Home },
-	{ path: '/user/loginIn', name: 'loginIn', component: () => import(/* webpackChunkName: "loginIn" */ '../views/user/loginIn.vue') },
-	{ path: '/user/register', name: 'register', component: () => import(/* webpackChunkName: "register" */ '../views/user/register.vue') },
-	{ path: '/user/forgetPassword', name: 'forgetPassword',  meta: {requireAuth: true}, component: () => import(/* webpackChunkName: "forgetPassword" */ '../views/user/forgetPassword.vue') },
+	{ 
+		path: '/user', 
+		name: 'user',
+		component: ()=> import('../views/user/user.vue'),
+		redirect: '/user/loginIn',
+		children:[
+			{ path: 'loginIn', name: 'loginIn', component: () => import(/* webpackChunkName: "loginIn" */ '../views/user/loginIn.vue') },
+			{ path: 'register', name: 'register', component: () => import(/* webpackChunkName: "register" */ '../views/user/register.vue') },
+			{ path: 'forgetPassword', name: 'forgetPassword',  meta: {requireAuth: true}, component: () => import(/* webpackChunkName: "forgetPassword" */ '../views/user/forgetPassword.vue') },
+		]
+	},
 	{ 
 		path: '/common', 
 		name: 'common',
@@ -16,8 +24,18 @@ const routes = [
 		redirect: '/common/main',
 		children:[
 			{ path: 'main', component: ()=> import('../views/home/main.vue') },
-			{ path: 'team', component: ()=> import('../views/team/myTeam.vue') },
+			{ path: 'team', component: ()=> import('../views/team/myTeams.vue') },
 			{ path: 'profile/siteSetting', component: ()=> import('../views/profile/siteSetting.vue') },
+		]
+	},
+	{ 
+		path: '/project/:id', 
+		name: 'project',
+		component: ()=> import('../views/project/project.vue'),
+		redirect: '/project/:id/resources', 
+		children:[
+			{ path: 'resources', name:'/project/resources', component: ()=> import('../views/project/projectResources.vue') },
+			{ path: 'tasks', name:'/project/tasks', component: ()=> import('../views/project/projectTasks.vue') },
 		]
 	},
 	{ path: '/personalInfo', component: ()=> import('../views/profile/personalInfo.vue') },

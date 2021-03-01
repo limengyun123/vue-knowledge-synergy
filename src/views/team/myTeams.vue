@@ -21,7 +21,7 @@
             <el-col :span="18">
                 <div v-if="teamChosenId">
                     <el-button type="primary" class='add-project-button'><router-link to="/common/team/createProject">新建项目</router-link></el-button>
-                    <div v-for="project in myProjects" :key='project.pId'><p>{{project.pName}}</p></div>
+                    <div v-for="project in myProjects" :key='project.pId' class='team-project'><router-link :to="'/project/'+project.pId">{{project.pName}}</router-link></div>
                 </div>
                 <div v-else>
                     <div>empty</div>
@@ -47,22 +47,28 @@ export default {
         getTeamsApi(this.$store.state.userInfo.userName).then((result)=>{
             this.myTeams = result.data;
         }).catch((reason)=>{
-             this.$message.error(reason);
+            this.$message.error(reason);
         });
+        this.teamChosenId = this.$store.state.teamChosenId;
+        if(this.teamChosenId) this.getTeamProject();
     },
     methods:{
         handleCommand(e) {
-            let index = e.target.getAttribute("index");;
+            let index = e.target.getAttribute("index");
             if(index){
                 this.teamChosenId = index;
-                // 请求项目数据
-                getProjectsApi(index).then((result)=>{
-                    this.myProjects = result.data;
-                }).catch((reason)=>{
-                    this.$message.error(reason);
-                });
+                this.getTeamProject();
+                this.$store.commit('SET_TEAMCHOSENID', this.teamChosenId);
             }
 		},
+        getTeamProject(){
+            // 请求项目数据
+            getProjectsApi(this.teamChosenId).then((result)=>{
+                this.myProjects = result.data;
+            }).catch((reason)=>{
+                this.$message.error(reason);
+            });
+        }
     }
 }
 </script>
@@ -98,5 +104,12 @@ export default {
     }
     .my-teams .selected{
         background-color: #fafafa;
+    }
+
+    .team-project{
+        width: 80%;
+        margin: 1rem 10%;
+        border-bottom: #bbbbbb 1px solid;
+        height: 3rem;
     }
 </style>
