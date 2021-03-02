@@ -7,7 +7,7 @@ export default new Vuex.Store({
     state: {
       	token: '',
       	userInfo: JSON.parse(sessionStorage.getItem("userInfo")),
-		teamChosenId:0,
+		teamChosenId:-1,
 		projectInfo:{
 			pId:-1,
 			resources:[]

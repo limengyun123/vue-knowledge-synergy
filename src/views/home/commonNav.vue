@@ -11,7 +11,7 @@
                     <div class="el-icon-user-solid"></div><div class="el-icon-user-solid special"></div>
                     <div>团队协同</div>
                 </router-link>
-                <router-link to="3" class="nav-item">
+                <router-link to="/common/individual" class="nav-item">
                     <div class="el-icon-user-solid"></div>
                     <div>个人空间</div>
                 </router-link>

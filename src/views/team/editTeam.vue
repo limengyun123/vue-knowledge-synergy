@@ -13,7 +13,7 @@
                 <el-form-item label="组员" prop="teamMembers">
                     <span class="el-icon-refresh" @click="function(){showDialog = true;showInfoError=false}">添加组员</span>
                     <div>
-                        <span v-for="member in teamInfo.teamMembers" :key="member.userName">{{member.actualName}}</span>
+                        <span v-for="member in teamInfo.teamMembers" :key="member.uId">{{member}}</span>
                     </div>  
                 </el-form-item>
                 <el-form-item>
@@ -36,7 +36,7 @@ import {createTeamApi} from '../../api/team'
 import GoBackHead from '../../components/goBackHead'
 
 export default {
-    name: "CreateTeam",
+    name: "EditTeammates",
     components: {
         'GoBackHead': GoBackHead
     },

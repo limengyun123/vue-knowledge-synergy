@@ -40,12 +40,19 @@ const routes = [
 					},
 				]
 			},
+			{ 
+				path: 'individual', 
+				component: ()=> import('../views/individual/individual.vue'),
+				
+			},
 			{ path: 'profile/siteSetting', component: ()=> import('../views/profile/siteSetting.vue') },
 		]
 	},
 	{ path: '/personalInfo', component: ()=> import('../views/profile/personalInfo.vue') },
 	{ path: '/common/team/createTeam', component: ()=> import('../views/team/createTeam.vue') },
 	{ path: '/common/team/createProject', component: ()=> import('../views/team/createProject.vue') },
+	{ path: '/common/team/addTeammates', component: ()=> import('../views/team/addTeammates.vue') },
+	{ path: '/common/team/editTeam', component: ()=> import('../views/team/editTeam.vue') },
 	{ path: '*', name: 'error', component: () => import('../components/error.vue') }, 
 ]
 

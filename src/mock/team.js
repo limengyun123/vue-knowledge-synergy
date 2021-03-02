@@ -14,7 +14,34 @@ const projects = [
         { pName: "表面合成反应与低维纳米材料合成", pId: 8},
         { pName: "精细化学品与医药中间体合成", pId: 9},
     ]
+];
+const teammates = [
+    [
+        { userName: "41514", actualName: "钱全有"},
+        { userName: "c234", actualName: "赵浩" }
+    ],
+    [
+        { userName: "12414", actualName: "孙香"},
+        { userName: "1242", actualName: "李志鹏" },
+        { userName: "2456", actualName: "周欣" },
+    ],
+    [
+        { userName: "12424", actualName: "吴名" }
+    ]
+];
+
+const contacts = [
+    { userName: "41514", actualName: "钱全有"},
+    { userName: "c234", actualName: "赵浩" },
+    { userName: "12414", actualName: "孙香"},
+    { userName: "1234", actualName: "李志鹏" },
+    { userName: "2456", actualName: "周欣" },
+    { userName: "12424", actualName: "吴名" },
+    { userName: "7209534753", actualName: "张三" },
+    { userName: "19658230", actualName: "李四" },
+    { userName: "2689323", actualName: "王老五" }
 ]
+
 export default{
     get_teams_suc:(param)=>{
         return {
@@ -34,16 +61,15 @@ export default{
             data: { }
         }
     },
-    get_projects_suc:(param)=>{
-        console.log("param",param);
+    get_team_info_suc:(param)=>{
         return {
             code: 200,
             msg: "查询成功",
-            data: projects[param.body-1]
+            data: {projects: projects[param.body-1], teammates:teammates[param.body-1]}
             
         }
     },
-    get_projects_fai:(param)=>{
+    get_team_info_fai:(param)=>{
         return {
             code: 403,
             msg: "查询失败，请稍后重试",
@@ -61,6 +87,54 @@ export default{
         return {
             code: 403,
             msg: "团队名称重复",
+            data: { }
+        }
+    },
+    get_contacts_suc:(param)=>{
+        return {
+            code: 200,
+            msg: "请求成功",
+            data: contacts
+        }
+    },
+    get_contacts_fai:(param)=>{
+        return {
+            code: 403,
+            msg: "无权",
+            data: { }
+        }
+    },
+    search_user_suc:(param)=>{
+        let data = {};
+        for(let user of contacts){
+            if(user.userName==param.body){
+                data = user;
+            }
+        }
+        return {
+            code: 200,
+            msg: "请求成功",
+            data: data
+        }
+    },
+    search_user_fai:(param)=>{
+        return {
+            code: 404,
+            msg: "未找到用户，请重新输入用户账号",
+            data: { }
+        }
+    },
+    add_teammates_suc:(param)=>{
+        return {
+            code: 200,
+            msg: "添加成功",
+            data:{} 
+        }
+    },
+    add_teammates_fai:(param)=>{
+        return {
+            code: 403,
+            msg: "添加失败，请稍后重试",
             data: { }
         }
     },
