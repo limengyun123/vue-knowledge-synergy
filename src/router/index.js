@@ -43,7 +43,10 @@ const routes = [
 			{ 
 				path: 'individual', 
 				component: ()=> import('../views/individual/individual.vue'),
-				
+				redirect: '/common/individual/toDoList',
+				children:[
+					{ path: 'toDoList', name:'/common/individual/toDoList', component: ()=> import('../views/individual/toDoList.vue') },
+				]
 			},
 			{ path: 'profile/siteSetting', component: ()=> import('../views/profile/siteSetting.vue') },
 		]

@@ -82,6 +82,6 @@ export default {
 }
 
 .project-ing{
-    color: yellow;
+    color: lightgreen;
 }
 </style>

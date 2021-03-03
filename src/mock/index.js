@@ -3,6 +3,7 @@ import loginApi from './user'
 import infoApi from './profile'
 import teamApi from './team'
 import projectApi from './project'
+import individualApi from './individual'
 
 /**
  * Mock.mock( rurl, rtype, template )
@@ -49,3 +50,9 @@ Mock.mock("http://localhost:8080/team/addTeammates", "post", teamApi.add_teammat
 
 Mock.mock("http://localhost:8080/project/getResources", "post", projectApi.get_resources_suc);
 // Mock.mock("http://localhost:8080/project/getResources", "post", projectApi.get_resources_fai);
+
+Mock.mock("http://localhost:8080/individual/getToDoOverview", "post", individualApi.get_todo_overview_suc);
+// Mock.mock("http://localhost:8080/individual/getToDoOverview", "post", individualApi.get_todo_overview_fai);
+
+Mock.mock("http://localhost:8080/individual/getToDoList", "post", individualApi.get_todo_list_suc);
+// Mock.mock("http://localhost:8080/individual/getToDoList", "post", individualApi.get_todo_list_fai);
