@@ -69,6 +69,9 @@ export default {
             }
         }
     },
+    mounted(){
+        console.log("创建项目", this.$route.params.id);
+    },
     methods:{
         submitProject(){
             console.log(123);

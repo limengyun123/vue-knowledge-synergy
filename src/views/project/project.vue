@@ -5,6 +5,7 @@
             <el-menu-item :index="'/common/team/project/'+this.$route.params.id+'/tasks'">项目任务</el-menu-item>
             <el-menu-item :index="'add'">成员动态</el-menu-item>
             <el-menu-item :index="'mi'">项目图谱</el-menu-item>
+            <el-menu-item :index="'mi'">项目设置</el-menu-item>
         </el-menu>
     
         <router-view />
@@ -22,7 +23,7 @@ export default {
     margin-left:3rem;
 }
 .el-menu-vertical-demo{
-    padding-left: 3rem;
+    /* padding-left: 3rem; */
     margin-bottom: 2rem;
 }
 </style>

@@ -31,7 +31,7 @@
         <el-col :span='11'>
             <el-card class="box-card card2">
                 <div slot="header" class="clearfix">
-                    <span>已选择用户</span>
+                    <span>已选择成员</span>
                 </div>
                 <div class="chosen-mates">
                 <el-tag v-for="member in teamMembers" :key="member.userName" closable :disable-transitions="false" @close="handleClose(member.userName)">
@@ -65,6 +65,7 @@ export default {
         }
     },
     mounted(){
+        // console.log("添加组员", this.$route.params.id);
         getContactsApi(this.$store.state.userInfo.userName).then((result)=>{
             this.myContacts = result.data;
         }).catch((reason)=>{
@@ -91,12 +92,17 @@ export default {
             this.checked = false;
         },
         submitTeammates(){
-            addTeammatesApi(this.teamMembers).then((result)=>{
-                this.$message.success(result.msg);
-                this.teamMembers = [];
-            }).catch((reason)=>{
-                this.$message.error(reason);
-            })
+            if(this.teamMembers.length){
+                addTeammatesApi(this.teamMembers.map((item)=>{return item.userName})).then((result)=>{
+                    this.$message.success(result.msg);
+                    this.teamMembers = [];
+                }).catch((reason)=>{
+                    this.$message.error(reason);
+                });
+            }
+            else
+                this.$message.error("未选择成员");
+            
         },
         handleClose(tag) {
             for(let index in this.teamMembers){
@@ -105,7 +111,7 @@ export default {
                     break;
                 }
             }
-      },
+        },
 
     }
 }

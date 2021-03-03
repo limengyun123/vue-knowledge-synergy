@@ -6,11 +6,16 @@
                     <el-dropdown @command="handleCommand" placement="bottom-end">
                         <div class='team-chosen'>{{myTeams[teamChosenId-1].tName}}
                             <i class="el-icon-arrow-down el-icon--right"></i>
-                            <router-link to='/common/team/editTeam'><span class="el-icon-edit el-icon--right" /></router-link>
+                            <router-link :to="'/common/team/editTeam/'+teamChosenId"><span class="el-icon-edit el-icon--right" /></router-link>
                         </div>
                         <el-dropdown-menu slot="dropdown" >
                             <el-dropdown-item v-for="team in myTeams" :key="team.tId" :command='team.tId'>
                                 <div :class="['my-team', {selected: team.tId==teamChosenId}]">{{team.tName}}</div>
+                            </el-dropdown-item>
+                            <el-dropdown-item command='-1'>
+                                <router-link to="/common/team/createTeam">
+                                    <span class="el-icon-circle-plus-outline"></span> 新建/加入团队
+                                </router-link>
                             </el-dropdown-item>
                         </el-dropdown-menu>
                     </el-dropdown>
@@ -20,7 +25,7 @@
                             <router-link :to="'/common/team/project/'+project.pId">{{project.pName}}</router-link>
                         </div>
                         <div class='team-project'>
-                            <router-link to="/common/team/createProject"><span class="el-icon-circle-plus-outline"></span> 新建项目</router-link>
+                            <router-link :to="'/common/team/createProject/'+teamChosenId"><span class="el-icon-circle-plus-outline"></span> 新建项目</router-link>
                         </div>
                     </div>
                 </div>
@@ -33,7 +38,7 @@
             </el-col>
             <el-col :span="2">
                 <div class='team-mates'>
-                    <router-link to='/common/team/addTeammates'><el-avatar :size="50" icon="el-icon-plus"></el-avatar></router-link>
+                    <router-link :to="'/common/team/addTeammates/'+teamChosenId"><el-avatar :size="50" icon="el-icon-plus"></el-avatar></router-link>
                     <el-avatar v-for="mate in myTeammates" :key="mate.userName" :size="50">{{mate.actualName}}</el-avatar>
                     <!-- <el-avatar :size="50">...</el-avatar> -->
                 </div>

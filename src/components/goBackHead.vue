@@ -23,26 +23,30 @@ export default {
         }
     },
     mounted(){
-        switch(this.$route.fullPath.split('/').pop()){
+        let path = this.$route.fullPath.split('/');
+        switch(path.pop()){
             case "createTeam":
                 this.parentDir = "团队协同";
                 this.childDir = "创建团队";
                 break;
-            case "createProject":
-                this.parentDir = "团队协同";
-                this.childDir = "创建项目";
-                break;
-            case "editTeam":
-                this.parentDir = "团队协同";
-                this.childDir = "编辑团队信息";
-                break;
-            case "addTeammates":
-                this.parentDir = "团队协同";
-                this.childDir = "添加队员";
-                break;
-            default:
+            case 'personalInfo':
                 this.parentDir = "个人信息";
                 this.childDir = "个人档案";
+            default:
+                switch(path.pop()){
+                    case "createProject":
+                        this.parentDir = "团队协同";
+                        this.childDir = "创建项目";
+                        break;
+                    case "editTeam":
+                        this.parentDir = "团队协同";
+                        this.childDir = "编辑团队信息";
+                        break;
+                    case "addTeammates":
+                        this.parentDir = "团队协同";
+                        this.childDir = "添加成员";
+                        break;
+                }
         }
     },
     methods:{

@@ -24,6 +24,7 @@ export const addTeammatesApi = (mates)=>{
     return axios.post('/team/addTeammates', mates);
 }
 
+
 export const createProjectApi = (projectInfo)=>{
     return axios.post('team/createProject', projectInfo);
 }
