@@ -72,6 +72,7 @@
 .common-nav{
     border-right: #dddddd solid 1px;
     height: calc(100vh);
+    text-align: center;
 }
 
 .logo{
@@ -84,6 +85,7 @@
     padding: 0 0.5rem;
     display: flex;
     flex-direction: column;
+    min-width: 3rem;
 }
 
 .nav-item{
@@ -113,10 +115,7 @@ a {
     color: #1adad0;
 }
 .avatar{
-    position: fixed;
-    bottom: 0;
-    margin: 0 2%;
-    height: calc(20vh);
+    margin: 4rem auto 1rem;
 }
 
 </style>

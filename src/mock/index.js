@@ -56,3 +56,15 @@ Mock.mock("http://localhost:8080/individual/getToDoOverview", "post", individual
 
 Mock.mock("http://localhost:8080/individual/getToDoList", "post", individualApi.get_todo_list_suc);
 // Mock.mock("http://localhost:8080/individual/getToDoList", "post", individualApi.get_todo_list_fai);
+
+Mock.mock("http://localhost:8080/individual/getShorthands", "post", individualApi.get_shorthands_suc);
+// Mock.mock("http://localhost:8080/individual/getShorthands", "post", individualApi.get_shorthands_fai);
+
+Mock.mock("http://localhost:8080/individual/saveShorthand", "post", individualApi.save_shorthand_suc);
+// Mock.mock("http://localhost:8080/individual/saveShorthand", "post", individualApi.save_shorthand_fai);
+
+Mock.mock("http://localhost:8080/individual/getAshorthand", "post", individualApi.get_a_shorthand_suc);
+// Mock.mock("http://localhost:8080/individual/getAshorthand", "post", individualApi.get_a_shorthand_fai);
+
+Mock.mock("http://localhost:8080/individual/editShorthand", "post", individualApi.edit_shorthand_suc);
+// Mock.mock("http://localhost:8080/individual/editShorthand", "post", individualApi.edit_shorthand_fai);

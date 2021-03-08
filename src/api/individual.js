@@ -7,3 +7,19 @@ export const getToDoOverviewApi=()=>{
 export const getToDoListApi=(time)=>{
     return axios.post('individual/getToDoList',time);
 };
+
+export const getShorthandsApi = (pageInfo)=>{
+    return axios.post('individual/getShorthands',pageInfo);
+}
+
+export const saveShorthandApi = (param)=>{
+    return axios.post('individual/saveShorthand', param);
+}
+
+export const getAShorthandApi = (param) =>{
+    return axios.post('individual/getAshorthand', param);
+}
+
+export const editShorthandApi = (param)=>{
+    return axios.post('individual/editShorthand',param);
+}

@@ -8,7 +8,7 @@
             <el-menu-item :index="'mi'">项目设置</el-menu-item>
         </el-menu>
     
-        <router-view />
+        <router-view class="project-fixed-body"/>
     </div>
 </template>
 
@@ -24,6 +24,12 @@ export default {
 }
 .el-menu-vertical-demo{
     /* padding-left: 3rem; */
-    margin-bottom: 2rem;
+    /* margin-bottom: 2rem; */
+    height: 4rem;
+}
+
+.project-fixed-body{
+    height: calc(99vh - 4rem);
+    overflow: scroll;
 }
 </style>

@@ -15,7 +15,7 @@
 
 <script>
 export default {
-    name: "gGoBackHeader",
+    name: "GoBackHeader",
     data(){
         return {
             parentDir: "",
@@ -45,6 +45,10 @@ export default {
                     case "addTeammates":
                         this.parentDir = "团队协同";
                         this.childDir = "添加成员";
+                        break;
+                    case "editShorthand":
+                        this.parentDir = "个人空间";
+                        this.childDir = "编辑速记";
                         break;
                 }
         }

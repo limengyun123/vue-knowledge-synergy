@@ -5,12 +5,18 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
     state: {
-      	token: '',
+      	token: JSON.parse(sessionStorage.getItem("userInfo")),
       	userInfo: JSON.parse(sessionStorage.getItem("userInfo")),
 		teamChosenId:-1,
 		projectInfo:{
 			pId:-1,
 			resources:[]
+		},
+		shortHandChosen:{
+			sId: -1,
+			title: '',
+			content: '',
+			time: ''
 		}
     },
     mutations: {
@@ -35,12 +41,12 @@ export default new Vuex.Store({
 		},
 		SET_RESOURCES:(state, res)=>{
 			state.projectInfo.resources = res;
+		},
+		SET_SHORTHAND(state, shorthand){
+			state.shortHandChosen = shorthand;
 		}
 	},
 	getters:{
-		getResources: (state)=>{
-			return state.projectInfo.resources;
-		}
 	},
     actions: {
     },

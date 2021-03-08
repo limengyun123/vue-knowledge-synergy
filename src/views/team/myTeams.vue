@@ -19,8 +19,7 @@
                             </el-dropdown-item>
                         </el-dropdown-menu>
                     </el-dropdown>
-                    <div>
-                        
+                    <div class="project-items">
                         <div v-for="project in myProjects" :key='project.pId' class='team-project'>
                             <router-link :to="'/common/team/project/'+project.pId">{{project.pName}}</router-link>
                         </div>
@@ -122,11 +121,17 @@ export default {
         background-color: #fafafa;
     }
 
+    .project-items{
+        height: calc(99vh - 4rem);
+        overflow: scroll;
+    }
+
     .team-project{
         width: 80%;
         margin: 1rem 10%;
         height: 2rem;
     }
+
     .team-mates{
         position: fixed;
         right: 0;
@@ -137,6 +142,8 @@ export default {
         border: #dddddd solid 1px;
         border-radius: 1rem 0 0 1rem;     
         text-align: center;
+        max-height: 30rem;
+        overflow: scroll;
     }
     .team-mates .el-avatar{
         margin: 0.3rem 0;
