@@ -70,7 +70,8 @@ export default {
             }).catch((reason)=>{
                 this.$message.error(reason);
             });
-            this.$refs['shorthand'].scrollTo(0,0);
+            // this.$refs['shorthand'].scrollTo(0,0);
+            this.$refs['shorthand'].scrollTo(0,this.$refs['shorthand'].scrollHeight);
         },
         saveShorthand(){
             let input = this.$refs['inputContent'].value.trim();

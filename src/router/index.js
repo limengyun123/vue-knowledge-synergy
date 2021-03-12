@@ -30,26 +30,32 @@ const routes = [
 				children:[
 					{ 
 						path: 'project/:id', 
-						name: '/common/team/project',
+						name: 'project',
 						component: ()=> import('../views/project/project.vue'),
 						redirect: 'project/:id/resources', 
 						children:[
-							{ path: 'resources', name:'/common/team/project/resources', component: ()=> import('../views/project/projectResources.vue') },
-							{ path: 'tasks', name:'/common/team/project/tasks', component: ()=> import('../views/project/projectTasks.vue') },
+							{ path: 'resources', name:'resources', component: ()=> import('../views/project/projectResources.vue') },
+							{ path: 'tasks', name:'tasks', component: ()=> import('../views/project/projectTasks.vue') },
 						]
 					},
 				]
 			},
 			{ 
 				path: 'individual', 
+				name: 'individual', 
 				component: ()=> import('../views/individual/individual.vue'),
 				redirect: '/common/individual/toDoList',
 				children:[
-					{ path: 'toDoList', name:'/common/individual/toDoList', component: ()=> import('../views/individual/toDoList.vue') },
-					{ path: 'shorthand', name:'/common/individual/shorthand', component: ()=> import('../views/individual/shorthand.vue') },
+					{ path: 'toDoList', name:'toDoList', component: ()=> import('../views/individual/toDoList.vue') },
+					{ path: 'shorthand', name:'shorthand', component: ()=> import('../views/individual/shorthand.vue') },
 				]
 			},
-			{ path: 'profile/siteSetting', component: ()=> import('../views/profile/siteSetting.vue') },
+			{
+				path: 'message',
+				name: 'message',
+				component: ()=>import('../views/message/message.vue')
+			},
+			{ path: 'profile/siteSetting',name:'siteSetting', component: ()=> import('../views/profile/siteSetting.vue') },
 		]
 	},
 	{ path: '/personalInfo', component: ()=> import('../views/profile/personalInfo.vue') },

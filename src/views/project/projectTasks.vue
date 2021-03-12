@@ -1,5 +1,9 @@
 <template>
-    <div>项目任务</div>
+    <div>项目任务
+        <div class='test1' ref='test1'>
+            
+        </div>
+    </div>
 </template>
 
 <script>
@@ -8,5 +12,12 @@ export default {
     mounted(){
         console.log(this.$route.params.id);
     },
+    methods:{
+        
+    }
 }
 </script>
+
+<style scoped>
+
+</style>

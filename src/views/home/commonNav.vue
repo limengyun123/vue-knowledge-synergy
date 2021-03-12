@@ -15,6 +15,10 @@
                     <div class="el-icon-user-solid"></div>
                     <div>个人空间</div>
                 </router-link>
+                <router-link to="/common/message" class="nav-item">
+                    <div class="el-icon-chat-dot-round"></div>
+                    <div>消息</div>
+                </router-link>
                 <router-link to="/common/profile/siteSetting" class="nav-item">
                     <div class="el-icon-s-tools"></div>
                     <div>设置中心</div>
@@ -115,7 +119,7 @@ a {
     color: #1adad0;
 }
 .avatar{
-    margin: 4rem auto 1rem;
+    margin: 3rem auto 1rem;
 }
 
 </style>

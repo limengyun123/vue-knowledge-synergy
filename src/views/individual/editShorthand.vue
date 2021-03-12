@@ -106,12 +106,6 @@ export default {
     margin: 3rem auto 1rem;
 }
 
-/* .inputContent>>>.el-textarea__inner{
-    border: 0;
-    resize: none;
-    height: 20rem;
-} */
-
 .input-content>>>.el-textarea__inner {
     resize: none;/* 去掉 textarea 下面拉伸的标志*/
     height: 14rem;

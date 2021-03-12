@@ -4,6 +4,7 @@ import infoApi from './profile'
 import teamApi from './team'
 import projectApi from './project'
 import individualApi from './individual'
+import messageApi from './message'
 
 /**
  * Mock.mock( rurl, rtype, template )
@@ -68,3 +69,15 @@ Mock.mock("http://localhost:8080/individual/getAshorthand", "post", individualAp
 
 Mock.mock("http://localhost:8080/individual/editShorthand", "post", individualApi.edit_shorthand_suc);
 // Mock.mock("http://localhost:8080/individual/editShorthand", "post", individualApi.edit_shorthand_fai);
+
+Mock.mock("http://localhost:8080/message/getPrivateChat", "post", messageApi.get_private_chat_suc);
+// Mock.mock("http://localhost:8080/message/getPrivateChat", "post", messageApi.get_private_chat_fai);
+
+Mock.mock("http://localhost:8080/message/getTeamChat", "post", messageApi.get_team_chat_suc);
+// Mock.mock("http://localhost:8080/message/getTeamChat", "post", messageApi.get_team_chat_fai);
+
+Mock.mock("http://localhost:8080/message/getMessageRecordById", "post", messageApi.get_message_record_suc);
+// Mock.mock("http://localhost:8080/message/getMessageRecordById", "post", messageApi.get_message_record_fai);
+
+Mock.mock("http://localhost:8080/message/sendMessage", "post", messageApi.send_message_suc);
+// Mock.mock("http://localhost:8080/message/sendMessage", "post", messageApi.send_message_fai);
