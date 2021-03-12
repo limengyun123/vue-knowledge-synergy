@@ -9,7 +9,7 @@
 <script>
 export default {
     name: "ProjectTasks",
-    mounted(){
+    created(){
         console.log(this.$route.params.id);
     },
     methods:{

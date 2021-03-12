@@ -60,7 +60,7 @@ export default {
             ]
         }
     },
-    mounted(){
+    created(){
         getToDoOverviewApi().then((result)=>{
             this.task = result.data.task;
             this.selfEvent = result.data.selfEvent;

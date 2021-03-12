@@ -67,7 +67,7 @@ export default {
             }
         }
     },
-    mounted(){
+    created(){
         let sId = this.$route.params.id;
         let sh = this.$store.state.shortHandChosen;
         

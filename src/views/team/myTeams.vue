@@ -59,7 +59,7 @@ export default {
             myProjects:[]
         }
     },
-    mounted(){
+    created(){
 
         getTeamsApi(this.$store.state.userInfo.userName).then((result)=>{
             this.myTeams = result.data;

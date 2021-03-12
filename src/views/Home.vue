@@ -12,8 +12,6 @@
             </div>
             <div class="fixed-bg bg3">
             </div>
-            </div>
-
         </div>
 	</div>
 </template>

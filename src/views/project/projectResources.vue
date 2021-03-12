@@ -40,7 +40,7 @@ export default {
             resources:[]
         }
     },
-    mounted(){
+    created(){
         // console.log(this.$route.params.id);
         this.paginationInfo.pId = this.$route.params.id;
         this.getResource();

@@ -72,7 +72,7 @@ export default {
             }
         }
     },
-    mounted(){
+    created(){
         // console.log(this.$route.params.id);
         // 请求项目数据
         getTeamInfoApi(this.$route.params.id).then((result)=>{
@@ -91,7 +91,6 @@ export default {
                 if(item.userName == id){
                     this.teamInfo.teamLeader = item.actualName;
                     return true;
-                    break;
                 }
             }
             return false;

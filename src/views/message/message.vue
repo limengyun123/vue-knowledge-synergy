@@ -78,7 +78,7 @@ export default {
             return this.$store.state.userInfo.userName;
         }
     },
-    mounted(){
+    created(){
         this.getPrivateMessage();
         this.getTeamMessage();
     },

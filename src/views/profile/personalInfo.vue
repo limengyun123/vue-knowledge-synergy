@@ -147,7 +147,7 @@ export default {
             return this.$store.state.userInfo;
         }
     },
-    mounted(){
+    created(){
         Object.assign(this.userInfo,this.$store.state.userInfo);
     },
     methods:{

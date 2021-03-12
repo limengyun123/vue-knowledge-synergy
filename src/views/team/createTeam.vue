@@ -70,7 +70,7 @@ export default {
             }
         }
     },
-    mounted(){
+    created(){
         this.teamInfo.teamLeader = this.$store.state.userInfo.userName;
         getContactsApi(this.teamInfo.teamLeader).then((result)=>{
             this.myContacts = result.data;

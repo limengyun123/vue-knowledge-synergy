@@ -69,7 +69,7 @@ export default {
             }
         }
     },
-    mounted(){
+    created(){
         console.log("创建项目", this.$route.params.id);
     },
     methods:{

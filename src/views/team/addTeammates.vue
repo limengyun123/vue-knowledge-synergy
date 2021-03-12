@@ -64,7 +64,7 @@ export default {
             myContacts:[],
         }
     },
-    mounted(){
+    created(){
         // console.log("添加组员", this.$route.params.id);
         getContactsApi(this.$store.state.userInfo.userName).then((result)=>{
             this.myContacts = result.data;
