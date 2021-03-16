@@ -27,3 +27,11 @@ export const getResourcesApi = (param)=>{
 export const getTasksApi = (param)=>{
     return axios.post('/project/getTasks',param);
 }
+
+export const getTeammatesApi = (tId)=>{
+    return axios.post('/team/getTeammates',tId);
+}
+
+export const assignTaskApi = (taskInfo)=>{
+    return axios.post('/project/assignTask', taskInfo);
+}

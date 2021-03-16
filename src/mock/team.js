@@ -157,6 +157,20 @@ export default{
             data: { }
         }
     },
+    get_teammates_suc:(param)=>{
+        return {
+            code: 200,
+            msg: "添加成功",
+            data: teammates[param.body-1],
+        }
+    },
+    get_teammates_fai:(param)=>{
+        return {
+            code: 403,
+            msg: "添加失败，请稍后重试",
+            data: { }
+        }
+    },
     create_project_suc:(param)=>{
         return {
             code: 200,

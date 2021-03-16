@@ -74,7 +74,6 @@ export default {
         },
         getProjectName(){
             for(let item of this.myProjects){
-                console.log(item.pId,this.projectChosenId);
                 if(item.pId==this.projectChosenId)
                     return '/'+item.pName;
             }
@@ -86,7 +85,7 @@ export default {
         getTeamsApi(this.$store.state.userInfo.userName).then((result)=>{
             this.myTeams = result.data;
             if(this.myTeams.length){
-                if(this.$store.state.teamChosenId==-1)
+                if(this.$store.state.teamChosenId==null)
                     this.teamChosenId = this.myTeams[0].tId;
                 else
                     this.teamChosenId = this.$store.state.teamChosenId;
@@ -100,7 +99,6 @@ export default {
     },
     methods:{
         handleCommand(index) {
-            console.log(index);
             this.teamChosenId = index;
             this.getTeamInfo();
             // this.$store.commit('SET_TEAMCHOSENID', this.teamChosenId);
@@ -111,6 +109,7 @@ export default {
             getTeamInfoApi(this.teamChosenId).then((result)=>{
                 this.myProjects = result.data.projects;
                 this.myTeammates = result.data.teammates;
+                this.$store.commit('SET_TEAMMATES', this.myTeammates);
             }).catch((reason)=>{
                 this.$message.error(reason);
             });

@@ -95,7 +95,6 @@ export default {
         editShorthand:function(e){            
             for(let item of this.myShorthands){
                 if(item.sId===e){
-                    console.log(item);
                     this.$store.commit('SET_SHORTHAND',item);
                 }
             }

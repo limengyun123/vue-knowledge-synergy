@@ -65,4 +65,19 @@ export default {
             data: { }
         }
     },
+    assign_task_suc:(param)=>{
+        console.log("here");
+        return {
+            code: 200,
+            msg: "任务分配成功",
+            data:{}
+        }
+    },
+    assign_task_fai:(param)=>{
+        return {
+            code: 503,
+            msg: "任务分配失败",
+            data:{}
+        }
+    },
 }

@@ -5,9 +5,10 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
     state: {
-      	token: JSON.parse(sessionStorage.getItem("userInfo")),
+      	token: localStorage.getItem("token"),
       	userInfo: JSON.parse(sessionStorage.getItem("userInfo")),
-		teamChosenId:-1,
+		teamChosenId: JSON.parse(sessionStorage.getItem("teamChosenId")),
+		teammates:[],
 		projectInfo:{
 			pId:-1,
 			resources:[]
@@ -30,6 +31,10 @@ export default new Vuex.Store({
 		},
 		SET_TEAMCHOSENID: (state, id)=>{
 			state.teamChosenId = id;
+			sessionStorage.setItem("teamChosenId", JSON.stringify(id));
+		},
+		SET_TEAMMATES: (state, mates)=>{
+			state.teammates = mates;
 		},
 		REMOVE_INFO: (state)=>{
 			localStorage.removeItem("token");
@@ -44,7 +49,7 @@ export default new Vuex.Store({
 		},
 		SET_SHORTHAND(state, shorthand){
 			state.shortHandChosen = shorthand;
-		}
+		},
 	},
 	getters:{
 	},

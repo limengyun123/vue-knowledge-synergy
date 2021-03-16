@@ -55,9 +55,9 @@ export default {
                 ],
                 projectDescription:[
                     {
-                        min: 2,
-                        max: 30,
-                        message: "请输入0-100个字符",
+                        min: 1,
+                        max: 100,
+                        message: "请输入1-100个字符",
                         trigger: 'blur'
                     },
                     {
@@ -74,7 +74,6 @@ export default {
     },
     methods:{
         submitProject(){
-            console.log(123);
             this.$refs["projectInfo"].validate((valid)=>{
                 if(valid){
                     createProjectApi(this.projectInfo).then((result)=>{

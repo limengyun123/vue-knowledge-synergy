@@ -1,5 +1,8 @@
 <template>
     <div>
+        <div class="assign-task">
+            <router-link :to="'/common/project/assignTask/'+this.$route.params.id">添加任务</router-link>
+        </div>
         <div class='task-overview-body'>
             <div class='task-overview-item'>
                 <p>总任务</p><div class='blue-text'>{{taskOverview.total}}</div>
@@ -146,13 +149,16 @@ export default {
                     this.taskClassifierChosen = false;
                     break;
             }
-            console.log(e);
         }
     }
 }
 </script>
 
 <style scoped>
+.assign-task{
+    float: right;
+}
+
 .task-overview-body{
     width: 80%;
     margin: 2rem auto;

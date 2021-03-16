@@ -2,7 +2,7 @@
     <div>
         <GoBackHead />
         <div class="create-team-body">
-            <el-form :model="teamInfo" status-icon ref="teamInfo" :rules="infoRules" label-width="100px" class="team-info-form">
+            <el-form :model="teamInfo" status-icon ref="teamInfo" :rules="infoRules" label-width="100px">
                 <el-form-item label="团队名称" prop="teamName">
                     <el-input v-model="teamInfo.teamName" autocomplete="off"></el-input>
                 </el-form-item>

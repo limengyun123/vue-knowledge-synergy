@@ -19,7 +19,7 @@
                     <p>2、从联系人中添加</p>
                     <div class="contacts-box">
                         <el-checkbox-group v-model="teamMembers" :max="50">
-                            <div v-for="member in myContacts" :key="member.userName"><el-checkbox :label="member">{{member.actualName}}</el-checkbox></div>
+                            <div v-for="member in myContacts" :key="member.userName"><el-checkbox :label="member.userName">{{member.actualName}}</el-checkbox></div>
                         </el-checkbox-group>
                     </div>
                 </div>

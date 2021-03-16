@@ -77,7 +77,6 @@ export default {
     },
     data(){
         var pswdValidator = function(rule, value, callback){
-            console.log(value);
             if(value.length==0) callback(new Error('请输入密码'));
             else if(value.length<6 || value.length>30) callback(new Error('用户名长度应在6-30个字符内'));
             else if(/^\w+$/.test(value)==false) callback(new Error('请输入数字、字母、下划线'));

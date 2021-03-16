@@ -72,7 +72,6 @@ export default {
         }
     },
     send_message_suc:(param)=>{
-        console.log('1');
         return {
             code: 200,
             msg: "发送成功",
@@ -80,7 +79,6 @@ export default {
         }
     },
     send_message_fai:(param)=>{
-        console.log('2');
         return {
             code: 403,
             msg: "发送失败",

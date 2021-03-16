@@ -144,7 +144,6 @@ export default {
                     this.chatContent = '';
                     
                 }).catch((reason)=>{
-                    console.log('there');
                     this.$message.error(reason);
                 })
             }

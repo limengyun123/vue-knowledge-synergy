@@ -50,6 +50,10 @@ export default {
                         this.parentDir = "个人空间";
                         this.childDir = "编辑速记";
                         break;
+                    case "assignTask":
+                        this.parentDir = "项目管理";
+                        this.childDir = "分配任务";
+                        break;
                 }
         }
     },
