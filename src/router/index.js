@@ -36,6 +36,8 @@ const routes = [
 						children:[
 							{ path: 'resources', name:'resources', component: ()=> import('../views/project/projectResources.vue') },
 							{ path: 'tasks', name:'tasks', component: ()=> import('../views/project/projectTasks.vue') },
+							{ path: 'dynamic', name:'dynamic', component: ()=> import('../views/project/matesDynamic.vue') },
+							{ path: 'setting', name:'setting', component: ()=> import('../views/project/projectSetting.vue') },
 						]
 					},
 				]

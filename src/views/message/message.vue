@@ -14,7 +14,7 @@
                         </el-col>
                         <el-col :span='17' :offset="1">
                             <div class='contact-time'>{{msg.latestTime}}</div>
-                            <div class='contact-message'>{{msg.latestMessage}}</div>
+                            <div class='contact-message' >{{msg.latestMessage}}</div>
                         </el-col>
                         <div class='contact-item-cover' :index="msg.chatWithId"></div>
                     </div>
@@ -239,6 +239,9 @@ export default {
     color: #888888;
     margin-top: 1.5rem;
     line-height: 2rem;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
 }
 
 .message-body{
@@ -293,6 +296,7 @@ export default {
     line-height: 1.5rem;
     color: #555555;
     font-size: 0.8rem;
+
 }
 
 .message-input-area>>>.el-textarea__inner{

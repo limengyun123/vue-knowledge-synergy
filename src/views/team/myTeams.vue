@@ -1,7 +1,7 @@
 <template>
-    <div>
-        <el-row>
-            <el-col :span="6" class="left">
+    <div class="team-layout">
+            <div v-if="navShow" class="left">
+                <button @click="changeNavState">收缩</button>
                 <div v-if="myTeams.length">
                     <el-dropdown @command="handleCommand" placement="bottom-end">
                         <div class='team-chosen'>{{myTeams[teamChosenId-1].tName}}
@@ -19,30 +19,33 @@
                             </el-dropdown-item>
                         </el-dropdown-menu>
                     </el-dropdown>
-                    <div class="project-items">
-                        <div v-for="project in myProjects" :key='project.pId' class='team-project'>
-                            <router-link :to="'/common/team/project/'+project.pId">{{project.pName}}</router-link>
+                    <div class="project-items" @click="handleProjectChosen">
+                        <div v-for="project in myProjects" :key='project.pId' class='team-project' :index='project.pId'>
+                            {{project.pName}}
+                            <!-- <router-link :to="'/common/team/project/'+project.pId">{{project.pName}}</router-link> -->
                         </div>
                         <div class='team-project'>
-                            <router-link :to="'/common/team/createProject/'+teamChosenId"><span class="el-icon-circle-plus-outline"></span> 新建项目</router-link>
+                            <span class="el-icon-circle-plus-outline"></span> 新建项目
+                            <!-- <router-link :to="'/common/team/createProject/'+teamChosenId"></router-link> -->
                         </div>
                     </div>
                 </div>
                 <div v-else>
                     <button icon="el-icon-circle-plus-outline">新建/加入团队</button>
                 </div>
-            </el-col>
-            <el-col :span="16">
+                
+            </div>
+            <div v-else class="hide-nav">
+                <button @click="changeNavState">展开</button>
+                <div class="hide-text">{{getTeamName}}{{getProjectName}}</div>
+            </div>
+            <div class="center">
                 <router-view />
-            </el-col>
-            <el-col :span="2">
-                <div class='team-mates'>
-                    <router-link :to="'/common/team/addTeammates/'+teamChosenId"><el-avatar :size="50" icon="el-icon-plus"></el-avatar></router-link>
-                    <el-avatar v-for="mate in myTeammates" :key="mate.userName" :size="50">{{mate.actualName}}</el-avatar>
-                    <!-- <el-avatar :size="50">...</el-avatar> -->
-                </div>
-            </el-col>
-        </el-row>
+            </div>
+            <div class="right">
+                <router-link :to="'/common/team/addTeammates/'+teamChosenId"><el-avatar :size="50" icon="el-icon-plus"></el-avatar></router-link>
+                <el-avatar v-for="mate in myTeammates" :key="mate.userName" :size="50">{{mate.actualName}}</el-avatar>
+            </div>
     </div>
 </template>
 
@@ -53,11 +56,30 @@ export default {
     name:"MyTeam",
     data(){
         return {
+            navShow:true,
             teamChosenId: -1,
+            projectChosenId: -1,
             myTeams:[],
             myTeammates:[],
             myProjects:[]
         }
+    },
+    computed:{
+        getTeamName(){
+            for(let item of this.myTeams){
+                if(item.tId==this.teamChosenId)
+                    return item.tName;
+            }
+            return null;
+        },
+        getProjectName(){
+            for(let item of this.myProjects){
+                console.log(item.pId,this.projectChosenId);
+                if(item.pId==this.projectChosenId)
+                    return '/'+item.pName;
+            }
+            return null;
+        },
     },
     created(){
 
@@ -93,11 +115,59 @@ export default {
                 this.$message.error(reason);
             });
         },
+        changeNavState(){
+            this.navShow = !this.navShow;
+        },
+        handleProjectChosen(e){
+            let pId = e.target.getAttribute('index');
+            if(!pId){
+                this.$router.push('/common/team/createProject/'+this.teamChosenId);
+            }
+            else if(pId != this.projectChosenId){
+                this.projectChosen = e.target.innerText;
+                this.projectChosenId = pId;
+                this.$router.push('/common/team/project/'+pId);
+            }
+            
+        }
     }
 }
 </script>
 
 <style scoped>
+
+    .team-layout{
+        display: flex;
+    }
+    .left{
+        width: 16rem;
+    }
+
+    .hide-nav{
+        position: absolute;
+        z-index: 1;
+    }
+    .hide-text{
+        overflow: hidden;
+        text-overflow:ellipsis;
+        white-space: nowrap;
+        width: 30rem;
+    }
+    .center{
+        flex:1;
+        min-width: 40rem;
+    }
+
+    .right{
+        width: 5rem;
+        background-color: #fafafa;
+        border: #dddddd solid 1px;
+        border-radius: 1rem 0 0 1rem;     
+        text-align: center;
+        max-height: 30rem;
+        overflow: scroll;
+        margin-top: 4rem;
+    }
 
     .team-chosen{
         margin: 1rem 0.5rem;
@@ -117,35 +187,21 @@ export default {
         line-height: 2rem;
         padding: 0.2rem;
     }
-    .my-teams .selected{
-        background-color: #fafafa;
-    }
 
     .project-items{
-        height: calc(99vh - 4rem);
+        height: calc(99vh - 5rem);
         overflow: scroll;
     }
 
     .team-project{
         width: 80%;
-        margin: 1rem 10%;
+        padding: 1rem 8%;
         height: 2rem;
+        list-style:none;
+        border-bottom: solid 0.1rem #dddddd;
     }
 
-    .team-mates{
-        position: fixed;
-        right: 0;
-        top: 4rem;
-        float: right;
-        width: 5rem;
-        background-color: #fafafa;
-        border: #dddddd solid 1px;
-        border-radius: 1rem 0 0 1rem;     
-        text-align: center;
-        max-height: 30rem;
-        overflow: scroll;
-    }
-    .team-mates .el-avatar{
+    .right .el-avatar{
         margin: 0.3rem 0;
         background: #33CCFF;
     }
