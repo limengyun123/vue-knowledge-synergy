@@ -50,6 +50,8 @@ const routes = [
 				children:[
 					{ path: 'toDoList', name:'toDoList', component: ()=> import('../views/individual/toDoList.vue') },
 					{ path: 'shorthand', name:'shorthand', component: ()=> import('../views/individual/shorthand.vue') },
+					{ path: 'taskStats', name:'taskStats', component: ()=> import('../views/individual/taskStats.vue') },
+					{ path: 'contributions', name:'contribution', component: ()=> import('../views/individual/contributions.vue') },
 				]
 			},
 			{
