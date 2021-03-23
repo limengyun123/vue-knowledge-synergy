@@ -25,15 +25,19 @@
                     <p>其中逾期的任务数为y2</p>
         </div> -->
         <div>
-            <div class="pie-charts" id="total"></div>
-            <div class="pie-charts" id="urgent"></div>
-            <div class="pie-charts" id="disurgent"></div>
-            <div class="pie-charts" id="byYear"></div>
+            <div class="charts" id="total"></div>
+            <div class='pie-part-charts'>
+                <div id="urgent" class="charts"></div>
+                <div id="disurgent" class="charts"></div>
+            </div>
+            <div class="charts" id="byYear"></div>
         </div>
     </div>
 </template>
 
 <script>
+var echarts = require('echarts');
+
 export default {
     name: "TaskStats",
     data(){
@@ -69,9 +73,7 @@ export default {
         this.initBarCharts("byYear","全年任务完成情况", dataFinished,dataUnfinished);
     },
     methods:{
-        initPieCharts(nodeName, title, data, totalNum){
-            var echarts = require('echarts');
- 
+        initPieCharts(nodeName, title, data, totalNum){ 
             // 基于准备好的dom，初始化echarts实例
             var myChart = echarts.init(document.getElementById(nodeName));
             // 绘制图表
@@ -95,7 +97,7 @@ export default {
                     borderRadius: 4,
                     borderWidth: 0, 
                     padding: 5,
-                    // formatter: '{a} <br/>{b}: {c} ({d}%)' // 展示格式
+                    formatter: '{d}%' // 展示格式
                 },
                 series : [
                     {
@@ -105,7 +107,7 @@ export default {
                         label: {
                             normal:{
                                 position: 'outside',
-                                formatter: '{b}\n{c}项({d}%)'
+                                formatter: '{b} {c}项'
                             }
                         },
                         data: data,
@@ -146,11 +148,7 @@ export default {
             });
         },
         initBarCharts(nodeName, title, dataFinished, dataUnfinished){
-            var echarts = require('echarts');
- 
-            // 基于准备好的dom，初始化echarts实例
             var myChart = echarts.init(document.getElementById(nodeName));
-            // 绘制图表
             myChart.setOption({
                 title: {
                     text: title
@@ -158,25 +156,24 @@ export default {
                 tooltip:{
                     trigger:'axis'
                 },
-                // 图例
                 legend: {
                     data: ['未完成','已完成' ]
                 },
-                // x轴
                 xAxis: {
                     data: ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"]
                 },
                 yAxis: {},
-                // 数据
                 series: [
                     {
                         name: '未完成',
                         type: 'bar',
+                        stack: 'task',
                         data: dataUnfinished,                       
                     },
                     {
                         name: '已完成',
                         type: 'bar',
+                        stack: 'task',
                         data: dataFinished,
                     }
                 ]
@@ -188,8 +185,11 @@ export default {
 
 
 <style scoped>
-.pie-charts{
-    height: 400px;
-    width: 600px;
-}
+    .charts{
+        width: 30rem;
+        height: 20rem;
+    }
+    .pie-part-charts{
+        display: flex;
+    }
 </style>

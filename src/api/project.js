@@ -35,3 +35,12 @@ export const getTeammatesApi = (tId)=>{
 export const assignTaskApi = (taskInfo)=>{
     return axios.post('/project/assignTask', taskInfo);
 }
+
+export const editProjectApi = (pInfo)=>{
+    return axios.post('/project/editProject', pInfo);
+}
+
+export const deleteProjectApi = (pId)=>{
+    return axios.post('/project/deleteProject', pId);
+}
+

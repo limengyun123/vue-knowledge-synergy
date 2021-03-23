@@ -1,7 +1,8 @@
 <template>
     <div class="team-layout">
-            <div v-if="navShow" class="left">
-                <button @click="changeNavState">收缩</button>
+        <transition name="fade-body">
+            <div v-show="navShow" class="left">
+                <i @click="changeNavState" class='el-icon-s-fold'></i>
                 <div v-if="myTeams.length">
                     <el-dropdown @command="handleCommand" placement="bottom-end">
                         <div class='team-chosen'>{{myTeams[teamChosenId-1].tName}}
@@ -35,17 +36,26 @@
                 </div>
                 
             </div>
-            <div v-else class="hide-nav">
-                <button @click="changeNavState">展开</button>
-                <div class="hide-text">{{getTeamName}}{{getProjectName}}</div>
+        </transition>
+        <transition name="fade-supplement">
+            <div v-show="!navShow" class="hide-nav">
+                <i @click="changeNavState" class='el-icon-s-unfold'></i>
+                <span class="hide-text">{{getTeamName}}{{getProjectName}}</span>
             </div>
-            <div class="center">
-                <router-view />
-            </div>
-            <div class="right">
+        </transition>
+        <div class="center">
+            <router-view />
+        </div>
+        <transition name="fade-member" mode="out-in">
+            <div v-if="memberShow" class="right" key="right">
+                <i @click="changeMemberState" class="el-icon-s-unfold"></i>
                 <router-link :to="'/common/team/addTeammates/'+teamChosenId"><el-avatar :size="50" icon="el-icon-plus"></el-avatar></router-link>
                 <el-avatar v-for="mate in myTeammates" :key="mate.userName" :size="50">{{mate.actualName}}</el-avatar>
             </div>
+            <div v-else class="right-supplement" key="right-supplement">
+                <i @click="changeMemberState" class="el-icon-s-fold"></i>
+            </div>
+        </transition>
     </div>
 </template>
 
@@ -57,6 +67,7 @@ export default {
     data(){
         return {
             navShow:true,
+            memberShow: true,
             teamChosenId: -1,
             projectChosenId: -1,
             myTeams:[],
@@ -117,6 +128,9 @@ export default {
         changeNavState(){
             this.navShow = !this.navShow;
         },
+        changeMemberState(){
+            this.memberShow = !this.memberShow;
+        },
         handleProjectChosen(e){
             let pId = e.target.getAttribute('index');
             if(!pId){
@@ -134,13 +148,13 @@ export default {
 </script>
 
 <style scoped>
-
     .team-layout{
         display: flex;
     }
     .left{
-        width: 16rem;
+        width: 16rem; 
     }
+
 
     .hide-nav{
         position: absolute;
@@ -150,7 +164,7 @@ export default {
         overflow: hidden;
         text-overflow:ellipsis;
         white-space: nowrap;
-        width: 30rem;
+        width: 20rem;
     }
     .center{
         flex:1;
@@ -166,6 +180,12 @@ export default {
         max-height: 30rem;
         overflow: scroll;
         margin-top: 4rem;
+    }
+
+    .right-supplement{
+        position: fixed;
+        top: 30rem;
+        right: 0;
     }
 
     .team-chosen{
@@ -204,4 +224,24 @@ export default {
         margin: 0.3rem 0;
         background: #33CCFF;
     }
+
+    .el-icon-s-fold,.el-icon-s-unfold{
+        font-size: 2rem;
+        color: lightblue;
+    }
+    .fade-body-enter-active, .fade-supplement-enter-active ,.fade-body-leave-active,
+    .fade-supplement-leave-active, .fade-member-enter-active, .fade-member-leave-active {
+        transition: all .3s ;
+    }
+
+    .fade-body-enter, .fade-body-leave-to,.fade-supplement-enter, .fade-supplement-leave-to {
+        transform: translateX(-1rem);
+        opacity: 0;
+    }
+
+
+    .fade-member-enter, .fade-member-leave-to{
+        opacity: 0;
+    }
+
 </style>

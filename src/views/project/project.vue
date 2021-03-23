@@ -19,9 +19,7 @@ export default {
 </script>
 
 <style scoped>
-.project-body{
-    margin-left:3rem;
-}
+
 .el-menu-vertical-demo{
     /* padding-left: 3rem; */
     /* margin-bottom: 2rem; */
@@ -33,5 +31,6 @@ export default {
 .project-fixed-body{
     height: calc(99vh - 4rem);
     overflow: scroll;
+    padding: 0 2rem;
 }
 </style>

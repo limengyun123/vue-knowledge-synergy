@@ -205,6 +205,8 @@ export default {
 }
 
 .task-detail-title{
+    width: 94%;
+    margin: 0 3%;
     font-size: 1.5rem;
     padding: 1rem;
     border-bottom: solid 0.1rem #aaaaaa;
