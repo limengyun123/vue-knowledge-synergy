@@ -26,7 +26,7 @@
             </div>
             <el-dropdown @command="handleCommand"  class="avatar" placement="right-end">
                 <span>
-                    <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar>
+                    <el-avatar src="@/assets/img/avatar_1.png"></el-avatar>
                 </span>
                 <el-dropdown-menu slot="dropdown">
                     <el-dropdown-item command="personal">个人档案</el-dropdown-item>

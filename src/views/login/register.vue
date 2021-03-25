@@ -24,7 +24,7 @@
                 </el-form-item>
             </el-form>
             <div class="other-operate">
-                <router-link to="/user/loginIn" custom v-slot="{ navigate }">
+                <router-link to="/login/loginIn" custom v-slot="{ navigate }">
                     <span @click="navigate" @keypress.enter="navigate" role="link">返回登录</span>
                 </router-link>
             </div>
@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import {registerApi} from '../../api/user';
+import {registerApi} from '../../api/login';
 
 export default {
     name: 'Register',
@@ -130,7 +130,7 @@ export default {
                             message: '注册成功',
                             type: 'success',
                             duration: 1000,
-                            onClose:()=>{this.$router.push('/user/loginIn')}
+                            onClose:()=>{this.$router.push('/login/loginIn')}
                         });
                         
                     }).catch((reason) =>{
@@ -153,7 +153,7 @@ export default {
 <style scoped>
 /* 毛玻璃背景 */
 .container::before{
-	background:url("https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2140868464,3705580502&fm=26&gp=0.jpg") 0 / cover fixed;
+	background:url("~@/assets/img/bg_0.jpg") 0 / cover fixed;
     content:'';
 	position:absolute;
 	top:0;
