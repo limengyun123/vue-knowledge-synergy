@@ -1,7 +1,7 @@
 <template>
     <div>
         <GoBackHead />
-        <el-row>
+        <el-row class="personal-info-page">
             <el-col :span="10">
                 <el-card class="box-card">
                     <div>
@@ -197,6 +197,7 @@ export default {
 </script>
 
 <style scoped>
+
 .box-card{
     width: 20rem;
     margin: 5rem;

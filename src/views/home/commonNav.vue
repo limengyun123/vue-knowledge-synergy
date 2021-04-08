@@ -1,32 +1,32 @@
 <template>
-    <div>
-        <el-col :span="2" class="common-nav"> 
-            <div class="logo">LOGO</div> 
-            <div class="navigation">  
-                <router-link to="/common/main" class="nav-item">
+    <div class="common-nav-page">
+        <div class="common-nav-left"> 
+            <div class="common-nav-logo">LOGO</div> 
+            <div class="common-navigation">  
+                <router-link to="/common/main" class="common-nav-item">
                     <div class="el-icon-s-home"></div>
                     <div>主页</div>
                 </router-link>
-                <router-link to="/common/team" class="nav-item">
-                    <div class="el-icon-user-solid"></div><div class="el-icon-user-solid special"></div>
+                <router-link to="/common/team" class="common-nav-item">
+                    <div class="el-icon-user-solid"></div><div class="el-icon-user-solid icon-user-special"></div>
                     <div>团队协同</div>
                 </router-link>
-                <router-link to="/common/individual" class="nav-item">
+                <router-link to="/common/individual" class="common-nav-item">
                     <div class="el-icon-user-solid"></div>
                     <div>个人空间</div>
                 </router-link>
-                <router-link to="/common/message" class="nav-item">
+                <router-link to="/common/message" class="common-nav-item">
                     <div class="el-icon-chat-dot-round"></div>
                     <div>消息</div>
                 </router-link>
-                <router-link to="/common/profile/siteSetting" class="nav-item">
+                <router-link to="/common/profile/siteSetting" class="common-nav-item">
                     <div class="el-icon-s-tools"></div>
                     <div>设置中心</div>
                 </router-link>
             </div>
-            <el-dropdown @command="handleCommand"  class="avatar" placement="right-end">
+            <el-dropdown @command="handleCommand" class="common-nav-avatar" placement="right-end">
                 <span>
-                    <el-avatar src="@/assets/img/avatar_1.png"></el-avatar>
+                    <el-avatar :src="require('@/assets/img/avatar_1.png')"></el-avatar>
                 </span>
                 <el-dropdown-menu slot="dropdown">
                     <el-dropdown-item command="personal">个人档案</el-dropdown-item>
@@ -34,10 +34,10 @@
                     <el-dropdown-item :divided=true command="exit">退出</el-dropdown-item>
                 </el-dropdown-menu>
             </el-dropdown>
-        </el-col>
-        <el-col :span="22">
+        </div>
+        <div class='common-nav-right'>
             <router-view></router-view>
-        </el-col>
+        </div>
     </div>
 </template>
 
@@ -71,55 +71,83 @@
     }
 </script>
 
-<style scoped>
+<style lang="less">
+@import "../../assets/css/common.less";
 
-.common-nav{
-    border-right: #dddddd solid 1px;
+.common-nav-page{
+    display: flex;
+}
+
+.common-nav-left{
+    width: 5rem;
     height: calc(100vh);
     text-align: center;
+    background-color: @main-color;
+    background-image: linear-gradient(@main-color, @support-color-ps);
 }
 
-.logo{
-    text-align: center;
+.common-nav-right{
+    flex:1;
+}
+
+.common-nav-logo{
     height: 4rem;
-    border-bottom: 0.2rem solid lightblue;
+	text-align: center;
+	color: white;
+	line-height: 4rem;
+    border-bottom: white 0.1rem solid;
+    margin-bottom: 1rem;
 }
-.navigation{
-    text-align: center;
-    padding: 0 0.5rem;
+
+/* 修改导航栏样式*/
+.common-navigation{
     display: flex;
-    flex-direction: column;
-    min-width: 3rem;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
 }
 
-.nav-item{
-    margin: 1rem 0;
+.common-nav-item{
+    width: 4rem;
+    height: 3.3rem;
+    color: white;
+    margin: 0.2rem;
+    padding-top: 0.7rem;
 }
 
-.nav-item :first-child{
+.common-nav-avatar{
+    margin-top: 40%;
+}
+
+.common-nav-item :first-child{
     font-size: 1.8rem;
 }
 
-.nav-item :last-child{
-    font-size: 0.5rem;
+.common-nav-item :last-child{
+    font-size: 0.4rem;
 }
 
-.special{
+.common-navigation>.router-link-active{
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    color: white;
+}
+
+// .common-navigation>.router-link-active::after{
+//     content: "◀";
+//     position: relative;
+//     top: -1.9rem;
+//     left: 2.3rem;
+// }
+/* 修改导航栏样式结束 */
+
+.icon-user-special{
     position: relative;
     left: -0.5rem;
 }
 
-a {
+.common-navigation a {
     text-decoration: none;
-    color: #888888;
 }
- 
-.router-link-active {
-    text-decoration: none;
-    color: #1adad0;
-}
-.avatar{
-    margin: 3rem auto 1rem;
-}
+
 
 </style>
