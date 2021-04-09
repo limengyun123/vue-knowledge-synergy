@@ -12,6 +12,9 @@ export const createTeamApi = (teamInfo)=>{
     return axios.post('team/createTeam', teamInfo);
 }
 
+export const joinTeamApi = (param)=>{
+    return Promise.resolve(1);
+}
 
 export const getContactsApi = (userName)=>{
     return axios.post('/team/getContacts', userName);

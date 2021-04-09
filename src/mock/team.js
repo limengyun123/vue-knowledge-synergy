@@ -1,7 +1,12 @@
 const teams = [
-    { tName: "暨南软件影票售卖系统", tId: 1, tType: "C", tLeader: '41514'},
-    { tName: "你知科研团队", tId: 2, tType: "A", tLeader: '12414'},
-    { tName: "刘培念课题组", tId: 3, tType: "B", tLeader: '12424'}
+    { tName: "暨南软件影票售卖系统", tId: 1, tType: "C", tLeader: '41514', userName: '钱正来'},
+    { tName: "你知科研团队", tId: 2, tType: "A", tLeader: '12414', userName: '周欣'},
+    { tName: "刘培念课题组", tId: 3, tType: "B", tLeader: '12424', userName: '吴名'},
+    { tName: "长江数据中心云计算与安全平台", tId: 4, tType: "C", tLeader: '41514', userName: '赵四海'},
+    { tName: "湘西文化学院考古科研团队", tId: 5, tType: "A", tLeader: '12414', userName: '杨为家'},
+    { tName: "刘培念课题组", tId: 6, tType: "B", tLeader: '12424', userName: '吴名'},
+    { tName: "长江数据中心云计算与安全平台", tId: 7, tType: "C", tLeader: '41514', userName: '赵四海'},
+    { tName: "湘西文化学院考古科研团队", tId: 8, tType: "A", tLeader: '12414', userName: '杨为家'},
 ];
 
 const projects = [
@@ -40,7 +45,7 @@ const projects = [
 ];
 const teammates = [
     [
-        { userName: "41514", actualName: "钱全有"},
+        { userName: "41514", actualName: "钱正来"},
         { userName: "c234", actualName: "赵浩" }
     ],
     [

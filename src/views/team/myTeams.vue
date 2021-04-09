@@ -16,7 +16,9 @@
                                 </el-dropdown-item>
                                 <el-dropdown-item command='-1'>
                                     <router-link to="/common/team/createTeam">
-                                        <span class="el-icon-circle-plus-outline"></span> 新建/加入团队
+                                        <span class="el-icon-circle-plus-outline"></span>
+                                        <router-link to="/common/team/createTeam" class="team-chosen-link"> 新建团队</router-link>
+                                         / <router-link to="/common/team/joinTeam" class="team-chosen-link">加入团队</router-link>
                                     </router-link>
                                 </el-dropdown-item>
                             </el-dropdown-menu>
@@ -49,13 +51,11 @@
             <div class="team-no-data-operate">
                 <router-link to="/common/team/createTeam">新建</router-link>
                  / 
-                <router-link to="/common/team/createTeam">加入</router-link>
+                <router-link to="/common/team/joinTeam">加入</router-link>
                 团队
             </div>
         </div>
-        <div class="team-page-center">
-            <router-view />
-        </div>
+        <router-view class="team-page-center" />
         <div v-if="myTeams.length">
             <transition name="fade-member" mode="out-in">
                 <div v-if="memberShow" class="team-page-right" key="right">
@@ -115,10 +115,10 @@ export default {
         getTeamsApi(this.$store.state.userInfo.userName).then((result)=>{
             this.myTeams = result.data;
             if(this.myTeams.length){
-                if(this.$store.state.teamChosenId==null)
-                    this.teamChosenId = this.myTeams[0].tId;
-                else
+                if(this.$store.state.teamChosenI>0)
                     this.teamChosenId = this.$store.state.teamChosenId;
+                else
+                    this.teamChosenId = this.myTeams[0].tId;
                 this.getTeamInfo();
             }
             
@@ -129,9 +129,11 @@ export default {
     },
     methods:{
         handleCommand(index) {
-            this.teamChosenId = index;
-            this.getTeamInfo();
-            // this.$store.commit('SET_TEAMCHOSENID', this.teamChosenId);
+            if(index!=-1){
+                console.log('here');
+                this.teamChosenId = index;
+                this.getTeamInfo();
+            }
 		},
         getTeamInfo(){
             this.$store.commit('SET_TEAMCHOSENID', this.teamChosenId);
@@ -177,6 +179,7 @@ export default {
 
 .team-page{
     display: flex;
+    justify-content: space-between;
 }
 .team-page-left{
     width: 16rem; 
@@ -235,12 +238,16 @@ export default {
 
 /* 团队标题*/
 .team-chosen{
-    height: 3rem;
-    border-bottom: solid 0.1rem #aaaaaa;
+    height: 2.9rem;
+    border-bottom: solid 1px #aaaaaa;
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 0.5rem;
+}
+
+.team-chosen-link:hover{
+    color: @main-color;
 }
 
 .team-icon{

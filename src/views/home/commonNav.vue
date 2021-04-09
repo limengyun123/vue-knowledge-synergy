@@ -35,9 +35,7 @@
                 </el-dropdown-menu>
             </el-dropdown>
         </div>
-        <div class='common-nav-right'>
-            <router-view></router-view>
-        </div>
+        <router-view class='common-nav-right' />
     </div>
 </template>
 
@@ -95,7 +93,7 @@
 	text-align: center;
 	color: white;
 	line-height: 4rem;
-    border-bottom: white 0.1rem solid;
+    border-bottom: white 1px solid;
     margin-bottom: 1rem;
 }
 

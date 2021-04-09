@@ -1,13 +1,13 @@
 <template>
-    <div class="project-body">
-        <el-menu router :default-active="$route.path" class="el-menu-vertical-demo" mode="horizontal"> 
+    <div>
+        <el-menu router :default-active="$route.path" class="project-page-menu" mode="horizontal"> 
             <el-menu-item :index="'/common/team/project/'+this.$route.params.id+'/resources'">项目资源</el-menu-item>
             <el-menu-item :index="'/common/team/project/'+this.$route.params.id+'/tasks'">项目任务</el-menu-item>
             <el-menu-item :index="'/common/team/project/'+this.$route.params.id+'/dynamic'">成员动态</el-menu-item>
             <el-menu-item :index="'/common/team/project/'+this.$route.params.id+'/setting'">项目设置</el-menu-item>
         </el-menu>
     
-        <router-view class="project-fixed-body"/>
+        <router-view class="project-page-content"/>
     </div>
 </template>
 
@@ -18,18 +18,23 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="less">
+@import "../../assets/css/common.less";
 
-.el-menu-vertical-demo{
-    /* padding-left: 3rem; */
-    /* margin-bottom: 2rem; */
+.project-page-menu{
     height: 4rem;
     display: flex;
     justify-content: flex-end;
+    margin-left: 1rem;
+    margin-bottom: 0.5rem;
 }
 
-.project-fixed-body{
-    height: calc(99vh - 4rem);
+.project-page-menu>.el-menu-item.is-active{
+    border-bottom-color: @support-color-ps;
+}
+
+.project-page-content{
+    height: calc(100vh - 4.6rem);
     overflow: scroll;
     padding: 0 2rem;
 }

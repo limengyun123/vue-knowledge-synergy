@@ -25,6 +25,10 @@ export default {
                 this.parentDir = "团队协同";
                 this.childDir = "创建团队";
                 break;
+            case "joinTeam":
+                this.parentDir = "团队协同";
+                this.childDir = "加入团队";
+                break;
             case 'personalInfo':
                 this.parentDir = "个人信息";
                 this.childDir = "个人档案";
@@ -49,6 +53,10 @@ export default {
                     case "assignTask":
                         this.parentDir = "项目管理";
                         this.childDir = "分配任务";
+                        break;
+                    case "uploadResource":
+                        this.parentDir = "项目管理";
+                        this.childDir = "上传资源";
                         break;
                 }
         }

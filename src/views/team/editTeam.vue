@@ -113,7 +113,6 @@ export default {
         submitTeam(){
             this.$refs["teamInfo"].validate((valid)=>{
                 if(valid){
-                    // TODO...
                     if(this.getActualNameById(this.transferTo)){
                         createTeamApi(this.teamInfo).then((result)=>{
                             this.$message({
