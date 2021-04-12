@@ -174,6 +174,7 @@ export default {
     box-shadow: #dddddd 0 0 0.4rem;
     border: solid #dddddd 1px;
     border-radius: 0.4rem;
+    margin-bottom: 2rem;
 }
 .resource-square{
     display: flex;

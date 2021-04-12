@@ -88,7 +88,7 @@ export default {
             this.$refs["joinInfo"].validate((valid)=>{
                 if(valid){
                     if(this.teamChosen!=-1)
-                        joinTeamApi({teamId: this.teamChosen, reason: joinInfo.joinReason}).then((result)=>{
+                        joinTeamApi({teamId: this.teamChosen, reason: this.joinInfo.joinReason}).then((result)=>{
                             this.$message({
                                 type: 'success',
                                 message: result,

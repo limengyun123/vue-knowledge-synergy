@@ -1,5 +1,5 @@
 import axios from 'axios';
-import store from '../store/index'
+import store from '../store/index';
 
 export const getResourcesApi = (param)=>{
     return axios.post('/project/getResources',param);
@@ -22,6 +22,10 @@ export const getResourcesApi = (param)=>{
     //     resolve(store.state.projectInfo.resources.slice((cp-1)*ps, cp*ps));
     // });
     
+}
+
+export const uploadResourcesApi = (param)=>{
+    return axios.post('/project/uploadResources',param);
 }
 
 export const getTasksApi = (param)=>{

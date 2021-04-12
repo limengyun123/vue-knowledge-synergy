@@ -55,6 +55,9 @@ Mock.mock("http://localhost:8080/team/getTeammates", "post", teamApi.get_teammat
 Mock.mock("http://localhost:8080/project/getResources", "post", projectApi.get_resources_suc);
 // Mock.mock("http://localhost:8080/project/getResources", "post", projectApi.get_resources_fai);
 
+Mock.mock("http://localhost:8080/project/uploadResources", "post", projectApi.upload_resources_suc);
+// Mock.mock("http://localhost:8080/project/uploadResources", "post", projectApi.upload_resources_fai);
+
 Mock.mock("http://localhost:8080/project/assignTask", "post", projectApi.assign_task_suc);
 // Mock.mock("http://localhost:8080/project/assignTask", "post", projectApi.assign_task_fai);
 

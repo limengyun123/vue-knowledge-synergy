@@ -35,6 +35,21 @@ export default {
             data: { }
         }
     },
+    upload_resources_suc:(param)=>{
+        console.log('内容', param.body);
+        return {
+            code: 200,
+            msg: "上传成功",
+            data: {}
+        }
+    },
+    upload_resources_fai:(param)=>{
+        return {
+            code: 403,
+            msg: "上传失败，请稍后重试",
+            data: { }
+        }
+    },
     assign_task_suc:(param)=>{
         return {
             code: 200,
