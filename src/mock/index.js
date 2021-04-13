@@ -28,6 +28,9 @@ Mock.mock("http://localhost:8080/profile/pswd", "post", infoApi.change_pswd_suc)
 Mock.mock("http://localhost:8080/profile/info", "post", infoApi.change_info_suc);
 // Mock.mock("http://localhost:8080/profile/info", "post", infoApi.change_info_fai);
 
+Mock.mock("http://localhost:8080/profile/getNotifications", "post", infoApi.get_notifications_suc);
+// Mock.mock("http://localhost:8080/profile/getNotifications", "post", infoApi.get_notifications_fai);
+
 Mock.mock("http://localhost:8080/team/getTeams", "post", teamApi.get_teams_suc);
 // Mock.mock("http://localhost:8080/team/getTeams", "post", teamApi.get_teams_fai);
 

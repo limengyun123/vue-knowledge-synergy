@@ -9,8 +9,10 @@
                 <div v-if="isPrivateChosen" @click="handleContactChosen">
                     <div v-for="msg in myPrivateMessage" :key="msg.chatWithId" class='contact-item' >
                         <el-col :span='6'>
-                            <el-avatar :size="50">{{msg.sender}}</el-avatar>
-                            <el-badge v-if="msg.notReadNum" :value="msg.notReadNum" :max="99" class='contact-badge'></el-badge>
+                            <el-badge v-if="msg.notReadNum" :value="msg.notReadNum" :max="99">
+                                <el-avatar :size="50">{{msg.sender}}</el-avatar>
+                            </el-badge>
+                            <el-avatar v-else :size="50">{{msg.sender}}</el-avatar>
                         </el-col>
                         <el-col :span='17' :offset="1">
                             <div class='contact-time'>{{msg.latestTime}}</div>
@@ -22,8 +24,10 @@
                 <div v-else @click="handleTeamChosen">
                     <div v-for="msg in myTeamMessage" :key="msg.teamId" class='contact-item'>
                         <el-col :span='6'>
-                            <el-avatar :size="50">{{msg.Team}}</el-avatar>
-                            <el-badge v-if="msg.notReadNum" :value="msg.notReadNum" :max="99" class='contact-badge'></el-badge>
+                            <el-badge v-if="msg.notReadNum" :value="msg.notReadNum" :max="99">
+                                <el-avatar :size="50">{{msg.Team}}</el-avatar>
+                            </el-badge>
+                            <el-avatar v-else :size="50">{{msg.Team}}</el-avatar>
                         </el-col>
                         <el-col :span='17' :offset="1">
                             <div class='contact-time'>{{msg.latestTime}}</div>
@@ -218,13 +222,6 @@ export default {
     position: relative;
     z-index: 1;
     /* background: rosybrown; */
-}
-
-
-.contact-badge{
-    position: relative;
-    top: -3rem;
-    left: 2.6rem;
 }
 
 .contact-time{

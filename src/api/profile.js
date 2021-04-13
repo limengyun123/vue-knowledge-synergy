@@ -7,3 +7,8 @@ export const changePswdApi = oldPswd=>{
 export const changeInfoApi = oldInfo=>{
     return axios.post('http://localhost:8080/profile/info',oldInfo);
 }
+
+export const getNotificationsApi = param=>{
+    return axios.post('http://localhost:8080/profile/getNotifications',param);
+}
+

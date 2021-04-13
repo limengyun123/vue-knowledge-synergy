@@ -26,11 +26,15 @@
             </div>
             <el-dropdown @command="handleCommand" class="common-nav-avatar" placement="right-end">
                 <span>
-                    <el-avatar :src="require('@/assets/img/avatar_1.png')"></el-avatar>
+                    <el-badge :value="noticeNum" :max="99" class="notice-item">
+                        <el-avatar :src="require('@/assets/img/avatar_1.png')"></el-avatar>
+                    </el-badge>
                 </span>
                 <el-dropdown-menu slot="dropdown">
+                    <el-dropdown-item command="notification">
+                        通知<el-badge :value="noticeNum" :max="99" class="notice-item"></el-badge>
+                    </el-dropdown-item>
                     <el-dropdown-item command="personal">个人档案</el-dropdown-item>
-                    <el-dropdown-item command="English">English</el-dropdown-item>
                     <el-dropdown-item :divided=true command="exit">退出</el-dropdown-item>
                 </el-dropdown-menu>
             </el-dropdown>
@@ -43,7 +47,7 @@
     export default {
         data() {
             return {
-                
+                noticeNum: 10
             };
         },
         computed: {
@@ -57,7 +61,8 @@
                     case 'personal':
                         this.$router.push('/personalInfo');
                         break;
-                    case 'English':
+                    case 'notification':
+                        this.$router.push('/notification');
                         break;
                     default:
                         this.$store.commit('REMOVE_INFO');

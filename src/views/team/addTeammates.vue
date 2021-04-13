@@ -47,8 +47,8 @@
 </template>
 
 <script>
-import {getContactsApi, searchUserApi,addTeammatesApi} from '../../api/team'
-import GoBackHead from '../../components/goBackHead'
+import {getContactsApi, searchUserApi,addTeammatesApi} from '../../api/team';
+import GoBackHead from '../../components/goBackHead';
 
 export default {
     name: "AddTeammates",

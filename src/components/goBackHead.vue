@@ -32,6 +32,9 @@ export default {
             case 'personalInfo':
                 this.parentDir = "个人信息";
                 this.childDir = "个人档案";
+            case 'notification':
+                this.parentDir = "个人信息";
+                this.childDir = "通知";
             default:
                 switch(path.pop()){
                     case "createProject":

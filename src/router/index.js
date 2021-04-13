@@ -63,6 +63,7 @@ const routes = [
 		]
 	},
 	{ path: '/personalInfo', component: ()=> import('../views/profile/personalInfo.vue') },
+	{ path: '/notification', component: ()=> import('../views/profile/notification.vue') },
 	{ path: '/common/team/createTeam', component: ()=> import('../views/team/createTeam.vue') },
 	{ path: '/common/team/joinTeam', component: ()=> import('../views/team/joinTeam.vue') },
 	{ path: '/common/team/createProject/:id', component: ()=> import('../views/team/createProject.vue') },
