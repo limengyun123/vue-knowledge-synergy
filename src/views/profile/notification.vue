@@ -7,11 +7,13 @@
                 <button :class="{'active':!readSign}" @click="changeToUnread">未读</button>
                 <button :class="{'active':readSign}" @click="changeToRead">所有</button>
             </div>
-            <div class="notification-body">
+            <div class="notification-body" @click="handleRead">
                 <div v-for="item in notices" :key="item.id" class='notification-item'>
-                    {{item.content}}
-                    {{item.createTime}}
-                    <span v-if="!item.status" class='el-icon-circle-check'></span>
+                    <div class="notification-item-content">
+                        <p>{{item.content}}<p>
+                        <div class='notification-item-content-time'>{{item.createTime}}</div>
+                    </div>
+                    <div v-if="!item.status" title="标为已读" class='el-icon-circle-check sign-read-icon' :index="item.id"></div>
                     <!-- <span></span> -->
                 </div>
             </div>
@@ -32,7 +34,7 @@
 </template>
 <script>
 import GoBackHead from '../../components/goBackHead';
-import {getNotificationsApi} from '../../api/profile';
+import {getNotificationsApi, readNotificationApi} from '../../api/profile';
 
 export default {
     name: "Notification",
@@ -77,6 +79,27 @@ export default {
             if(!this.readSign){
                 this.readSign = true;
                 this.getNotifications();
+            }
+        },
+        handleRead(e){
+            let index = e.target.getAttribute("index");
+            if(index){
+                readNotificationApi({id: index}).then((result)=>{
+                    /*正常逻辑
+                        this.getNotifications();
+                     */
+
+                    // 测试使用
+                    for(let i=0;i<this.notices.length;i++){
+                        if(this.notices[i].id==index){
+                            this.notices.splice(i,1);
+                            return ;
+                        }
+                    }
+                }).catch((reason)=>{
+                    this.$message.error(reason);
+                })
+                
             }
         },
         handleSizeChange(val){
@@ -125,11 +148,33 @@ export default {
 }
 
 .notification-item{
-    margin: 1rem 5%;
-    padding: 0.5rem 1rem;
+    margin: 2rem 5%;
+    padding: 0.5rem 2rem;
     border: solid 1px #aaaaaa;
-    // box-shadow: #aaaaaa 0 0 0.1rem;
     border-radius: .5rem;
+    color: #555555;
+    display: flex;
+    // background-color: @support-color-bg;
+}
+
+.notification-item-content{
+    flex: 1;
+    line-height: 1.5rem;
+}
+
+.notification-item-content-time{
+    color:#888888;
+    font-size: .8rem;
+}
+
+.sign-read-icon{
+    margin-left: 1rem;
+    margin-top: 1rem;
+    font-size: 2rem;
+}
+
+.sign-read-icon:hover{
+    color: #67C23A;
 }
 
 .pagination{

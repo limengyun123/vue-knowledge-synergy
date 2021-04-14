@@ -1,77 +1,66 @@
 <template>
-    <div>
-        <!-- <div>
-            <p>共收到任务XXX项</p>
-                <p>您已完成的任务数为x1+x2</p>
-                    <p>其中您在规定时间内完成的任务数为x1</p>
-                    <p>其中您逾期完成的任务数为x2</p>
-                <p>您未完成的任务数为y1+y2</p>
-                    <p>其中未逾期的任务数为y1</p>
-                    <p>其中逾期的任务数为y2</p>
-
-            <p>紧急任务共XXX项</p>
-                <p>您已完成的任务数为x1+x2</p>
-                    <p>其中您在规定时间内完成的任务数为x1</p>
-                    <p>其中您逾期完成的任务数为x2</p>
-                <p>您未完成的任务数为y1+y2</p>
-                    <p>其中未逾期的任务数为y1</p>
-                    <p>其中逾期的任务数为y2</p>
-            <p>非紧急任务共XXX项</p>
-                <p>您已完成的任务数为x1+x2</p>
-                    <p>其中您在规定时间内完成的任务数为x1</p>
-                    <p>其中您逾期完成的任务数为x2</p>
-                <p>您未完成的任务数为y1+y2</p>
-                    <p>其中未逾期的任务数为y1</p>
-                    <p>其中逾期的任务数为y2</p>
-        </div> -->
-        <div>
-            <div id="total" class="charts"></div>
-            <div class='pie-part-charts'>
-                <div id="urgent" class="charts"></div>
-                <div id="disurgent" class="charts"></div>
-            </div>
-            <div id="byYear" class="charts"></div>
+    <div class='task-statistics-page'>
+        <div class='task-chart-item'>
+            <el-select v-model="taskUrgentType" slot="prepend" @change="selectUrgentChange" class='task-chart-select' popper-class="task-chart-select-option">
+                <el-option label="紧急任务" :value="1"></el-option>
+                <el-option label="非紧急任务" :value="2"></el-option>
+                <el-option label="任务总数" :value="3"></el-option>
+            </el-select>
+            <div id="task-by-urgent" class='task-chart-area'></div>
         </div>
+        <!-- <div class='task-chart-item'>
+            <div>任务总数</div>
+            <div id="urgent" class="task-chart-area"></div>
+        </div>
+        <div class='task-chart-item'>
+            <div>任务总数</div>
+            <div id="disurgent" class="task-chart-area"></div>
+        </div> -->
+        <div class='task-chart-item'>
+            <el-select v-model="taskTimeRange" slot="prepend" @change="selectTimeChange" class='task-chart-select' popper-class="task-chart-select-option">
+                <el-option label="近一周任务完成情况" :value="1"></el-option>
+                <el-option label="近一月任务完成情况" :value="2"></el-option>
+                <el-option label="近一年任务完成情况" :value="3"></el-option>
+                <el-option label="近三年任务完成情况" :value="4"></el-option>
+            </el-select>
+            <div id="task-by-time" class="task-chart-area"></div>
+        </div>
+
     </div>
 </template>
 
 <script>
 import * as echarts from 'echarts/core';
 import { BarChart, PieChart} from 'echarts/charts';
-import { TitleComponent, TooltipComponent, LegendComponent, GridComponent } from 'echarts/components';
+import { TooltipComponent, LegendComponent, GridComponent } from 'echarts/components';
 import { CanvasRenderer } from 'echarts/renderers';
 
 echarts.use(
-    [TitleComponent, TooltipComponent, LegendComponent, GridComponent, BarChart,PieChart, CanvasRenderer]
+    [TooltipComponent, LegendComponent, GridComponent, BarChart,PieChart, CanvasRenderer]
 );
 
-var chartTaskTotal = null;
-var chartTaskUrgent = null;
-var chartTaskDisurgent = null;
-var chartByYear = null;
+var chartTaskByUrgent = null;
+var chartTaskByTime = null;
 
 export default {
     name: "TaskStats",
     data(){
         return {
-            
+            taskUrgentType:3,
+            taskTimeRange: 3
         }
     },
     mounted(){
         this.initCharts();
-        this.generatePieCharts(chartTaskTotal, this.getTaskTotalData());
-        this.generatePieCharts(chartTaskUrgent, this.getTaskUrgentData());
-        this.generatePieCharts(chartTaskDisurgent, this.getTaskDisurgentData());
-        this.generateBarCharts(chartByYear, this.getTaskByYearData());  
+        this.generatePieCharts(chartTaskByUrgent, this.getTaskByUrgentAll());
+        this.generateBarCharts(chartTaskByTime, this.getTaskByTime());  
     },
     methods:{
         initCharts(){
-            chartTaskTotal = echarts.init(document.getElementById('total'));
-            chartTaskUrgent = echarts.init(document.getElementById('urgent'));
-            chartTaskDisurgent = echarts.init(document.getElementById('disurgent'));
-            chartByYear = echarts.init(document.getElementById('byYear'));
+            chartTaskByUrgent = echarts.init(document.getElementById('task-by-urgent'));
+            chartTaskByTime = echarts.init(document.getElementById('task-by-time'));
         },
-        getTaskTotalData(){
+        getTaskByUrgentAll(){
             let data = [
                 {value:43, name:'未逾期  已完成'},
                 {value:6, name:'逾期  已完成'},
@@ -80,7 +69,6 @@ export default {
             ];
             let legend = ['任务总数']
             return {
-                title: "任务总数",
                 legend: legend,
                 totalNum: 60,
                 serie: {
@@ -91,7 +79,7 @@ export default {
                 }
             }
         },
-        getTaskUrgentData(){
+        getTaskByUrgentTrue(){
             let data = [
                 {value:7, name:'未逾期  已完成'},
                 {value:1, name:'逾期  已完成'},
@@ -100,7 +88,6 @@ export default {
             ];
             let legend = ['紧急任务']
             return {
-                title: "紧急任务",
                 legend: legend,
                 totalNum: 10,
                 serie: {
@@ -111,7 +98,7 @@ export default {
                 }
             }
         },
-        getTaskDisurgentData(){
+        getTaskByUrgentFalse(){
             let data = [
                 {value:36, name:'未逾期  已完成'},
                 {value:5, name:'逾期  已完成'},
@@ -120,7 +107,6 @@ export default {
             ];
             let legend = ['非紧急任务'];
             return {
-                title: "非紧急任务",
                 legend: legend,
                 totalNum: 50,
                 serie: {
@@ -131,12 +117,11 @@ export default {
                 }
             }
         },
-        getTaskByYearData(){
+        getTaskByTime(){
             let data = [[2, 3, 4, 1, 5, 2, 5, 7, 1, 3, 4, 5], [0, 1, 0, 1, 1, 2, 0, 3, 1, 1, 0, 2]];
             let xAxis = ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"];
             let legend = ['已完成', '未完成'];
             return {
-                title: "年任务量",
                 legend: legend,
                 xAxis: {data: xAxis},
                 series: data.map((value, index)=>{
@@ -174,7 +159,6 @@ export default {
         },
         generateBarCharts(chart, param){
             chart.setOption({
-                title: { text: param.title },
                 tooltip:{ trigger: 'axis' },
                 legend: { data: param.legend},
                 xAxis: param.xAxis,
@@ -182,17 +166,70 @@ export default {
                 series: param.series
             });
         },
+        selectUrgentChange(e){
+            switch(e){
+                case 1:
+                    this.generatePieCharts(chartTaskByUrgent, this.getTaskByUrgentTrue());
+                    break;
+                case 2:
+                    this.generatePieCharts(chartTaskByUrgent, this.getTaskByUrgentFalse());
+                    break;
+                default:
+                    this.generatePieCharts(chartTaskByUrgent, this.getTaskByUrgentAll());
+                    break;
+            }
+        },
+        selectTimeChange(e){}
     }
 }
 </script>
 
 
-<style scoped>
-    .charts{
-        width: 35rem;
-        height: 20rem;
-    }
-    .pie-part-charts{
-        display: flex;
-    }
+<style lang="less">
+@import "../../assets/css/common.less";
+
+.task-statistics-page{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.task-chart-item{
+    margin: 3rem 2rem;
+}
+
+.task-chart-area{
+    background: white;
+    width: 30rem;
+    height: 18rem;
+    padding: 0.5rem;
+    text-align: center;
+    box-shadow: #dddddd 0 0 0.4rem;
+    border: 0.1rem solid #dddddd;
+    border-radius: 0.4rem;
+}
+
+/* 修改el-select的样式*/
+.task-chart-select{
+    border-left: solid 0.4rem @support-color-ps;
+    margin-bottom: 1rem;
+}
+
+.task-chart-select .el-input__inner{
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #555555;    
+    background-color: transparent;
+    border: none;
+} 
+
+.task-chart-select-option .el-select-dropdown__item:hover{
+    background-color:@support-color-bg;
+}
+
+.task-chart-select-option .selected{
+    color:@main-color;
+}
+/* 修改el-select的样式结束*/
+
 </style>

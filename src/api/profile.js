@@ -12,3 +12,6 @@ export const getNotificationsApi = param=>{
     return axios.post('http://localhost:8080/profile/getNotifications',param);
 }
 
+export const readNotificationApi = param =>{
+    return Promise.resolve(1);
+}

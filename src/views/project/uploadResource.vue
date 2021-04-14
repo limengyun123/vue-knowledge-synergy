@@ -158,7 +158,7 @@ export default {
 
 .file-item-name{
     display: inline-block;
-    width: 27rem;
+    width: 25.5rem;
     height: 1.2rem;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -171,7 +171,9 @@ export default {
 }
 
 .upload-resource-delete-icon{
-    float: right;
+    display: inline-block;
+    margin-left: 1rem;
+    // margin-right: 1rem;
 }
 
 .upload-resource-delete-icon:hover{
