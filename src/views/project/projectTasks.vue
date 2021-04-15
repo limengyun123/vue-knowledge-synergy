@@ -1,76 +1,146 @@
 <template>
     <div>
-        <div class="assign-task">
-            <router-link :to="'/common/project/assignTask/'+this.$route.params.id">添加任务</router-link>
-        </div>
-        <div class='task-overview-body'>
-            <div class='task-overview-item'>
-                <p>总任务</p><div class='blue-text'>{{taskOverview.total}}</div>
+        <div class='task-overview-part'>
+            <div class='task-overview-title'><h3>个人任务</h3></div>
+            <div class='task-overview-body'>
+                <div class='task-overview-item'>
+                    <p>总任务</p><div class='blue-text'>{{taskOverview.total}}</div>
+                </div>
+                <div class='task-overview-item'>
+                    <p>已完成</p><div class='green-text'>{{taskOverview.finished}}</div>
+                </div>
+                <div class='task-overview-item'>
+                    <p>待完成</p><div class='yellow-text'>{{taskOverview.finishedOverdue}}</div>
+                </div> 
+                <div class='task-overview-item'>
+                    <p>逾期</p><div class='red-text'>{{taskOverview.overdue}}</div>
+                </div>           
             </div>
-            <div class='task-overview-item'>
-                <p>已完成</p><div class='green-text'>{{taskOverview.finished}}</div>
-            </div>
-            <div class='task-overview-item'>
-                <p>逾期已完成</p><div class='yellow-text'>{{taskOverview.finishedOverdue}}</div>
-            </div> 
-            <div class='task-overview-item'>
-                <p>逾期未完成</p><div class='red-text'>{{taskOverview.overdue}}</div>
-            </div>           
-        </div>
-
-        <div>
-            <div class='task-detail-title'>任务详情</div>
             <div>
+                <h3 class='task-detail-title'>任务详情</h3>
                 <div class='task-detail-head'>
                     <label>选择查看方式:  </label>
-                    <el-select v-model="chosenMethod" placeholder="请选择" @change='changeMethod'>
-                        <el-option-group
-                        v-for="group in checkMethods"
-                        :key="group.label"
-                        :label="group.label">
-                            <el-option
-                                v-for="item in group.options"
-                                :key="item"
-                                :label="item"
-                                :value="item">
-                            </el-option>
-                        </el-option-group>
+                    <el-select v-model="chosenMethodIndividual" placeholder="请选择" @change='changeMethod'>
+                        <el-option label="未完成" :value="1"></el-option>
+                        <el-option label="已完成" :value="2"></el-option>
+                        <el-option label="逾期" :value="3"></el-option>
+                        <el-option label="所有任务" :value="4"></el-option>
                     </el-select>
-
                 </div>
                 <div class='task-detail-body'>
-                    <div v-if="taskClassifierChosen">
-                        <div v-for="task in showedTasks" :key="task.tId" class='task-detail-item'>
-                            <span :class="'el-icon-s-opportunity '+task.type"></span>
-                            <span>{{task.content}}</span>
-                            <span>指派人：{{task.assigner}}</span>
-                            <span>受任者：{{task.assigned}}</span>
-                            <span>开始时间{{task.startTime}}</span>
-                            <span>结束时间{{task.endTime}}</span>
+                    <div v-for="task in showedTasks" :key="task.tId" class='task-detail-item'>
+                        <div class='task-detail-item-info'>
+                            <div>{{task.startTime}}</div>
+                            <div class='content-dash'></div>
+                            <div class='el-icon-time'></div>
+                            <div class='content-dash'></div>
+                            <div>> {{task.endTime}}</div>
                         </div>
+                        <div class="task-detail-item-content">{{task.content}}</div>
+                        <div class='task-detail-item-info'>
+                            <div>{{task.assigner}}</div>
+                            <div class='content-dash'></div>>
+                            <div class='el-icon-message'></div>
+                        </div>                        
                     </div>
-                    <div v-else>
-                        <div v-for="taskOfPerson in getTaskOfPerson" :key="taskOfPerson.uId">
-                            <p>{{taskOfPerson.assigned}}</p>
-                            <div v-for="task in taskOfPerson.tasks" :key="task.tId"  class='task-detail-item'>
-                                <span :class="'el-icon-s-opportunity '+task.type"></span>
-                                <span>{{task.content}}</span>
-                                <span>指派人：{{task.assigner}}</span>
-                                <span>开始时间{{task.startTime}}</span>
-                                <span>结束时间{{task.endTime}}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class='task-overview-part'>
+            <div class='task-overview-title'><h3>团队任务</h3></div>
+            <ButtonPrimary @buttonClick='addTask' class='assign-task-button'>添加任务</ButtonPrimary>
+            <div class='task-overview-body'>
+                <div class='task-overview-item'>
+                    <p>总任务</p><div class='blue-text'>{{taskOverview.total}}</div>
+                </div>
+                <div class='task-overview-item'>
+                    <p>已完成</p><div class='green-text'>{{taskOverview.finished}}</div>
+                </div>
+                <div class='task-overview-item'>
+                    <p>待完成</p><div class='yellow-text'>{{taskOverview.finishedOverdue}}</div>
+                </div> 
+                <div class='task-overview-item'>
+                    <p>逾期</p><div class='red-text'>{{taskOverview.overdue}}</div>
+                </div>           
+            </div>
+
+            <div>
+                <h3 class='task-detail-title'>任务详情</h3>
+                <div>
+                    <div class='task-detail-head'>
+                        <label>选择查看方式:  </label>
+                        <el-select v-model="chosenMethod" placeholder="请选择" @change='changeMethod'>
+                            <el-option-group
+                            v-for="group in checkMethods"
+                            :key="group.label"
+                            :label="group.label">
+                                <el-option
+                                    v-for="item in group.options"
+                                    :key="item"
+                                    :label="item"
+                                    :value="item">
+                                </el-option>
+                            </el-option-group>
+                        </el-select>
+
+                    </div>
+                    <div class='task-detail-body'>
+                        <div v-if="taskClassifierChosen">
+                            <div v-for="task in showedTasks" :key="task.tId" class='task-detail-item'>
+                                <div class='task-detail-item-info'>
+                                    <div>{{task.startTime}}</div>
+                                    <div class='content-dash'></div>
+                                    <div class='el-icon-time'></div>
+                                    <div class='content-dash'></div>
+                                    <div>> {{task.endTime}}</div>
+                                </div>
+                                <div class="task-detail-item-content">{{task.content}}</div>
+                                <div class='task-detail-item-info'>
+                                    <div>{{task.assigner}}</div>
+                                    <div class='content-dash'></div>
+                                    <div class='el-icon-message'></div>
+                                    <div class='content-dash'></div>
+                                    <div>> {{task.assigned}}</div>
+                                </div>                        
+                            </div>
+                        </div>
+                        <div v-else>
+                            <div v-for="taskOfPerson in getTaskOfPerson" :key="taskOfPerson.uId">
+                                <p class='task-detail-individual-name'>{{taskOfPerson.assigned}}</p>
+                                <div v-for="task in showedTasks" :key="task.tId" class='task-detail-item'>
+                                    <div class='task-detail-item-info'>
+                                        <div>{{task.startTime}}</div>
+                                        <div class='content-dash'></div>
+                                        <div class='el-icon-time'></div>
+                                        <div class='content-dash'></div>
+                                        <div>> {{task.endTime}}</div>
+                                    </div>
+                                    <div class="task-detail-item-content">{{task.content}}</div>
+                                    <div class='task-detail-item-info'>
+                                        <div>{{task.assigner}}</div>
+                                        <div class='content-dash'></div>>
+                                        <div class='el-icon-message'></div>
+                                    </div>                        
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
+            </div>
         </div>
     </div>
 </template>
 
 <script>
+import ButtonPrimary from '../../components/buttonPrimary';
+
 export default {
     name: "ProjectTasks",
+    components:{
+        "ButtonPrimary": ButtonPrimary
+    },
     data(){
         return {
             taskOverview:{
@@ -79,11 +149,12 @@ export default {
                 finishedOverdue:2,
                 overdue: 1
             },
+            chosenMethodIndividual: 1,
             chosenMethod: "所有任务",
             taskClassifierChosen: true,
             checkMethods: [
-                {label: "按任务查看", options: ["所有任务", "按时完成的任务", "逾期完成的任务", "未逾期未完成的任务", "逾期未完成的任务"]}, 
-                {label: "按人员查看", options: ["所有人", "按时完成任务的人", "逾期完成任务的人", "未逾期未完成的任务", "逾期未完成任务的人"]}
+                {label: "按任务查看", options: ["所有任务", "已完成的任务", "待完成的任务", "逾期的任务"]}, 
+                {label: "按人员查看", options: ["所有人", "任务已完成的人", "任务未完成的人", "任务逾期的人"]}
             ],
             myTasks:[
                 // type 1：已完成 2：未逾期未完成 3：逾期已完成 4：逾期未完成
@@ -123,6 +194,9 @@ export default {
 
     },
     methods:{
+        addTask(){
+            this.$router.push('/common/project/assignTask/'+this.$route.params.id);
+        },
         changeMethod(e){
             switch(e){
                 case "所有任务":
@@ -154,8 +228,19 @@ export default {
 }
 </script>
 
-<style scoped>
-.assign-task{
+<style lang='less'>
+@import "../../assets/css/common.less";
+
+.task-overview-part{
+    margin: 0 auto 5rem;
+}
+.task-overview-title{
+    border-left: @main-color solid .5rem;
+    background-color: @support-color-bg ;
+    padding: .1rem 1rem;
+}
+
+.assign-task-button{
     float: right;
 }
 
@@ -183,19 +268,19 @@ export default {
 }
 
 .blue-text{
-    color: lightblue;
+    color: #409EFF;
 }
 
 .red-text{
-    color: red;
+    color: #F56C6C;
 }
 
 .green-text{
-    color: lightgreen;
+    color: #67C23A;
 }
 
 .yellow-text{
-    color: yellow;
+    color: #E6A23C;
 }
 
 .todo-detail{
@@ -207,8 +292,7 @@ export default {
 .task-detail-title{
     width: 94%;
     margin: 0 3%;
-    font-size: 1.5rem;
-    padding: 1rem;
+    padding: .5rem;
     border-bottom: solid 0.1rem #aaaaaa;
 }
 
@@ -217,30 +301,49 @@ export default {
 }
 
 .task-detail-body{
-    padding: 1rem 3rem;
+    padding: 0 3rem;
 }
 
 .task-detail-item{
-    border: solid 0.1rem #cccccc;
-    margin: 0.8rem 0;
+    border: solid .1rem #eeeeee;
+    border-radius: .5rem;
+    margin: 2rem 0;
     padding: 1rem;
-    border-radius: 1rem;
+    background: #fcfafc;
+    background-image: linear-gradient(to right,@support-color-bg,#fefcfe, @support-color-bg);
+    // background-size: cover;
+    // background-repeat: no-repeat;
+    // background-position: center center;
 }
 
-.el-icon-s-opportunity{
-    margin-right: 1rem;
+.task-detail-item-content{
+    color: #555555;
+    line-height: 1.5rem;
+    margin: 1rem 2rem;
 }
 
-.a{
-    color: lightblue;
+.task-detail-item-info{
+    display: flex;
+    color: #888888;
+    font-size: .7rem;
 }
-.b{
-    color: lightgreen;
+
+
+.task-detail-item-info .content-dash{
+    flex:1;
+    height: .4rem;
+    border-bottom: dashed 0.1rem;
+    margin :0 .4rem
 }
-.c{
-    color: yellow;
+
+.task-detail-item-info .el-icon-time, .el-icon-message{
+    font-size: 1rem;
 }
-.d{
-    color: red;
+
+.task-detail-individual-name{
+    border-left: @main-color solid .3rem;
+    background-color: @support-color-bg ;
+    padding: .5rem 1rem;
 }
+
 </style>
