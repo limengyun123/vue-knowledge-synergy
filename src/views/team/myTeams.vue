@@ -63,9 +63,11 @@
                     <router-link :to="'/common/team/addTeammates/'+teamChosenId">
                         <el-avatar icon="el-icon-plus" class="team-page-teammates"></el-avatar>
                     </router-link>
-                    <el-avatar v-for="mate in myTeammates" :key="mate.userName" class="team-page-teammates">
-                        {{mate.actualName}}
-                    </el-avatar>
+                    <router-link v-for="mate in myTeammates" :key="mate.userName" :to="'/common/team/editTeammate/'+mate.id">
+                        <el-avatar class="team-page-teammates">
+                            {{mate.actualName}}
+                        </el-avatar>
+                    </router-link>
                 </div>
                 <div v-else class="teammates-supplement" key="right-supplement">
                     <i @click="changeMemberState" class="el-icon-s-fold team-icon" title="展示队员"></i>
@@ -184,11 +186,11 @@ export default {
 .team-page-left{
     width: 16rem; 
     border: #dddddd solid 0.1rem;
-    box-shadow: #dddddd 0 0 0.2rem;
+    box-shadow: #dddddd 0 0 .5rem;
     border-radius: 1rem;
     margin: 0.5rem;
     padding: 0.5rem;
-    background-color: @support-color-bg;
+    // background-color: @support-color-bg;
 }
 
 .team-page-center{
@@ -197,10 +199,10 @@ export default {
 
 .team-page-right{
     width: 5rem;
-    background-color: @support-color-bg;
+    // background-color: @support-color-bg;
     border: #dddddd solid 1px;
     border-radius: 1rem 0 0 1rem;     
-    box-shadow: #dddddd 0 0 0.2rem;
+    box-shadow: #dddddd 0 0 .5rem;
     text-align: center;
     max-height: 30rem;
     overflow: scroll;

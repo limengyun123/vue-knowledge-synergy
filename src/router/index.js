@@ -69,8 +69,10 @@ const routes = [
 	{ path: '/common/team/createProject/:id', component: ()=> import('../views/team/createProject.vue') },
 	{ path: '/common/team/addTeammates/:id', component: ()=> import('../views/team/addTeammates.vue') },
 	{ path: '/common/team/editTeam/:id', component: ()=> import('../views/team/editTeam.vue') },
+	{ path: '/common/team/editTeammate/:id', component: ()=> import('../views/team/editTeammate.vue') },
 	{ path: '/common/project/uploadResource/:id', component: ()=> import('../views/project/uploadResource.vue') },
 	{ path: '/common/project/assignTask/:id', component: ()=> import('../views/project/assignTask.vue') },
+	{ path: '/common/project/resourceDetail/:id', component: ()=> import('../views/project/resourceDetail.vue') },
 	{ path: '/common/individual/editShorthand/:id', component: ()=> import('../views/individual/editShorthand.vue') },
 	{ path: '*', name: 'error', component: () => import('../components/error.vue') }, 
 ]

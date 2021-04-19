@@ -143,10 +143,9 @@ export default {
     width: 15rem;
     padding: 1rem;
     margin: 1rem;
-    border: #cccccc 0.1rem solid;
-    border-radius: 1rem;
-    box-shadow: #cccccc 0 0 0.2rem;
-
+    border: solid .1rem #dddddd;
+    border-radius: .5rem;
+    box-shadow: #dddddd 0 0 .6rem;
 }
 
 .shorthand-box-card:hover{

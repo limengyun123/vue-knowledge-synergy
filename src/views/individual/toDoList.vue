@@ -90,8 +90,8 @@ export default {
     margin: 2rem auto;
     padding: 2rem;
     border: #999999;
-    border-radius: 2rem;
-    box-shadow: #bbbbbb 0 0 0.3rem;
+    border-radius: 1rem;
+    box-shadow: #dddddd 0 0 .8rem;
     color: #555555;
 }
 

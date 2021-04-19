@@ -26,6 +26,7 @@ export default {
     color: #888888;
     border: solid 0.1rem #dddddd;
     border-radius: 0.3rem;
+    font-size: 0.8rem;
 }
 
 .ks-button-default:hover{

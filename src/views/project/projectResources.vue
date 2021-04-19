@@ -26,14 +26,15 @@
                 <el-table-column prop="resourceCreateTime" label="上传时间" width="140"></el-table-column>
                 <el-table-column prop="userName" label="上传者" width="80"></el-table-column>
                 <el-table-column prop="resourceSize" label="大小" width="60"></el-table-column>
-                <el-table-column fixed="right" label="预览" width="60">
+                <el-table-column fixed="right" label="详情" width="60">
                     <template slot-scope="scope">
-                        <a :index="scope.row.resourceId" target="_blank" href='https://view.officeapps.live.com/op/view.aspx?src=http://mczaiyun.top/ht/123.xlsx'><span class="el-icon-view"></span></a>
+                        <!-- <a :index="scope.row.resourceId" target="_blank" href='https://view.officeapps.live.com/op/view.aspx?src=newteach.pbworks.com%2Ff%2Fele%2Bnewsletter.docx'><span class="el-icon-view"></span></a> -->
+                        <a target="_parent" :href="'/common/project/resourceDetail/'+scope.row.resourceId"><span class="el-icon-view"></span></a>
                     </template>
                 </el-table-column>
                 <el-table-column fixed="right" label="下载" width="60">
                     <template slot-scope="scope">
-                        <a :index="scope.row.resourceId" href='http://mczaiyun.top/ht/123.xlsx' download='http://mczaiyun.top/ht/123.xlsx'><span class="el-icon-download"></span></a>
+                        <a :index="scope.row.resourceId" href='newteach.pbworks.com%2Ff%2Fele%2Bnewsletter.docx' download='newteach.pbworks.com%2Ff%2Fele%2Bnewsletter.docx'><span class="el-icon-download"></span></a>
                     </template>
                 </el-table-column>
             </el-table>
@@ -49,8 +50,8 @@
                 </div>
                 <div>{{item.resourceCreateTime}}</div>
                 <div class="resource-square-operate">
-                    <a target="_blank" href='https://view.officeapps.live.com/op/view.aspx?src=http://mczaiyun.top/ht/123.xlsx'><span class="el-icon-view resource-operate-icon"></span></a>
-                    <a href='http://mczaiyun.top/ht/123.xlsx' download='http://mczaiyun.top/ht/123.xlsx'><span class="el-icon-download resource-operate-icon"></span></a>
+                    <a target="_parent" :href="'/common/project/resourceDetail/'+item.resourceId"><span class="el-icon-view resource-operate-icon"></span></a>
+                    <a href='http%3a%2f%2fvideo.ch9.ms%2fbuild%2f2011%2fslides%2fTOOL-532T_Sutter.pptx' download='http%3a%2f%2fvideo.ch9.ms%2fbuild%2f2011%2fslides%2fTOOL-532T_Sutter.pptx'><span class="el-icon-download resource-operate-icon"></span></a>
                 </div>
             </div>
         </div>
@@ -64,7 +65,7 @@
             @size-change="handleSizeChange"
             @current-change="handleCurrentChange"
             :current-page="paginationInfo.currentPage"
-            :page-sizes="[3,10, 20, 30, 40]"
+            :page-sizes="[10, 20, 30, 40]"
             :page-size="paginationInfo.pageSize"
             layout="total, sizes, prev, pager, next, jumper"
             :total="paginationInfo.totalNum"
@@ -93,7 +94,7 @@ export default {
             paginationInfo:{
                 totalNum: 0,
                 currentPage: 1,
-                pageSize: 3,
+                pageSize: 10,
                 pagerCount: 7
             },
             resources:[]
@@ -212,9 +213,9 @@ export default {
     width: 8rem;
     height: 8rem;
     border-radius: 0.5rem;
-    box-shadow: #aaaaaa .3rem .4rem 0.3rem;
+    box-shadow: #dddddd .3rem .4rem 0.3rem;
     text-align: center;
-    background: rgba(48, 48, 48, 0.7);
+    background: rgba(80, 80, 80, 0.6);
     position: relative;
     top:-7.5rem;
     display: none;
@@ -222,7 +223,7 @@ export default {
 
 .resource-square-operate .resource-operate-icon{
     font-size: 1.4rem;
-    color: #cccccc;
+    color: #444444;
     margin: 3rem .5rem;
 }
 

@@ -31,3 +31,7 @@ export const addTeammatesApi = (mates)=>{
 export const createProjectApi = (projectInfo)=>{
     return axios.post('team/createProject', projectInfo);
 }
+
+export const getTeammateInfoApi = param =>{
+    return Promise.resolve(1);
+}

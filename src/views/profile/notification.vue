@@ -150,11 +150,11 @@ export default {
 .notification-item{
     margin: 2rem 5%;
     padding: 0.5rem 2rem;
-    border: solid 1px #aaaaaa;
+    border: solid 1px #eeeeee;
+    box-shadow: #dddddd 0 0 .6rem;
     border-radius: .5rem;
     color: #555555;
     display: flex;
-    // background-color: @support-color-bg;
 }
 
 .notification-item-content{
@@ -171,6 +171,7 @@ export default {
     margin-left: 1rem;
     margin-top: 1rem;
     font-size: 2rem;
+    color:#888888;
 }
 
 .sign-read-icon:hover{

@@ -204,8 +204,8 @@ export default {
     height: 18rem;
     padding: 0.5rem;
     text-align: center;
-    box-shadow: #dddddd 0 0 0.4rem;
-    border: 0.1rem solid #dddddd;
+    box-shadow: #dddddd 0 0 0.6rem;
+    border: 0.1rem solid #eeeeee;
     border-radius: 0.4rem;
 }
 

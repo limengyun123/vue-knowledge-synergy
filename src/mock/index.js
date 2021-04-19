@@ -64,11 +64,20 @@ Mock.mock("http://localhost:8080/project/uploadResources", "post", projectApi.up
 Mock.mock("http://localhost:8080/project/assignTask", "post", projectApi.assign_task_suc);
 // Mock.mock("http://localhost:8080/project/assignTask", "post", projectApi.assign_task_fai);
 
+Mock.mock("http://localhost:8080/project/getTasksOverview", "post", projectApi.get_tasks_overview_suc);
+// Mock.mock("http://localhost:8080/project/getTasksOverview", "post", projectApi.get_tasks_overview_fai);
+
+Mock.mock("http://localhost:8080/project/getTasksDetail", "post", projectApi.get_tasks_detail_suc);
+// Mock.mock("http://localhost:8080/project/getTasksDetail", "post", projectApi.get_tasks_detail_fai);
+
 Mock.mock("http://localhost:8080/project/editProject", "post", projectApi.edit_project_suc);
 // Mock.mock("http://localhost:8080/project/editProject", "post", projectApi.edit_project_fai);
 
 Mock.mock("http://localhost:8080/project/deleteProject", "post", projectApi.delete_project_suc);
 // Mock.mock("http://localhost:8080/project/deleteProject", "post", projectApi.delete_project_fai);
+
+Mock.mock("http://localhost:8080/project/getResourceDetail", "post", projectApi.get_resource_detail_suc);
+// Mock.mock("http://localhost:8080/project/getResourceDetail", "post", projectApi.get_resource_detail_fai);
 
 Mock.mock("http://localhost:8080/individual/getToDoOverview", "post", individualApi.get_todo_overview_suc);
 // Mock.mock("http://localhost:8080/individual/getToDoOverview", "post", individualApi.get_todo_overview_fai);
