@@ -16,28 +16,22 @@
         </div>
         <div>
             <div class='eidt-teammate-title'><h3>团队权限</h3></div>
-            <div class="project-permission-table">
-                <el-form>
+            <div class="team-permission-table">
                 <div><span>队内职位</span><span>{{teamPermission.position}}</span></div>
-                <div><span>编辑团队信息</span><span>{{teamPermission.editTeam}}</span></div>
-                <div><span>添加队员</span><span>{{teamPermission.addTeammates}}</span></div>
-                <div><span>编辑队员信息</span><span>{{teamPermission.editTeammate}}</span></div>
-                <div><span>创建项目</span><span>{{teamPermission.createProject}}</span></div>
-                </el-form>
-            </div>
-        </div>
-        <div>
-            <div class='eidt-teammate-title'><h3>项目权限</h3></div>
-            <div>
                 <el-table :data="projectPermission" class="project-permission-table">
-                    <el-table-column prop="projectName" label="项目名称" width="400"></el-table-column>
-                    <el-table-column prop="permissionEdit" label="编辑项目" width="80">
+                    <el-table-column prop="permissionEdit" label="邀请成员" width="80">
                         <template slot-scope="scope">
                             <span v-if="scope.row.permissionEdit" class="el-icon-check" :index="scope.row.projectId"></span>
                             <span v-else class="el-icon-close" :index="scope.row.projectId"></span>
                         </template>
                     </el-table-column>
-                    <el-table-column prop="permissionTask" label="分配任务" width="80">
+                    <el-table-column prop="permissionTask" label="编辑团队信息" width="80">
+                        <template slot-scope="scope">
+                            <span v-if="scope.row.permissionTask" class="el-icon-check" :index="scope.row.projectId"></span>
+                            <span v-else class="el-icon-close" :index="scope.row.projectId"></span>
+                        </template>
+                    </el-table-column>
+                    <el-table-column prop="permissionTask" label="同意加群" width="80">
                         <template slot-scope="scope">
                             <span v-if="scope.row.permissionTask" class="el-icon-check" :index="scope.row.projectId"></span>
                             <span v-else class="el-icon-close" :index="scope.row.projectId"></span>
@@ -97,19 +91,19 @@ export default {
     padding: .1rem 1rem;
 }
 
-.project-permission-table{
+.team-permission-table{
     box-shadow: #dddddd 0 0 0.4rem;
     border: solid #dddddd 1px;
     border-radius: 0.4rem;
     margin-bottom: 2rem;
 }
 
-.project-permission-table .el-icon-check{
+.team-permission-table .el-icon-check{
     font-size: 1.5rem;
     color: @success-color;
 }
 
-.project-permission-table .el-icon-close{
+.team-permission-table .el-icon-close{
     font-size: 1.5rem;
     color: @danger-color;
 }

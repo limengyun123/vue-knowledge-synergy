@@ -259,6 +259,7 @@ export default {
 }
 
 .team-chosen-name{
+    display: inline-block;
     width: 10.8rem;
     font-size: 1.1rem;
     text-align: center;
