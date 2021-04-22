@@ -16,7 +16,6 @@
                 </el-card>
             </el-col>
             <el-col :span="14">
-                <el-alert class="error-alert" :title="errorInfoMessage" v-if="showInfoError" type="error" show-icon></el-alert>
                 <el-form :model="userInfo" status-icon ref="userInfo" :rules="infoRules" label-width="100px" class="user-info-form">
                     <el-form-item label="用户名" prop="userName">
                         <el-input v-model="userInfo.userName" autocomplete="off" disabled></el-input>
@@ -44,16 +43,15 @@
                 </el-form>
             </el-col>
             <el-dialog title="修改密码" :visible.sync="showDialog" width="30%">
-                <el-alert class="error-alert" :title="errorPswdMessage" v-if="showPswdError" type="error" show-icon></el-alert>
                 <el-form :model="passwordForm" :rules="pswdRules" ref="passwordForm" label-width="90px">
                     <el-form-item label="原密码" prop="oldPassword">
-                        <el-input v-model="passwordForm.oldPassword" :show-password=true @focus="showPswdError=false"></el-input>
+                        <el-input v-model="passwordForm.oldPassword" :show-password='true' ></el-input>
                     </el-form-item>
                     <el-form-item label="新密码" prop="newPassword">
-                        <el-input v-model="passwordForm.newPassword" :show-password=true @focus="showPswdError=false"></el-input>
+                        <el-input v-model="passwordForm.newPassword" :show-password='true' ></el-input>
                     </el-form-item>
                     <el-form-item label="确认密码" prop="ensurePassword">
-                        <el-input v-model="passwordForm.ensurePassword" :show-password=true @focus="showPswdError=false"></el-input>
+                        <el-input v-model="passwordForm.ensurePassword" :show-password='true' ></el-input>
                     </el-form-item>
                     <el-form-item>
                         <el-button @click="cancelPswdForm('passwordForm')">取 消</el-button>
@@ -85,10 +83,6 @@ export default {
         };
         return {
             showDialog: false,
-            showInfoError: false,
-            showPswdError: false,
-            errorInfoMessage: '',
-            errorPswdMessage: '',
             userInfo:{
                 userName: '',
                 actualName: '',
@@ -161,8 +155,7 @@ export default {
                             duration: 1000,
                         });
                     }).catch((reason)=>{
-                        this.showInfoError = true;
-                        this.errorInfoMessage = reason;
+                        this.$message.error(reason);
                     })
                 }
             });
@@ -182,8 +175,7 @@ export default {
                             }
                         });
                     }).catch((reason)=>{
-                        this.showPswdError = true;
-                        this.errorPswdMessage = reason;
+                        this.$message.error(reason);
                     })
                 }
             });

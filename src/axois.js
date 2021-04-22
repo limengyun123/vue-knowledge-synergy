@@ -3,8 +3,10 @@ import store from './store';
 import router from './router';
 axios.defaults.baseURL='http://localhost:8080';
 
+
 axios.interceptors.request.use(config=>{
     console.log("请求拦截");
+    config.headers['content-type'] = 'application/json';
     return config;
 });
 
@@ -12,6 +14,7 @@ axios.interceptors.response.use(response=>{
     console.log("响应拦截");
     let result = response.data;
     if(result.code === 200) return Promise.resolve(result);
+    // if(result.code[0] === '0') return Promise.resolve(result);
     else return Promise.reject(result.msg);
 },
 error=>{

@@ -2,13 +2,12 @@
     <div>
         <GoBackHeader />
         <div class="form-body">
-            <el-alert class="error-alert" :title="errorMessage" v-if="showError" type="error" show-icon></el-alert>
             <el-form :model="myShorthand" status-icon :rules="infoRules" ref='myShorthand' label-width="100px">
                 <el-form-item label="标题" prop="title">
-                    <el-input v-model="myShorthand.title" autocomplete="off" @focus="showInfoError=false" class="input-title"></el-input>
+                    <el-input v-model="myShorthand.title" autocomplete="off" class="input-title"></el-input>
                 </el-form-item>
                 <el-form-item label="内容" prop="content">
-                    <el-input type="textarea" v-model="myShorthand.content" autocomplete="off" @focus="showInfoError=false" class="input-content"></el-input>
+                    <el-input type="textarea" v-model="myShorthand.content" autocomplete="off" class="input-content"></el-input>
                 </el-form-item>
                 <el-form-item>
                     <el-button type="primary" @click="submitShorthand">确认修改</el-button>
@@ -29,8 +28,6 @@ export default {
     },
     data(){
         return {
-            showError: false,
-            errorMessage: "",
             myShorthand:{
                 sId:-1,
                 title: '',

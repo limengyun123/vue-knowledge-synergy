@@ -95,7 +95,7 @@ export default{
         return {
             code: 200,
             msg: "查询成功",
-            data: {tName: teams[param.body-1].tName, tLeader: teams[param.body-1].tLeader, projects: projects[param.body-1], teammates:teammates[param.body-1]}
+            data: {projects: projects[param.body-1], teammates:teammates[param.body-1]}
             
         }
     },

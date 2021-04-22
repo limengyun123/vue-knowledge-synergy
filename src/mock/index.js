@@ -1,5 +1,5 @@
 import Mock from 'mockjs'
-import loginApi from './login'
+import userApi from './user'
 import infoApi from './profile'
 import teamApi from './team'
 import projectApi from './project'
@@ -13,14 +13,14 @@ import messageApi from './message'
  * template:返回数据
  */ 
 
- Mock.mock("http://localhost:8080/login/loginIn", "post", loginApi.login_result_suc);
-//  Mock.mock("http://localhost:8080/login/loginIn", "post", loginApi.login_result_fai);
+ Mock.mock("http://localhost:8080/user/login", "post", userApi.login_result_suc);
+//  Mock.mock("http://localhost:8080/user/login", "post", userApi.login_result_fai);
 
- Mock.mock("http://localhost:8080/login/register", "post", loginApi.register_result_suc);
-//  Mock.mock("http://localhost:8080/login/register", "post", loginApi.register_result_fai);
+ Mock.mock("http://localhost:8080/user/register", "post", userApi.register_result_suc);
+//  Mock.mock("http://localhost:8080/user/register", "post", userApi.register_result_fai);
 
- Mock.mock("http://localhost:8080/login/forgetPassword", "post", loginApi.forget_result_suc);
-//  Mock.mock("http://localhost:8080/login/forgetPassword", "post", loginApi.forget_result_fai);
+ Mock.mock("http://localhost:8080/user/forgetPassword", "post", userApi.forget_result_suc);
+//  Mock.mock("http://localhost:8080/user/forgetPassword", "post", userApi.forget_result_fai);
 
 Mock.mock("http://localhost:8080/profile/pswd", "post", infoApi.change_pswd_suc);
 // Mock.mock("http://localhost:8080/profile/pswd", "post", infoApi.change_pswd_fai);

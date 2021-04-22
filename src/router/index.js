@@ -7,14 +7,14 @@ Vue.use(VueRouter)
 const routes = [
 	{ path: '/', name: 'Home', component: Home },
 	{ 
-		path: '/login', 
-		name: 'login',
-		component: ()=> import('../views/login/index.vue'),
-		redirect: '/login/loginIn',
+		path: '/user', 
+		name: 'user',
+		component: ()=> import('../views/user/index.vue'),
+		redirect: '/user/login',
 		children:[
-			{ path: 'loginIn', name: 'loginIn', component: () => import(/* webpackChunkName: "loginIn" */ '../views/login/loginIn.vue') },
-			{ path: 'register', name: 'register', component: () => import(/* webpackChunkName: "register" */ '../views/login/register.vue') },
-			{ path: 'forgetPassword', name: 'forgetPassword',  meta: {requireAuth: true}, component: () => import(/* webpackChunkName: "forgetPassword" */ '../views/login/forgetPassword.vue') },
+			{ path: 'login', name: 'loginIn', component: () => import(/* webpackChunkName: "loginIn" */ '../views/user/login.vue') },
+			{ path: 'register', name: 'register', component: () => import(/* webpackChunkName: "register" */ '../views/user/register.vue') },
+			{ path: 'forgetPassword', name: 'forgetPassword',  meta: {requireAuth: true}, component: () => import(/* webpackChunkName: "forgetPassword" */ '../views/user/forgetPassword.vue') },
 		]
 	},
 	{ 

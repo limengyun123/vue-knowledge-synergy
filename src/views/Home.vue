@@ -2,8 +2,8 @@
   	<div>
 		<div class='static-info'>
 			<span class='title'>知识协同平台</span>
-			<router-link to="/login/register"><span class="operate-button">注册</span></router-link>
-			<router-link to="/login/loginIn"><span class="operate-button">登录</span></router-link>
+			<router-link to="/user/register"><span class="operate-button">注册</span></router-link>
+			<router-link to="/user/login"><span class="operate-button">登录</span></router-link>
 		</div>
 		<div>
             <div class="fixed-bg bg1">

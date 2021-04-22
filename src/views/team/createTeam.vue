@@ -9,8 +9,8 @@
                 <el-form-item label="组长" prop="teamLeader">
                     <el-input v-model="teamInfo.teamLeader" disabled></el-input>
                 </el-form-item>
-                <el-form-item label="团队简介" prop="teamBreif">
-                    <el-input v-model="teamInfo.teamBreif"></el-input>
+                <el-form-item label="团队简介" prop="teamBrief">
+                    <el-input v-model="teamInfo.teamBrief"></el-input>
                 </el-form-item>
                 <el-form-item label="所属机构" prop="teamInstitute">
                     <el-input v-model="teamInfo.teamInstitute"></el-input>
@@ -51,7 +51,7 @@ export default {
             teamInfo: {
                 teamName: "",
                 teamLeader: "",
-                teamBreif:"",
+                teamBrief:"",
                 teamInstitute: "",
                 teamMembers: []
             },
@@ -70,7 +70,7 @@ export default {
                         trigger: 'blur'
                     }
                 ],
-                teamBreif:[
+                teamBrief:[
                     {
                         min: 2,
                         max: 30,
