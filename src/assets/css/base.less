@@ -27,10 +27,59 @@
 /*全局滚动条样式结束*/
 
 
+
+
+/* 全局分页栏样式修改开始*/
+.el-pagination{
+    margin: 2rem 0;
+    text-align: center;
+}
+.el-pagination .number:hover{
+    color: @support-color-ps;
+}
+.el-pagination .el-pager .active{
+    color: @support-color-ps;
+}
+/* 全局分页栏样式修改结束*/
+
+
+
+
+/*修改el-dropdown的默认样式 */
+.el-popper .el-dropdown-menu__item:hover{
+    color: @main-color;
+    background-color:@support-color-bg;
+}
+.el-popper .el-dropdown-menu__item:focus{
+    color: @main-color;
+    background-color:@support-color-bg;
+}
+
+/*修改el-dropdown的默认样式结束 */
+
+
+/* 修改el-select的样式*/
+.el-select .el-input__inner:focus{
+    border-color:@support-color-ps !important;
+}
+.el-popper .el-select-dropdown__item:hover{
+    color: @main-color;
+    background-color:@support-color-bg;
+}
+.el-popper .selected{
+    color:@main-color;
+}
+/* 修改el-select的样式结束*/
+
+
+
+/* 修改el-input的样式开始*/
 .el-input__inner:focus{
     border-color: @support-color-ps;
 }
-
+.el-textarea__inner:focus{
+    border-color: @support-color-ps;
+}
 .el-checkbox__input.is-checked .el-checkbox__inner{
     background-color: @support-color-ps;
     border-color: @support-color-ps;
@@ -38,18 +87,42 @@
 .el-checkbox__input.is-checked + .el-checkbox__label {
     color: @support-color-ps;
 }
+.el-radio__input.is-checked + .el-radio__label {
+    color: @support-color-ps;
+}
+.el-radio__input.is-checked .el-radio__inner {
+    background-color: @support-color-ps;
+    border-color: @support-color-ps;
+}
+/* 修改el-input的样式结束*/
 
-.el-button--primary {
+
+/* 修改el-button的样式开始*/
+.el-button--default {
+    color: @support-color-ps;
+    // background-color: @support-color-bg;
+    border-color: @support-color-ps;
+}
+.el-button--default:hover{
+    color: @support-color-ps;
+    background-color: @support-color-bg;
+    border-color: @support-color-ps;
+}
+.el-button--default:focus{
+    color: @support-color-ps;
+    background-color: @support-color-bg;
+    border-color: @support-color-ps;
+}
+
+.el-button--primary{
     background-color: @support-color-ps;
     border: none;
 }
-
 .el-button--primary:hover{
     background-color: @main-color;
 }
-
 .el-button--primary:focus{
     background-color: @main-color;
 }
 
-
+/* 修改el-button的样式结束*/

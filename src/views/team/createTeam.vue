@@ -162,20 +162,7 @@ export default {
 }
 
 .create-team-button{
-    color: white;
-    background-color: @support-color-ps;
-    border: @support-color-ps;
     margin-left: 6rem;
-}
-
-.create-team-button:hover{
-    color: white;
-    background-color:@main-color;
-}
-
-.create-team-button:focus{
-    color: white;
-    background-color:@main-color;
 }
 
 </style>

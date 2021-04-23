@@ -20,7 +20,7 @@
                 <h3 class='task-detail-title'>任务详情</h3>
                 <div class='task-detail-head'>
                     <label>选择查看方式:  </label>
-                    <el-select v-model="chosenMethodIndividual" @change='changeMethodIndividual' class='task-select' popper-class="task-select-option">
+                    <el-select v-model="chosenMethodIndividual" @change='changeMethodIndividual' class='task-select'>
                         <el-option label="待完成" :value="1"></el-option>
                         <el-option label="已完成" :value="2"></el-option>
                         <el-option label="逾期" :value="3"></el-option>
@@ -49,7 +49,7 @@
 
         <div class='task-overview-part'>
             <div class='task-overview-title'><h3>团队任务</h3></div>
-            <ButtonPrimary @buttonClick='addTask' class='assign-task-button'>添加任务</ButtonPrimary>
+            <el-button type="primary" @buttonClick='addTask' class='assign-task-button'>添加任务</el-button>
             <div class='task-overview-body'>
                 <div class='task-overview-item'>
                     <p>总任务</p><div class='blue-text'>{{taskOverviewTeam.total}}</div>
@@ -70,7 +70,7 @@
                 <div>
                     <div class='task-detail-head'>
                         <label>选择查看方式:  </label>
-                        <el-select v-model="chosenMethodTeam" @change='changeMethodTeam' class='task-select' popper-class="task-select-option">
+                        <el-select v-model="chosenMethodTeam" @change='changeMethodTeam' class='task-select'>
                             <el-option-group
                             v-for="group in checkMethods"
                             :key="group.label"
@@ -136,14 +136,10 @@
 </template>
 
 <script>
-import ButtonPrimary from '../../components/buttonPrimary';
 import {getTasksOverviewApi, getTasksDetailApi} from '../../api/project';
 
 export default {
     name: "ProjectTasks",
-    components:{
-        "ButtonPrimary": ButtonPrimary
-    },
     data(){
         return {
             taskOverviewIndividual:{ total: 0, finished: 0, unFinished:0, erdue: 0 },
@@ -329,18 +325,5 @@ export default {
     padding: .5rem 1rem;
 }
 
-/* 修改el-select的样式*/
-.task-select .el-input__inner:focus{
-    border-color:@support-color-ps !important;
-}
-
-.task-select-option .el-select-dropdown__item:hover{
-    background-color:@support-color-bg;
-}
-
-.task-select-option .selected{
-    color:@main-color;
-}
-/* 修改el-select的样式结束*/
 
 </style>

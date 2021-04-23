@@ -17,7 +17,7 @@
                     <!-- <span></span> -->
                 </div>
             </div>
-            <el-pagination class="pagination"
+            <el-pagination
                 @size-change="handleSizeChange"
                 @current-change="handleCurrentChange"
                 :current-page="paginationInfo.currentPage"

@@ -49,17 +49,9 @@ export default {
                 assigned: []
             },
             rules:{
-                startTime:{
-                    required: true,
-                    message: "请选择任务开始时间",
-                    trigger: 'blur'
-                },
+                startTime:{ required: true, message: "请选择任务开始时间", trigger: 'blur' },
                 deadline:[
-                    {
-                        required: true,
-                        message: "请选择任务结束时间",
-                        trigger: 'blur'
-                    },
+                    { required: true, message: "请选择任务结束时间", trigger: 'blur' },
                     {
                         validator:(rule, value, callback)=>{
                             if(value>this.task.startTime){
@@ -72,23 +64,10 @@ export default {
                     }
                 ],
                 description:[
-                    {
-                        required: true,
-                        message: "请对任务加以描述",
-                        trigger: 'blur'
-                    },
-                    {
-                        min: 1,
-                        max: 500,
-                        message: "请输入1-500个字符",
-                        trigger: 'blur'
-                    }
+                    { required: true, message: "请对任务加以描述", trigger: 'blur' },
+                    { min: 1, max: 500, message: "请输入1-500个字符", trigger: 'blur' }
                 ],
-                assigned:{
-                    required: true,
-                    message: "请选择受任者",
-                    trigger: blur
-                }
+                assigned:{ required: true, message: "请选择受任者", trigger: blur }
             }
         }
     },

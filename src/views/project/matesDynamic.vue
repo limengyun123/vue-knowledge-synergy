@@ -1,74 +1,81 @@
 <template>
     <div>
-        <el-collapse v-model="activeNames" @change="handleChange" class="dynamic-body">
-            <el-collapse-item title="2021-03" name="1">
-                <el-timeline>
-                    <el-timeline-item
-                        v-for="(activity, index) in activities"
-                        :key="index"
-                        :timestamp="activity.timestamp">
-                        {{activity.content}}
-                    </el-timeline-item>
-                </el-timeline>
-            </el-collapse-item>
-            <el-collapse-item title="2021-02" name="2">
-                <el-timeline>
-                    <el-timeline-item
-                        v-for="(activity, index) in activities"
-                        :key="index"
-                        :timestamp="activity.timestamp">
-                        {{activity.content}}
-                    </el-timeline-item>
-                </el-timeline>
-            </el-collapse-item>
-            <el-collapse-item title="2021-01" name="3">
-                <el-timeline>
-                    <el-timeline-item
-                        v-for="(activity, index) in activities"
-                        :key="index"
-                        :timestamp="activity.timestamp">
-                        {{activity.content}}
-                    </el-timeline-item>
-                </el-timeline>
-            </el-collapse-item>
-            <el-collapse-item title="2020-12" name="4">
-                <el-timeline>
-                    <el-timeline-item
-                        v-for="(activity, index) in activities"
-                        :key="index"
-                        :timestamp="activity.timestamp">
-                        {{activity.content}}
-                    </el-timeline-item>
-                </el-timeline>
-            </el-collapse-item>
-        </el-collapse>
-
+        <div class="mates-dynamic-body">
+            <!-- <div>成员动态类型：创建项目、上传资源、删除资源、发布任务、取消任务、完成任务、修改项目</div> -->
+            <el-timeline>
+                <el-timeline-item
+                    v-for="(activity, index) in dynamics"
+                    :key="index"
+                    :timestamp="activity.timestamp">
+                    <el-card>
+                        <p>{{activity.content}}</p>
+                    </el-card>
+                </el-timeline-item>
+            </el-timeline>
+        </div>
+        <el-pagination 
+            @size-change="handleSizeChange"
+            @current-change="handleCurrentChange"
+            :current-page="paginationInfo.currentPage"
+            :page-sizes="[3, 10, 20, 30, 40]"
+            :page-size="paginationInfo.pageSize"
+            layout="total, sizes, prev, pager, next, jumper"
+            :total="paginationInfo.totalNum"
+            :pager-count="paginationInfo.paperCount"
+            hide-on-single-page
+        >
+        </el-pagination>   
     </div>
 </template>
 
 <script>
+import {getDynamicsApi} from '../../api/project';
+
 export default {
     name: "MatesDynamic",
     data(){
         return {
-            activeNames: ['1'],
-            activities:[
-                { content: '活动按期开始', timestamp: '2021-03-15' }, 
-                { content: '通过审核', timestamp: '2021-03-13' }, 
-                { content: '创建成功', timestamp: '2021-03-11' }
-            ]
+            paginationInfo:{
+                totalNum: 0,
+                currentPage: 1,
+                pageSize: 3,
+                pagerCount: 7
+            },
+            dynamics:[]
         }
     },
+    created(){
+        // console.log(this.$route.params.id);
+        // this.projectId = this.$route.params.id;
+        this.getMatesDynamics();
+    },
     methods:{
-        handleChange(){}
+        getMatesDynamics(){
+            getDynamicsApi(this.paginationInfo).then((result)=>{
+                this.dynamics = result.data.dynamics;
+                this.paginationInfo.totalNum = result.data.totalNum;
+            }).catch((reason=>{
+                this.$message.error(reason);
+            }));
+        },
+        handleSizeChange(val){
+            this.paginationInfo.pageSize = val;
+            this.getMatesDynamics();
+        },
+        handleCurrentChange(val){
+            this.paginationInfo.currentPage = val;
+            this.getMatesDynamics();
+        },
     }
 }
 </script>
 
-<style scoped>
-    .dynamic-body{
-        width: 90%;
-        margin: 2rem 5% 0;
-    }
+<style lang='less'>
+@import "../../assets/css/common.less";
+
+.mates-dynamic-body{
+    width: 90%;
+    margin: 2rem 5% 0;
+}
 
 </style>

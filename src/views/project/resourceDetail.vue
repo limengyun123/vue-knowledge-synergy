@@ -15,7 +15,8 @@
                     <div><b>资源大小： </b>{{resourceInfo.resourceSize}}</div>
                     <div><b>评 论 数： </b>{{getResourceRepliesCount}}</div>
                 </div>
-                <div class='resource-detail-description-delete'><ButtonPrimary @buttonClick="deleteResource">删 除</ButtonPrimary></div>
+                <div class='resource-detail-description-delete'>
+                    <el-button type="primary" @buttonClick="deleteResource">删 除</el-button></div>
             </div>
             <div class='resource-detail-title'><h3>资源预览</h3></div>
             <div class="resource-detail-show">
@@ -58,8 +59,8 @@
                         width="25rem">
                         <el-input type="textarea" v-model="replyInput" placeholder="请输入您的评论"></el-input>
                         <span slot="footer" class="dialog-footer">
-                            <ButtonDefault @buttonClick="closeDialog">取 消</ButtonDefault>
-                            <ButtonPrimary @buttonClick="sendReply">发 送</ButtonPrimary>
+                            <el-button @buttonClick="closeDialog">取 消</el-button>
+                            <el-button type="primary" @buttonClick="sendReply">发 送</el-button>
                         </span>
                     </el-dialog>
 
@@ -71,16 +72,12 @@
 
 <script>
 import GoBackHead from '../../components/goBackHead';
-import ButtonDefault from '../../components/buttonDefault';
-import ButtonPrimary from '../../components/buttonPrimary';
 import {getResourceDetailApi,sendCommentApi,deleteCommentApi,sendReplyApi} from '../../api/project';
 
 export default {
     name: "ResourceDetail",
     components:{
         "GoBackHead": GoBackHead,
-        "ButtonDefault": ButtonDefault,
-        "ButtonPrimary": ButtonPrimary
     },
     data(){
         return {

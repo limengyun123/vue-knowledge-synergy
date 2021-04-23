@@ -231,21 +231,9 @@ export default {
 
 
 .edit-team-button{
-    color: white;
-    background-color: @support-color-ps;
-    border: @support-color-ps;
     margin-left: 4rem;
 }
 
-.edit-team-button:hover{
-    color: white;
-    background-color:@main-color;
-}
-
-.edit-team-button:focus{
-    color: white;
-    background-color:@main-color;
-}
 
 .transfer-team-to{
     margin: 2rem 1rem;

@@ -26,7 +26,7 @@
                 </div>
             </div>
         </div>
-        <el-pagination class="pagination"
+        <el-pagination 
             @size-change="handleSizeChange"
             @current-change="handleCurrentChange"
             :current-page="paginationInfo.currentPage"
@@ -197,9 +197,5 @@ export default {
     color: red;
 }
 
-.pagination{
-        margin: 3rem auto;
-        text-align: center;
-    }
 
 </style>

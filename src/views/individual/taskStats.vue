@@ -1,7 +1,7 @@
 <template>
     <div class='task-statistics-page'>
         <div class='task-chart-item'>
-            <el-select v-model="taskUrgentType" slot="prepend" @change="selectUrgentChange" class='task-chart-select' popper-class="task-chart-select-option">
+            <el-select v-model="taskUrgentType" slot="prepend" @change="selectUrgentChange" class='task-chart-select'>
                 <el-option label="紧急任务" :value="1"></el-option>
                 <el-option label="非紧急任务" :value="2"></el-option>
                 <el-option label="任务总数" :value="3"></el-option>
@@ -17,7 +17,7 @@
             <div id="disurgent" class="task-chart-area"></div>
         </div> -->
         <div class='task-chart-item'>
-            <el-select v-model="taskTimeRange" slot="prepend" @change="selectTimeChange" class='task-chart-select' popper-class="task-chart-select-option">
+            <el-select v-model="taskTimeRange" slot="prepend" @change="selectTimeChange" class='task-chart-select'>
                 <el-option label="近一周任务完成情况" :value="1"></el-option>
                 <el-option label="近一月任务完成情况" :value="2"></el-option>
                 <el-option label="近一年任务完成情况" :value="3"></el-option>
@@ -223,13 +223,6 @@ export default {
     border: none;
 } 
 
-.task-chart-select-option .el-select-dropdown__item:hover{
-    background-color:@support-color-bg;
-}
-
-.task-chart-select-option .selected{
-    color:@main-color;
-}
 /* 修改el-select的样式结束*/
 
 </style>

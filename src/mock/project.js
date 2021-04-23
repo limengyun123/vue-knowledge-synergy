@@ -39,6 +39,24 @@ const comments = [
     {commentId:10, userName:"高灵梦", id:111111, commentTime:"2020-05-10 13:19", commentReplyId:null, commentContent:"太强了！"},
 ];
 
+const dynamics = [
+    { content: '张志强上传了资源《系统设计详细文档》', timestamp: '2021-03-15' }, 
+    { content: '刘伟上传了资源《系统概要设计》', timestamp: '2021-03-13' }, 
+    { content: '赵浩发布任务给张志强，完成《系统设计详细文档》', timestamp: '2021-03-10' }, 
+    { content: '赵浩发布任务给刘伟：完成《系统概要设计》', timestamp: '2021-03-10' }, 
+    { content: '赵四海上传了资源《需求规格说明书》', timestamp: '2021-03-9' },
+    { content: '赵浩发布任务给赵四海：完成《需求规格说明书》', timestamp: '2021-03-6' },
+    { content: '张志强上传了资源《系统设计详细文档》', timestamp: '2021-03-15' }, 
+    { content: '刘伟上传了资源《系统概要设计》', timestamp: '2021-03-13' }, 
+    { content: '赵浩发布任务给张志强，完成《系统设计详细文档》', timestamp: '2021-03-10' }, 
+    { content: '赵浩发布任务给刘伟：完成《系统概要设计》', timestamp: '2021-03-10' }, 
+    { content: '赵四海上传了资源《需求规格说明书》', timestamp: '2021-03-9' },
+    { content: '赵浩发布任务给赵四海：完成《需求规格说明书》', timestamp: '2021-03-6' },
+    { content: '周欣上传了资源《商业计划书》', timestamp: '2021-03-4' },
+    { content: '赵浩发布任务给周欣、孙香、李志鹏：完成《商业计划书》', timestamp: '2021-02-16' },
+    { content: '赵浩创建了项目，暨南软件影票售卖系统', timestamp: '2021-02-10' },
+];
+
 
 export default {
     get_resources_suc:(param)=>{
@@ -139,6 +157,25 @@ export default {
         return {
             code: 503,
             msg: "任务分配失败",
+        }
+    },
+    get_dynamics_suc:(param)=>{
+        let prm = JSON.parse(param.body);
+        let cp = prm.currentPage, ps = prm.pageSize;
+        
+        return {
+            code: 200,
+            msg: "查询成功",
+            data: {
+                dynamics: dynamics.slice((cp-1)*ps, cp*ps),
+                totalNum: dynamics.length,
+            }
+        }
+    },
+    get_dynamics_fai:(param)=>{
+        return {
+            code: 403,
+            msg: "查询失败，请稍后重试",
         }
     },
     edit_project_suc:(param)=>{

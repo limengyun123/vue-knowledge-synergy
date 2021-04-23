@@ -30,13 +30,11 @@
 <script>
 import {getTeamsApi, joinTeamApi} from '../../api/team';
 import GoBackHead from '../../components/goBackHead';
-import ButtonPrimary from '../../components/buttonPrimary';
 
 export default {
     name: "JoinTeam",
     components:{
         'GoBackHead': GoBackHead,
-        'ButtonPrimary': ButtonPrimary
     },
     data(){
         return {

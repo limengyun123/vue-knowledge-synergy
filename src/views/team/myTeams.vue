@@ -63,7 +63,7 @@
                     <router-link :to="'/common/team/addTeammates/'+teamChosenId">
                         <el-avatar icon="el-icon-plus" class="team-page-teammates"></el-avatar>
                     </router-link>
-                    <router-link v-for="mate in myTeammates" :key="mate.userName" :to="'/common/team/editTeammate/'+mate.id">
+                    <router-link v-for="mate in myTeammates" :key="mate.userName" to="/common/team/editTeammates">
                         <el-avatar class="team-page-teammates">
                             {{mate.actualName}}
                         </el-avatar>
@@ -198,8 +198,6 @@ export default {
 }
 
 .team-page-right{
-    width: 5rem;
-    // background-color: @support-color-bg;
     border: #dddddd solid 1px;
     border-radius: 1rem 0 0 1rem;     
     box-shadow: #dddddd 0 0 .5rem;
@@ -207,6 +205,8 @@ export default {
     max-height: 30rem;
     overflow: scroll;
     margin-top: 4rem;
+    display: flex;
+    flex-direction: column;
 }
 
 /* 无团队时的样式*/
@@ -288,12 +288,6 @@ export default {
 /* 团队标题结束*/
 
 
-// 修改下拉框默认样式
-.el-popper .el-dropdown-menu__item:hover{
-    color: @main-color;
-    background-color:@support-color-bg;
-}
-
 /* 团队中项目list样式*/
 .team-page-project-items{
     color:#888888;
@@ -325,7 +319,7 @@ export default {
 .team-page-teammates{
     width: 3rem;
     height: 3rem;
-    margin: 0.3rem;
+    margin: .3rem 0.5rem;
     background-color: @support-color-ps;
     color:white;
     line-height: 3rem;
@@ -355,7 +349,7 @@ export default {
 
 
 
-/*修改a的默认样式 */
+/*修改dropdown的默认样式 */
 .el-dropdown-menu__item a{
     text-decoration: none;
     color: #555555;
@@ -363,5 +357,5 @@ export default {
 .el-dropdown-menu__item .router-link-active {
     text-decoration: none;
 }
-/*修改a的默认样式结束 */
+/*修改dropdown的默认样式结束 */
 </style>

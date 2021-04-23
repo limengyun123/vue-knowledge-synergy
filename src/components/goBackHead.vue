@@ -29,6 +29,10 @@ export default {
                 this.parentDir = "团队协同";
                 this.childDir = "加入团队";
                 break;
+            case "editTeammates":
+                this.parentDir = "团队协同";
+                this.childDir = "编辑团员信息";
+                break;
             case 'personalInfo':
                 this.parentDir = "个人信息";
                 this.childDir = "个人档案";
@@ -44,10 +48,6 @@ export default {
                     case "editTeam":
                         this.parentDir = "团队协同";
                         this.childDir = "编辑团队信息";
-                        break;
-                    case "editTeammate":
-                        this.parentDir = "团队协同";
-                        this.childDir = "编辑团员信息";
                         break;
                     case "addTeammates":
                         this.parentDir = "团队协同";
