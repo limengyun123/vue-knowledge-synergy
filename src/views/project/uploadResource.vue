@@ -69,10 +69,10 @@ export default {
             let formData = new FormData();
             if(this.fileList.length){
                 this.fileList.forEach((file,index) => {
-                    formData.append(`file_${index}`,file)
+                    formData.append(`file_${index}`,file);
                 });
 
-                uploadResourcesApi({fileList: formData}).then((result)=>{
+                uploadResourcesApi({pId:1, fileList: formData}).then((result)=>{
                     this.$message({
                         type: 'success',
                         message: result.msg,

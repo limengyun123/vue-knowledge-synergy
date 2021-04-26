@@ -49,7 +49,7 @@
 
         <div class='task-overview-part'>
             <div class='task-overview-title'><h3>团队任务</h3></div>
-            <el-button type="primary" @buttonClick='addTask' class='assign-task-button'>添加任务</el-button>
+            <el-button type="primary" @click='addTask' class='assign-task-button'>添加任务</el-button>
             <div class='task-overview-body'>
                 <div class='task-overview-item'>
                     <p>总任务</p><div class='blue-text'>{{taskOverviewTeam.total}}</div>

@@ -27,6 +27,7 @@
                         <el-option v-for="item in timeOptions" :key="item" :label="item" :value="item">
                         </el-option>
                     </el-select>
+                    <el-button type="primary" @click="addTodo" class='add-todo-button'>新建事项</el-button>
                 </div>
                 <div class='todo-detail-body'>
                     <!-- 事件重要程度：a>b>c -->
@@ -79,7 +80,10 @@ export default {
         },
         changeTimeRange(e){
             this.getToDoList();
-        }
+        },
+        addTodo(){
+            this.$router.push('/common/individual/addTodo');
+        },
     }
 }
 </script>
@@ -134,6 +138,12 @@ export default {
 .green-text{
     color: lightgreen;
 }
+
+
+.add-todo-button{
+    float: right;
+}
+
 
 .todo-detail{
     width: 94%;

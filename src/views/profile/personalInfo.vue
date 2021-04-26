@@ -24,8 +24,8 @@
                         <el-input v-model="userInfo.actualName" autocomplete="off"></el-input>
                     </el-form-item>
                     <el-form-item label="性别" prop="sex">
-                        <el-radio v-model="userInfo.sex" label="男">男</el-radio>
-                        <el-radio v-model="userInfo.sex" label="女">女</el-radio>
+                        <el-radio v-model="userInfo.sex" :label="true">男</el-radio>
+                        <el-radio v-model="userInfo.sex" :label="false">女</el-radio>
                     </el-form-item>
                     <el-form-item label="手机号码" prop="mobile">
                         <el-input v-model="userInfo.mobile"></el-input>

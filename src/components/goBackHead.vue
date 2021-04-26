@@ -33,6 +33,10 @@ export default {
                 this.parentDir = "团队协同";
                 this.childDir = "编辑团员信息";
                 break;
+            case "addTodo":
+                this.parentDir = "个人空间";
+                this.childDir = "新建待办事项";
+                break;
             case 'personalInfo':
                 this.parentDir = "个人信息";
                 this.childDir = "个人档案";

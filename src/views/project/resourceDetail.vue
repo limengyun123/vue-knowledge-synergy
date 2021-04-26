@@ -16,7 +16,7 @@
                     <div><b>评 论 数： </b>{{getResourceRepliesCount}}</div>
                 </div>
                 <div class='resource-detail-description-delete'>
-                    <el-button type="primary" @buttonClick="deleteResource">删 除</el-button></div>
+                    <el-button type="primary" @click="deleteResource">删 除</el-button></div>
             </div>
             <div class='resource-detail-title'><h3>资源预览</h3></div>
             <div class="resource-detail-show">
@@ -59,8 +59,8 @@
                         width="25rem">
                         <el-input type="textarea" v-model="replyInput" placeholder="请输入您的评论"></el-input>
                         <span slot="footer" class="dialog-footer">
-                            <el-button @buttonClick="closeDialog">取 消</el-button>
-                            <el-button type="primary" @buttonClick="sendReply">发 送</el-button>
+                            <el-button @click="closeDialog">取 消</el-button>
+                            <el-button type="primary" @click="sendReply">发 送</el-button>
                         </span>
                     </el-dialog>
 

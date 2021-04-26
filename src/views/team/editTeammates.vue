@@ -2,11 +2,16 @@
     <div>
         <GoBackHead />
         <div class="team-permission-table">
-            <el-table :data="teammates" class="project-permission-table" border>
-                <el-table-column fixed prop="userName" label="姓名" width="80"> </el-table-column>
-                <el-table-column fixed prop="sex" label="性别" width="80"> </el-table-column>
-                <el-table-column fixed prop="email" label="邮箱" width="120"> </el-table-column>
-                <el-table-column fixed prop="joinTime" label="入群时间" width="120"> </el-table-column>
+            <el-table :data="teammates">
+                <el-table-column prop="actualName" label="姓名" width="80"> </el-table-column>
+                <el-table-column prop="sex" label="性别" width="80">
+                    <template slot-scope="scope">
+                            <span v-if="scope.row.sex">男</span>
+                            <span v-else>女</span>
+                        </template>
+                </el-table-column>
+                <el-table-column prop="email" label="邮箱" width="200"> </el-table-column>
+                <el-table-column prop="joinTime" label="入群时间" width="150"> </el-table-column>
                 <el-table-column label="成员权限" >
                     <el-table-column prop="permissionEdit" label="设置团员权限" width="120">
                         <template slot-scope="scope">
@@ -15,6 +20,12 @@
                         </template>
                     </el-table-column>
                     <el-table-column prop="permissionTask" label="编辑团队" width="80">
+                        <template slot-scope="scope">
+                            <span v-if="scope.row.permissionTask" class="el-icon-check" :index="scope.row.projectId"></span>
+                            <span v-else class="el-icon-close" :index="scope.row.projectId"></span>
+                        </template>
+                    </el-table-column>
+                    <el-table-column prop="permissionTask" label="发布公告" width="80">
                         <template slot-scope="scope">
                             <span v-if="scope.row.permissionTask" class="el-icon-check" :index="scope.row.projectId"></span>
                             <span v-else class="el-icon-close" :index="scope.row.projectId"></span>
@@ -61,14 +72,15 @@ export default {
     },
     data(){
         return {
-            teammates:{
+            teammates:[
+                {
                 id: 481933,
                 actualName: '赵浩',
                 sex: true,
                 email: '47828743@qq.com',
                 phone: '18573829753',
                 joinTime: '2020-09-21 18:42'
-            },
+            },]
         }
     }
 }

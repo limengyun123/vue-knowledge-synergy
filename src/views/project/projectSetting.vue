@@ -9,8 +9,8 @@
             </el-form-item>
             <el-form-item label="是否归档" prop="finished">
                 <el-radio-group v-model="projectInfo.finished">
-                    <el-radio :label="1">是</el-radio>
-                    <el-radio :label="2">否</el-radio>
+                    <el-radio :label="true">是</el-radio>
+                    <el-radio :label="false">否</el-radio>
                 </el-radio-group>
             </el-form-item>
             <el-form-item>
@@ -32,7 +32,7 @@ export default {
                 pId: '',
                 projectName: '',
                 deadline: '',
-                finished: 1
+                finished: false
             },
             infoRules:{
 

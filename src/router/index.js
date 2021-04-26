@@ -74,6 +74,7 @@ const routes = [
 	{ path: '/common/project/assignTask/:id', component: ()=> import('../views/project/assignTask.vue') },
 	{ path: '/common/project/resourceDetail/:id', component: ()=> import('../views/project/resourceDetail.vue') },
 	{ path: '/common/individual/editShorthand/:id', component: ()=> import('../views/individual/editShorthand.vue') },
+	{ path: '/common/individual/addTodo', component: ()=> import('../views/individual/addTodo.vue') },
 	{ path: '*', name: 'error', component: () => import('../components/error.vue') }, 
 ]
 

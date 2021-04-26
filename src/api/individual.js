@@ -8,6 +8,10 @@ export const getToDoListApi=(time)=>{
     return axios.post('individual/getToDoList',time);
 };
 
+export const addTodoApi = (param)=>{
+    return Promise.resolve(1);
+};
+
 export const getShorthandsApi = (pageInfo)=>{
     return axios.post('individual/getShorthands',pageInfo);
 }
