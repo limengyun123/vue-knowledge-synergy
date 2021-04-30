@@ -28,7 +28,6 @@ export default {
     name: 'Login',
     data(){
         return {
-            // isRemember: false,
             loginForm: {
                 email: '',
                 password: ''
@@ -56,29 +55,21 @@ export default {
         submitForm(formName){
             this.$refs[formName].validate((valid)=>{
                 if (valid) {
-                    let param={
-                        // isRemember: true,
-                        user:{
-                            email: '7823748@126.com',
-                            password: '12345'
-                        }
-                    };
-                    loginApi(this.loginForm).then( (result)=> {
-                    // loginApi(param).then( (result)=> {
-                        
-                        const token = result.headers['authorization'];
-                        this.$store.commit('SET_TOKEN', token);
-                        this.loginForm.password = this.loginForm.password.replace(/\w/g, '*');
-                        this.$store.commit('SET_USERINFO', Object.assign({},this.loginForm,result.data));
+                    loginApi({user:this.loginForm}).then((result)=> {
+                        console.log('1');
+                        this.$store.commit('SET_TOKEN', result.data.token);
+                        // this.loginForm.password = this.loginForm.password.replace(/\w/g, '*');
+                        this.$store.commit('SET_USERINFO', Object.assign({},this.loginForm,result.data.user));
                         this.$message({
                             message: '登录成功',
                             type: 'success',
                             duration: 1000,
-                            onClose:()=>{this.$router.push('/common')}
+                            onClose:()=>{this.$router.push('/common');console.log(2);}
                         });
                         
                     }).catch((reason) =>{
-                        this.$message.error("登录失败");
+                        console.log(3);
+                        this.$message.error(reason);
                     })
                 } 
                 else{

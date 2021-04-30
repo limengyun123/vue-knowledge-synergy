@@ -19,10 +19,10 @@
                     <div class="el-icon-chat-dot-round"></div>
                     <div>消息</div>
                 </router-link>
-                <router-link to="/common/profile/siteSetting" class="common-nav-item">
+                <!-- <router-link to="/common/profile/siteSetting" class="common-nav-item">
                     <div class="el-icon-s-tools"></div>
                     <div>设置中心</div>
-                </router-link>
+                </router-link> -->
             </div>
             <el-dropdown @command="handleCommand" class="common-nav-avatar" placement="right-end">
                 <span>
@@ -44,34 +44,41 @@
 </template>
 
 <script>
-    export default {
-        data() {
-            return {
-                noticeNum: 10
-            };
-        },
-        computed: {
-            getUser(){
-                return this.$store.state.userInfo.actualName;
-            }
-        },
-        methods: {
-            handleCommand(command) {
-                switch(command){
-                    case 'personal':
-                        this.$router.push('/personalInfo');
-                        break;
-                    case 'notification':
-                        this.$router.push('/notification');
-                        break;
-                    default:
+import {logoutApi} from '../../api/user';
+
+export default {
+    data() {
+        return {
+            noticeNum: 10
+        };
+    },
+    computed: {
+        getUser(){
+            return this.$store.state.userInfo.actualName;
+        }
+    },
+    methods: {
+        handleCommand(command) {
+            switch(command){
+                case 'personal':
+                    this.$router.push('/personalInfo');
+                    break;
+                case 'notification':
+                    this.$router.push('/notification');
+                    break;
+                default:
+                    logoutApi().then(()=>{
+                        this.$message.success("成功退出");
                         this.$store.commit('REMOVE_INFO');
                         this.$router.push('/');
-                }
-            },
-            
-        }
+                    }).catch((reason)=>{
+                        this.$message.error(reason);
+                    });
+            }
+        },
+        
     }
+}
 </script>
 
 <style lang="less">
@@ -118,7 +125,7 @@
 }
 
 .common-nav-avatar{
-    margin-top: 40%;
+    margin-top: 80%;
 }
 
 .common-nav-item :first-child{

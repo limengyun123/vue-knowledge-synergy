@@ -1,0 +1,33 @@
+{
+    "type": "force",
+    "categories": [
+        {"name": "暨南软件影票售卖系统", "keyword": {}, "base": "暨南软件影票售卖系统"},
+        {"name": "你知科研团队", "keyword": {}, "base": "你知科研团队"},
+        {"name": "刘培念课题组", "keyword": {}, "base": "刘培念课题组"}
+    ],
+    "nodes": [
+        { "name": "暨南软件影票售卖系统", "value": 20, "category": 1, "symbolSize": 40},
+        { "name": "cinema_tickets_version_0", "value": 4, "category": 1, "symbolSize": 20 },
+        { "name": "cinema_tickets_version_1", "value": 4, "category": 1, "symbolSize": 20 },
+        { "name": "你知科研团队", "value": 20, "category": 2, "symbolSize": 80 },
+        { "name": "河北省公路地质灾害预警系统的初步构建", "value": 4, "category": 2, "symbolSize": 20 },
+        { "name": "新民居建设对耕地利用的影响调查研究", "value": 4, "category": 2, "symbolSize": 20 },
+        { "name": "中西方高等教育背景下大学生创业意识的比较研究", "value": 4, "category": 2, "symbolSize": 20 },
+        { "name": "有限元强度折减法在边坡稳定性中的应用研究", "value": 4, "category": 2, "symbolSize": 20 },
+        { "name": "刘培念课题组", "value": 20, "category": 3, "symbolSize": 60 },
+        { "name": "功能有机分子的设计与合成", "value": 4, "category": 3, "symbolSize": 20 },
+        { "name": "表面合成反应与低维纳米材料合成", "value": 4, "category": 3, "symbolSize": 20 },
+        { "name": "精细化学品与医药中间体合成", "value": 4, "category": 3, "symbolSize": 20 }
+    ],
+    "links": [
+        { "source": 0, "target": 1 },
+        { "source": 0, "target": 2 },
+        { "source": 3, "target": 4 },
+        { "source": 3, "target": 5 },
+        { "source": 3, "target": 6 },
+        { "source": 3, "target": 7 },
+        { "source": 8, "target": 9 },
+        { "source": 8, "target": 10 },
+        { "source": 8, "target": 11 }
+    ]
+}

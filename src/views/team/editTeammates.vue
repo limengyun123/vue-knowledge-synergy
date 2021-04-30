@@ -74,13 +74,22 @@ export default {
         return {
             teammates:[
                 {
-                id: 481933,
-                actualName: '赵浩',
-                sex: true,
-                email: '47828743@qq.com',
-                phone: '18573829753',
-                joinTime: '2020-09-21 18:42'
-            },]
+                    id: 481933,
+                    actualName: '赵浩',
+                    sex: true,
+                    email: '47828743@qq.com',
+                    phone: '18573829753',
+                    joinTime: '2020-09-21 18:42'
+                },
+                {
+                    id: 53454,
+                    actualName: '钱正来',
+                    sex: false,
+                    email: '4756@qq.com',
+                    phone: '15083927492',
+                    joinTime: '2020-09-21 18:42'
+                },
+            ]
         }
     }
 }

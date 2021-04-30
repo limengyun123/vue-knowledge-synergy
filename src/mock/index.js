@@ -16,6 +16,9 @@ import messageApi from './message'
  Mock.mock("http://localhost:8080/user/login", "post", userApi.login_result_suc);
 //  Mock.mock("http://localhost:8080/user/login", "post", userApi.login_result_fai);
 
+Mock.mock("http://localhost:8080/user/logout", "post", userApi.logout_result_suc);
+//  Mock.mock("http://localhost:8080/user/logout", "post", userApi.logout_result_fai);
+
  Mock.mock("http://localhost:8080/user/register", "post", userApi.register_result_suc);
 //  Mock.mock("http://localhost:8080/user/register", "post", userApi.register_result_fai);
 

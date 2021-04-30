@@ -6,7 +6,6 @@ Vue.use(Vuex)
 export default new Vuex.Store({
     state: {
       	token: localStorage.getItem("token"),
-		// rememberPassword: localStorage.getItem("rememberPassword"),
       	userInfo: JSON.parse(sessionStorage.getItem("userInfo")),
 		teamChosenId: JSON.parse(sessionStorage.getItem("teamChosenId")),
 		teammates:[],
@@ -26,10 +25,6 @@ export default new Vuex.Store({
 			state.token = token;
 			localStorage.setItem("token", token);
 		},
-		// SET_REMEMBER_PASSWORD: (state, isRemember)=>{
-		// 	state.isRemember = isRemember;
-		// 	localStorage.setItem("rememberPassword", isRemember);
-		// },
 		SET_USERINFO: (state, userInfo)=>{
 			state.userInfo = userInfo;
 			sessionStorage.setItem("userInfo", JSON.stringify(userInfo));

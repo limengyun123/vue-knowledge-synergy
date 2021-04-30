@@ -7,8 +7,8 @@
                     <template slot="append"><div class="forget-send-code" @click="sendCode">{{sendEmailCodeMsg}}</div></template>
                 </el-input>
             </el-form-item>
-            <el-form-item prop="emailCode">
-                <el-input type="text" v-model="forgetForm.emailCode" prefix-icon="el-icon-key" placeholder="请输入邮箱验证码"></el-input>
+            <el-form-item prop="code">
+                <el-input type="text" v-model="forgetForm.code" prefix-icon="el-icon-key" placeholder="请输入邮箱验证码"></el-input>
             </el-form-item>
             <el-form-item prop="password">
                 <el-input type="text" v-model="forgetForm.password" prefix-icon="el-icon-lock" :show-password=true auto-complete="off" placeholder="请输入密码"></el-input>
@@ -35,7 +35,7 @@ export default {
         return {
             forgetForm: {
                 email: '',
-                emailCode:'',
+                code:'',
                 password: '',
                 repeatPassword:''
             },
@@ -46,7 +46,7 @@ export default {
                     { required: true, message: "请输入邮箱", trigger: 'blur' },
                     { type: 'email',  message: "请输入正确格式", trigger: 'blur' },
                 ],
-                emailCode:{ required: true, message: "请输入邮箱验证码", trigger: 'blur' },
+                code:{ required: true, message: "请输入邮箱验证码", trigger: 'blur' },
                 password: [
                     { required: true, message: "请输入密码", trigger: 'blur' },
                     {
@@ -73,15 +73,15 @@ export default {
         sendCode(){
             if(this.sendCodeHandle==null){
                 sendEmailCodeApi({email: this.forgetForm.email}).then((result)=>{
-                    this.$message.success(result.msg);
+                    this.$message.success("验证码发送成功，请注意查收");
                     let count = 60;
                     this.sendCodeHandle = setInterval(()=>{
                         count--;
                         this.sendEmailCodeMsg = `请${count}秒后重发`;
-                        if(count==0){
+                        if(count<=0){
                             clearInterval(this.sendCodeHandle);
                             this.sendCodeHandle = null; 
-                            this.sendEmailCodeMsg = "发送验证码"
+                            this.sendEmailCodeMsg = "发送验证码";
                         }
                     }, 1000);
                 }).catch((reason)=>{
@@ -93,7 +93,7 @@ export default {
         submitForm(formName){
             this.$refs[formName].validate((valid)=>{
                 if (valid) {
-                    forgetPasswordApi(this.forgetForm).then( (result)=> {
+                    forgetPasswordApi(this.forgetForm).then( ()=> {
                         this.$message({
                             message: '密码修改成功',
                             type: 'success',

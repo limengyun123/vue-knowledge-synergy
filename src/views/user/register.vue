@@ -13,8 +13,8 @@
                     <template slot="append"><div class="register-send-code" @click="sendCode">{{sendEmailCodeMsg}}</div></template>
                 </el-input>
             </el-form-item>
-            <el-form-item prop="emailCode">
-                <el-input type="text" v-model="registerForm.emailCode" prefix-icon="el-icon-key" placeholder="请输入邮箱验证码"></el-input>
+            <el-form-item prop="code">
+                <el-input type="text" v-model="registerForm.code" prefix-icon="el-icon-key" placeholder="请输入邮箱验证码"></el-input>
             </el-form-item>
             <el-form-item prop="password">
                 <el-input type="text" v-model="registerForm.password"  prefix-icon="el-icon-lock" :show-password=true auto-complete="off" placeholder="请输入密码"></el-input>
@@ -43,7 +43,7 @@ export default {
                 userName: '',
                 actualName: '',
                 email: '',
-                emailCode:'',
+                code:'',
                 password: '',
                 repeatPassword:''
             },
@@ -52,14 +52,14 @@ export default {
             rules: {
                 userName: [
                     { required: true, message: "请输入用户名", trigger: 'blur' },
-                    { min: 6, max: 30, message: "用户名长度应在6-30个字符内", trigger: 'blur' }
+                    { min: 1, max: 30, message: "用户名长度应在1-30个字符内", trigger: 'blur' }
                 ],
                 actualName: { required: true, message: "请输入真实姓名", trigger: 'blur' },
                 email: [
                     { required: true, message: "请输入邮箱", trigger: 'blur' },
                     { type: 'email',  message: "请输入正确格式", trigger: 'blur' },
                 ],
-                emailCode:{ required: true, message: "请输入邮箱验证码", trigger: 'blur' },
+                code:{ required: true, message: "请输入邮箱验证码", trigger: 'blur' },
                 password: [
                     { required: true, message: "请输入密码", trigger: 'blur' },
                     { min: 6, max: 30, message: "密码长度应在6-30个字符内", trigger: 'blur' },
@@ -78,12 +78,12 @@ export default {
         sendCode(){
             if(this.sendCodeHandle==null){
                 sendEmailCodeApi({email: this.registerForm.email}).then((result)=>{
-                    this.$message.success(result.msg);
+                    this.$message.success("验证码发送成功，请注意查收");
                     let count = 60;
                     this.sendCodeHandle = setInterval(()=>{
                         count--;
                         this.sendEmailCodeMsg = `请${count}秒后重发`;
-                        if(count==0){
+                        if(count<=0){
                             clearInterval(this.sendCodeHandle);
                             this.sendCodeHandle = null; 
                             this.sendEmailCodeMsg = "发送验证码"
@@ -98,7 +98,10 @@ export default {
         submitForm(formName){
             this.$refs[formName].validate((valid)=>{
                 if (valid) {
-                    registerApi(this.registerForm).then( (result)=> {
+                    let submitUser=Object.assign({}, this.registerForm);
+                    delete submitUser.code;
+                    delete submitUser.repeatPassword;
+                    registerApi({code: this.registerForm.code, user:submitUser}).then( ()=> {
                         
                         this.$message({
                             message: '注册成功',

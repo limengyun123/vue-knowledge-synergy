@@ -15,7 +15,7 @@
             <!-- <div>成员动态类型：创建项目、上传资源、删除资源、发布任务、取消任务、完成任务、修改项目</div> -->
             <div class='contributions-detail-choose'>
                 <span>时间选择：</span>
-                <el-select v-model="contributionsTimeRange" slot="prepend" @change="selectUrgentChange">
+                <el-select v-model="contributionsTimeRange" slot="prepend" @change="selectContributionsTime">
                     <el-option label="近一周" :value="1"></el-option>
                     <el-option label="近一月" :value="2"></el-option>
                     <el-option label="近一年" :value="3"></el-option>
@@ -83,6 +83,7 @@ export default {
             this.paginationInfo.currentPage = val;
             this.getContributions();
         },
+        selectContributionsTime(){}
     }
 }
 </script>
