@@ -33,7 +33,11 @@ export default {
                 this.parentDir = "团队协同";
                 this.childDir = "编辑团员信息";
                 break;
-            case "addTodo":
+            case "checkEvents":
+                this.parentDir = "个人空间";
+                this.childDir = "查看待办事项";
+                break;
+            case "addEvent":
                 this.parentDir = "个人空间";
                 this.childDir = "新建待办事项";
                 break;
@@ -60,6 +64,10 @@ export default {
                     case "editShorthand":
                         this.parentDir = "个人空间";
                         this.childDir = "编辑速记";
+                        break;
+                    case "checkTasks":
+                        this.parentDir = "项目管理";
+                        this.childDir = "查看任务";
                         break;
                     case "assignTask":
                         this.parentDir = "项目管理";

@@ -28,9 +28,6 @@ export const uploadResourcesApi = (param)=>{
     return axios.post('/project/uploadResources',param);
 };
 
-export const getTasksApi = (param)=>{
-    return axios.post('/project/getTasks',param);
-};
 
 export const getTeammatesApi = (tId)=>{
     return axios.post('/team/getTeammates',tId);
@@ -42,6 +39,14 @@ export const getTasksOverviewApi = param=>{
 
 export const getTasksDetailApi = param=>{
     return axios.post('/project/getTasksDetail',param);
+};
+
+export const getMyTasksApi = (param)=>{
+    return axios.post('/project/getMyTasks',param);
+};
+
+export const deleteMyTaskApi = (param)=>{
+    return axios.post('/project/deleteMyTask',param);
 };
 
 export const assignTaskApi = (taskInfo)=>{

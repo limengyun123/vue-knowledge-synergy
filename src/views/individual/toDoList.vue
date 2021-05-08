@@ -27,7 +27,7 @@
                         <el-option v-for="item in timeOptions" :key="item" :label="item" :value="item">
                         </el-option>
                     </el-select>
-                    <el-button type="primary" @click="addTodo" class='add-todo-button'>新建事项</el-button>
+                    <el-button type="primary" @click="checkEvents" class='add-event-button'>查看事项</el-button>
                 </div>
                 <div class='todo-detail-body'>
                     <!-- 事件重要程度：a>b>c -->
@@ -81,14 +81,16 @@ export default {
         changeTimeRange(e){
             this.getToDoList();
         },
-        addTodo(){
-            this.$router.push('/common/individual/addTodo');
+        checkEvents(){
+            this.$router.push('/common/individual/checkEvents');
         },
     }
 }
 </script>
 
-<style scoped>
+<style lang='less'>
+@import "../../assets/css/common.less";
+
 .todo-overview{
     width: 80%;
     margin: 2rem auto;
@@ -128,19 +130,19 @@ export default {
 }
 
 .blue-text{
-    color: lightblue;
+    color: @brand-color;
 }
 
 .red-text{
-    color: red;
+    color: @danger-color;
 }
 
 .green-text{
-    color: lightgreen;
+    color: @success-color;
 }
 
 
-.add-todo-button{
+.add-event-button{
     float: right;
 }
 
@@ -177,12 +179,12 @@ export default {
 }
 
 .a{
-    color: red;
+    color: @danger-color;
 }
 .b{
-    color: orange;
+    color: @warning-color;
 }
 .c{
-    color: green;
+    color: @success-color;
 }
 </style>

@@ -49,7 +49,7 @@
 
         <div class='task-overview-part'>
             <div class='task-overview-title'><h3>团队任务</h3></div>
-            <el-button type="primary" @click='addTask' class='assign-task-button'>添加任务</el-button>
+            <el-button type="primary" @click='checkTasks' class='check-task-button'>查看任务</el-button>
             <div class='task-overview-body'>
                 <div class='task-overview-item'>
                     <p>总任务</p><div class='blue-text'>{{taskOverviewTeam.total}}</div>
@@ -183,8 +183,8 @@ export default {
                 this.$message.error(reason);
             })
         },
-        addTask(){
-            this.$router.push('/common/project/assignTask/'+this.$route.params.id);
+        checkTasks(){
+            this.$router.push('/common/project/checkTasks/'+this.$route.params.id);
         },
         changeMethodIndividual(e){
             this.getTasksDetail(false);
@@ -211,8 +211,9 @@ export default {
     padding: .1rem 1rem;
 }
 
-.assign-task-button{
+.check-task-button{
     float: right;
+    margin: 1rem;
 }
 
 .task-overview-body{

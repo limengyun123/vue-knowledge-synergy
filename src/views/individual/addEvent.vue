@@ -24,7 +24,7 @@ import GoBackHead from '../../components/goBackHead';
 import {addTodoApi} from '../../api/individual';
 
 export default {
-    name: "AddTodo",
+    name: "AddEvent",
     components:{
         'GoBackHead': GoBackHead
     },

@@ -146,6 +146,35 @@ export default {
             msg: "查询失败",
         }
     },
+    get_my_tasks_suc:(param)=>{
+        return {
+            code: 200,
+            msg: "任务获取成功",
+            data:{
+                tasks: tasks,
+                totalNum: tasks.length
+            }
+        }
+    },
+    get_my_tasks_fai:(param)=>{
+        return {
+            code: 503,
+            msg: "任务获取失败",
+        }
+    },
+    delete_my_task_suc:(param)=>{
+        return {
+            code: 200,
+            msg: "任务删除成功",
+            data:{}
+        }
+    },
+    delete_my_task_ai:(param)=>{
+        return {
+            code: 503,
+            msg: "任务删除失败",
+        }
+    },
     assign_task_suc:(param)=>{
         return {
             code: 200,
