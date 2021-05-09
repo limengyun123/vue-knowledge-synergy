@@ -33,6 +33,18 @@ export default {
                 this.parentDir = "团队协同";
                 this.childDir = "编辑团员信息";
                 break;
+            case "createProject":
+                this.parentDir = "团队协同";
+                this.childDir = "创建项目";
+                break;
+            case "editTeam":
+                this.parentDir = "团队协同";
+                this.childDir = "编辑团队信息";
+                break;
+            case "addTeammates":
+                this.parentDir = "团队协同";
+                this.childDir = "添加成员";
+                break;
             case "checkEvents":
                 this.parentDir = "个人空间";
                 this.childDir = "查看待办事项";
@@ -49,18 +61,6 @@ export default {
                 this.childDir = "通知";
             default:
                 switch(path.pop()){
-                    case "createProject":
-                        this.parentDir = "团队协同";
-                        this.childDir = "创建项目";
-                        break;
-                    case "editTeam":
-                        this.parentDir = "团队协同";
-                        this.childDir = "编辑团队信息";
-                        break;
-                    case "addTeammates":
-                        this.parentDir = "团队协同";
-                        this.childDir = "添加成员";
-                        break;
                     case "editShorthand":
                         this.parentDir = "个人空间";
                         this.childDir = "编辑速记";

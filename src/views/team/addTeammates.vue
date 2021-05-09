@@ -66,7 +66,7 @@ export default {
     },
     created(){
         // console.log("添加组员", this.$route.params.id);
-        getContactsApi(this.$store.state.userInfo.userName).then((result)=>{
+        getContactsApi(this.$store.state.userInfo.id).then((result)=>{
             this.myContacts = result.data;
         }).catch((reason)=>{
             this.$message.error(reason);

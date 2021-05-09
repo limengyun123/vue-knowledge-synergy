@@ -68,8 +68,8 @@ export default {
         },
         handleClick(e){
             let index = e.target.getAttribute("index");
-            if(index){
-                console.log(index);
+            if(index!=null){
+                index = parseInt(index);
                 deleteMyTaskApi({tId: index}).then(()=>{
                     this.deleteEventsFromMemory(index);
                     this.paginationInfo.totalNum-=1;

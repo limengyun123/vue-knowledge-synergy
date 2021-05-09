@@ -91,7 +91,12 @@ export default {
                 },
             ]
         }
-    }
+    },
+    computed:{
+        teamChosenId: function (){
+            return this.$store.state.teamInfo.teamChosenId;
+        }
+    },
 }
 </script>
 

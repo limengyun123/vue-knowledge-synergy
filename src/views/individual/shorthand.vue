@@ -162,7 +162,6 @@ export default {
 
 .input-content>>>.el-textarea__inner {
     border: 0;
-    resize: none;/* 去掉 textarea 下面拉伸的标志*/
     width: 100%;
     height: 8rem;
 }

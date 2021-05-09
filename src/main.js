@@ -6,7 +6,7 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import axios from 'axios';
 import './axois.js';
-// import './permission.js'
+import './permission.js'
 import './mock';
 import 'normalize.css/normalize.css';
 import './assets/css/base.less';

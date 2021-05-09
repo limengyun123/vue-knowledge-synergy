@@ -66,20 +66,25 @@ export default {
     },
     created(){
         let sId = this.$route.params.id;
-        let sh = this.$store.state.shortHandChosen;
+        if(sId){
+            let sh = this.$store.state.shortHandChosen;
         
-        if(sId==sh.sId){
-            this.myShorthand = sh;
-            console.log('from store');
+            if(JSON.stringify(sh) !== '{}' && sId==sh.sId){
+                this.myShorthand = sh;
+                // console.log('from store');
+            }
+            else{
+                getAShorthandApi(sId).then((result)=>{
+                    this.myShorthand = result.data;
+                }).catch((reason)=>{
+                    this.$message.error(reason);
+                });
+                // console.log('from request');
+            }
+        }else{
+            this.$router.push('/errorPage');
         }
-        else{
-            getAShorthandApi(sId).then((result)=>{
-                this.myShorthand = result.data;
-            }).catch((reason)=>{
-                this.$message.error(reason);
-            });
-            console.log('from request');
-        }
+        
     },
     methods:{
         submitShorthand(){
@@ -104,7 +109,6 @@ export default {
 }
 
 .input-content>>>.el-textarea__inner {
-    resize: none;/* 去掉 textarea 下面拉伸的标志*/
     height: 14rem;
 }
 

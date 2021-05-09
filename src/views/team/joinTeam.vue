@@ -69,9 +69,12 @@ export default {
         },
         handleTeamChosen(e){
             let tId = e.target.getAttribute('index')||e.target.parentNode.getAttribute('index');
-            this.joinInfo.searchInput = this.getTeamNameById(tId);
-            this.teamChosen = e;
-            this.searchedTeams = [];
+            if(tId){
+                tId = parseInt(tId);
+                this.joinInfo.searchInput = this.getTeamNameById(tId);
+                this.teamChosen = e;
+                this.searchedTeams = [];
+            }
         },
         getTeamNameById(tId){
             for(let team of this.searchedTeams){

@@ -23,18 +23,17 @@
                                 </el-dropdown-item>
                             </el-dropdown-menu>
                         </el-dropdown>
-                        <router-link :to="'/common/team/editTeam/'+teamChosenId"><span class="el-icon-edit team-icon" /></router-link>
+                        <router-link to="/common/team/editTeam"><span class="el-icon-edit team-icon" /></router-link>
+                        <span class="el-icon-chat-dot-round team-icon" @click="chatWithTeam"/>
                     </div>
                     <div class="team-page-project-items" @click="handleProjectChosen">
                         <div v-for="project in myProjects" :key='project.pId' class='team-page-project' :index='project.pId'>
                             <span v-if="project.isFinised" class="el-icon-folder-checked"></span>
                             <span v-else class="el-icon-folder-opened"></span>
                             {{project.pName}}
-                            <!-- <router-link :to="'/common/team/project/'+project.pId">{{project.pName}}</router-link> -->
                         </div>
-                        <div class='team-page-project'>
+                        <div class='team-page-project' :index='-1'>
                             <span class="el-icon-circle-plus-outline"></span> 新建项目
-                            <!-- <router-link :to="'/common/team/createProject/'+teamChosenId"></router-link> -->
                         </div>
                     </div>
                 </div>
@@ -58,16 +57,14 @@
         <router-view class="team-page-center" />
         <div v-if="myTeams.length">
             <transition name="fade-member" mode="out-in">
-                <div v-if="memberShow" class="team-page-right" key="right">
-                    <i @click="changeMemberState" class="el-icon-s-unfold team-icon" title="隐藏队员"></i>
-                    <router-link :to="'/common/team/addTeammates/'+teamChosenId">
-                        <el-avatar icon="el-icon-plus" class="team-page-teammates"></el-avatar>
-                    </router-link>
-                    <router-link v-for="mate in myTeammates" :key="mate.userName" to="/common/team/editTeammates">
-                        <el-avatar class="team-page-teammates">
-                            {{mate.actualName}}
-                        </el-avatar>
-                    </router-link>
+                <div v-if="memberShow" class="team-page-right" key="right" @click="operateOnTeammates">
+                    <i class="el-icon-s-unfold team-icon" title="隐藏队员" :index='-1'></i>
+                    <div class="team-page-teammates" :index='0'>
+                        <span class="el-icon-plus" :index='0'></span>
+                    </div>
+                    <div v-for="mate in myTeammates" :key="mate.id" class="team-page-teammates" :index="mate.id">
+                        <span :index="mate.id">{{mate.actualName}}</span>
+                    </div>
                 </div>
                 <div v-else class="teammates-supplement" key="right-supplement">
                     <i @click="changeMemberState" class="el-icon-s-fold team-icon" title="展示队员"></i>
@@ -83,6 +80,9 @@ import NoData from '../../components/noData';
 
 export default {
     name:"MyTeam",
+    components:{
+        'NoData': NoData,
+    },
     data(){
         return {
             navShow:true,
@@ -91,11 +91,9 @@ export default {
             projectChosenId: -1,
             myTeams:[],
             myTeammates:[],
-            myProjects:[]
+            myProjects:[],
+            timer: null // 单双击事件区分标志
         }
-    },
-    components:{
-        'NoData': NoData,
     },
     computed:{
         getTeamName(){
@@ -114,11 +112,11 @@ export default {
         },
     },
     created(){
-        getTeamsApi(this.$store.state.userInfo.userName).then((result)=>{
+        getTeamsApi(this.$store.state.userInfo.id).then((result)=>{
             this.myTeams = result.data;
             if(this.myTeams.length){
-                if(this.$store.state.teamChosenI>0)
-                    this.teamChosenId = this.$store.state.teamChosenId;
+                if(this.$store.state.teamInfo.teamChosenI>0)
+                    this.teamChosenId = this.$store.state.teamInfo.teamChosenId;
                 else
                     this.teamChosenId = this.myTeams[0].tId;
                 this.getTeamInfo();
@@ -132,7 +130,6 @@ export default {
     methods:{
         handleCommand(index) {
             if(index!=-1){
-                console.log('here');
                 this.teamChosenId = index;
                 this.getTeamInfo();
             }
@@ -155,23 +152,46 @@ export default {
             this.memberShow = !this.memberShow;
         },
         handleProjectChosen(e){
-            let pId = e.target.getAttribute('index');
-            if(!pId){
-                this.$router.push('/common/team/createProject/'+this.teamChosenId);
+            let pId = parseInt(e.target.getAttribute('index'));
+            if(pId!=null){
+                pId = parseInt(pId);
+                if(pId==-1)
+                    this.$router.push('/common/team/createProject');
+                else if(pId != this.projectChosenId){
+                    this.projectChosen = e.target.innerText;
+                    this.projectChosenId = pId;
+                    this.$router.push('/common/team/project/'+pId);
+                }
             }
-            else if(pId != this.projectChosenId){
-                this.projectChosen = e.target.innerText;
-                this.projectChosenId = pId;
-                this.$router.push('/common/team/project/'+pId);
+        },
+        chatWithTeam(){
+            this.$store.commit('SET_CHAT_INFO',{isTeam: true, chatId: this.teamChosenId});
+            this.$router.push('/common/message');
+        },
+        operateOnTeammates(e){
+            let index = e.target.getAttribute('index');
+            if(index!=null){
+                index = parseInt(index);
+                if(index > 0) {
+                    if(this.timer==null){
+                        this.timer = setTimeout(()=>{
+                            clearTimeout(this.timer);
+                            this.timer==null;
+                            this.$router.push('/common/team/editTeammates');
+                        }, 300);
+                    }
+                    else{
+                        clearTimeout(this.timer);
+                        this.timer=null;
+                        // 与团队中某一成员聊天
+                        this.$store.commit('SET_CHAT_INFO',{isTeam: false, chatId: index});
+                        this.$router.push('/common/message');
+                    }                   
+                }
+                else if(index===0) this.$router.push('/common/team/addTeammates');
+                else this.changeMemberState();
             }
-            
         },
-        createTeam(){
-
-        },
-        joinTeam(){
-
-        }
     }
 }
 </script>
@@ -184,7 +204,7 @@ export default {
     justify-content: space-between;
 }
 .team-page-left{
-    width: 16rem; 
+    width: 18rem; 
     border: #dddddd solid 0.1rem;
     box-shadow: #dddddd 0 0 .5rem;
     border-radius: 1rem;
@@ -303,26 +323,28 @@ export default {
 
 .team-page-project .el-icon-folder-opened{
     font-size: 1.2rem;
-    color:rgb(50, 180, 230);
+    color:@brand-color;
 }
 .team-page-project .el-icon-folder-checked{
     font-size: 1.2rem;
-    color:rgb(80, 230, 50);
+    color:@success-color;
 }
 
 .team-page-project .el-icon-circle-plus-outline{
     font-size: 1.2rem;
-    color:#ffae00;
+    color:@warning-color;
 }
 /* 团队中项目list样式结束*/
 
 .team-page-teammates{
     width: 3rem;
     height: 3rem;
+    border-radius: 50%;
     margin: .3rem 0.5rem;
     background-color: @support-color-ps;
     color:white;
     line-height: 3rem;
+    font-size: .8rem;
 }
 
 .teammates-supplement{

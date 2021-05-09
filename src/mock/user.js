@@ -5,11 +5,15 @@ export default{
             code: 200,
             msg: "登录成功",
             data: {
-                token:{'authorization': "fos93789yhef139hfw3827rhg8"},
-                user:{actualName: '赵天泽',
-                sex: '女',
-                mobile: '17305827492',
-                email:'184221934@qq.com'}
+                token: "fos93789yhef139hfw3827rhg8",
+                user:{
+                    id:1,
+                    userName: '312842',
+                    actualName: '赵天泽',
+                    sex: '女',
+                    mobile: '17305827492',
+                    email:'184221934@qq.com'
+                }
             }
         }
     },

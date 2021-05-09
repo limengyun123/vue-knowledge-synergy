@@ -62,26 +62,23 @@ export default {
             },
             infoRules:{
                 teamName:[
-                    {
-                        min: 2,
-                        max: 30,
-                        message: "请输入2-30个字符",
-                        trigger: 'blur'
-                    },
-                    {
-                        required: true,
-                        message: "请输入团队名称",
-                        trigger: 'blur'
-                    }
+                    { min: 2, max: 30, message: "请输入2-30个字符", trigger: 'blur' },
+                    { required: true, message: "请输入团队名称", trigger: 'blur' }
                 ]
             }
+        }
+    },
+    computed:{
+        teamChosenId: function (){
+            return this.$store.state.teamInfo.teamChosenId;
         }
     },
     created(){
         // console.log(this.$route.params.id);
         // 请求项目数据
-        getTeamInfoApi(this.$route.params.id).then((result)=>{
+        getTeamInfoApi(this.teamChosenId).then((result)=>{
             this.teamInfo.teamName = result.data.tName;
+            this.teamInfo.teamLeader = this.$store.state.userInfo.actualName;
             this.teamInfo.teamMembers = result.data.teammates;
             this.getActualNameById(result.data.tLeader);
         }).catch((reason)=>{
@@ -102,7 +99,8 @@ export default {
         },
         handleRemove(e) {
             let id = e.target.getAttribute('index');
-            if(id){
+            if(id!=null){
+                id = parseInt(id);
                 this.$confirm('您将移除组员，请慎重考虑！', '提示', {
                     confirmButtonText: '确认移除',
                     cancelButtonText: '取消',

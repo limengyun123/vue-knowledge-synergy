@@ -83,7 +83,8 @@ export default {
         },
         handleRead(e){
             let index = e.target.getAttribute("index");
-            if(index){
+            if(index!=null){
+                index = parseInt(index);
                 readNotificationApi({id: index}).then((result)=>{
                     /*正常逻辑
                         this.getNotifications();

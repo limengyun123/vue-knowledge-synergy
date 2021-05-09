@@ -77,6 +77,9 @@
 .el-input__inner:focus{
     border-color: @support-color-ps;
 }
+.el-textarea__inner{
+    resize: none;/* 去掉 textarea 下面拉伸的标志*/
+}
 .el-textarea__inner:focus{
     border-color: @support-color-ps;
 }
@@ -115,13 +118,16 @@
 }
 
 .el-button--primary{
+    color: white;
     background-color: @support-color-ps;
     border: none;
 }
 .el-button--primary:hover{
+    color: white;
     background-color: @main-color;
 }
 .el-button--primary:focus{
+    color: white;
     background-color: @main-color;
 }
 

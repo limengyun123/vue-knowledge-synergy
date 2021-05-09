@@ -2,11 +2,11 @@
     <el-row>
         <el-col :span='6'>
             <div class='contact-head'>
-                <button @click="changeToPrivate" :class="{'message-button':true,'chosen-button':isPrivateChosen}">私聊</button>
-                <button @click="changeToTeam" :class="{'message-button':true,'chosen-button':!isPrivateChosen}">群聊</button>
+                <button @click="changeToPrivate" :class="{'message-button':true,'chosen-button':!isTeamChosen}">私聊</button>
+                <button @click="changeToTeam" :class="{'message-button':true,'chosen-button':isTeamChosen}">群聊</button>
             </div>
             <div class='contacts-items'>
-                <div v-if="isPrivateChosen" @click="handleContactChosen">
+                <div v-if="!isTeamChosen" @click="handleContactChosen">
                     <div v-for="msg in myPrivateMessage" :key="msg.chatWithId" class='contact-item' >
                         <el-col :span='6'>
                             <el-badge v-if="msg.notReadNum" :value="msg.notReadNum" :max="99">
@@ -21,13 +21,13 @@
                         <div class='contact-item-cover' :index="msg.chatWithId"></div>
                     </div>
                 </div>
-                <div v-else @click="handleTeamChosen">
+                <div v-else @click="handleContactChosen">
                     <div v-for="msg in myTeamMessage" :key="msg.teamId" class='contact-item'>
                         <el-col :span='6'>
                             <el-badge v-if="msg.notReadNum" :value="msg.notReadNum" :max="99">
-                                <el-avatar :size="50">{{msg.Team}}</el-avatar>
+                                <el-avatar :size="50">{{msg.team}}</el-avatar>
                             </el-badge>
-                            <el-avatar v-else :size="50">{{msg.Team}}</el-avatar>
+                            <el-avatar v-else :size="50">{{msg.team}}</el-avatar>
                         </el-col>
                         <el-col :span='17' :offset="1">
                             <div class='contact-time'>{{msg.latestTime}}</div>
@@ -40,10 +40,11 @@
             <!-- <div> -->
         </el-col>
         <el-col :span='18' class='message-body'>
-            <div v-if="chatWithChosen==-1">
+            <div v-if="chatWithChosen==0">
 
             </div>
             <div v-else>
+                <div class="send-message-to">TO: {{chatWithName}}</div>
                 <div class='message-frame' id='message-frame' ref='message-frame'>
                     <div v-for="msg in messageRecord" :key="msg.mId" :class="{'message-item':true,'message-mine':getUserId==msg.senderId}">
                         <el-avatar class="message-avatar">{{msg.senderName}}</el-avatar>
@@ -68,8 +69,9 @@ export default {
     name: 'Message',
     data(){
         return {
-            isPrivateChosen: true,
-            chatWithChosen: -1,
+            isTeamChosen: false,
+            chatWithChosen: 0,
+            chatWithName: '',
             chatContent: '',
             messageCount: -1,
             myPrivateMessage:[],
@@ -79,53 +81,59 @@ export default {
     },
     computed:{
         getUserId(){
-            return this.$store.state.userInfo.userName;
+            return this.$store.state.userInfo.id;
         }
     },
     created(){
-        this.getPrivateMessage();
-        this.getTeamMessage();
+        this.isTeamChosen = this.$store.state.chatInfo.isTeam;
+        this.chatWithChosen = this.$store.state.chatInfo.chatId;
+        if(this.isTeamChosen) this.getTeamMessage();
+        else this.getPrivateMessage();
     },
     methods:{
-        getPrivateMessage(){
-            getPrivateChatApi().then((result)=>{
+        async getPrivateMessage(){
+            await getPrivateChatApi().then((result)=>{
                 this.myPrivateMessage = result.data;
             }).catch((reason)=>{
                 this.$message.error(reason);
-            })
+            });
+            this.handleMessageChosen();
         },
-        getTeamMessage(){
-            getTeamChatApi().then((result)=>{
+        async getTeamMessage(){
+            await getTeamChatApi().then((result)=>{
                 this.myTeamMessage = result.data;
             }).catch((reason)=>{
                 this.$message.error(reason);
-            })
+            });
+            this.handleMessageChosen();
         },
         changeToPrivate(){
-            if(!this.isPrivateChosen){
-                this.isPrivateChosen = true;
+            if(this.isTeamChosen){
+                this.isTeamChosen = false;
                 this.getPrivateMessage();
             }
         },
         changeToTeam(){
-            if(this.isPrivateChosen){
-                this.isPrivateChosen = false;
+            if(!this.isTeamChosen){
+                this.isTeamChosen = true;
                 this.getTeamMessage();
             }
         },
         handleContactChosen(e){
             let uId = e.target.getAttribute('index');
-            if(uId){
+            if(uId!=null){
+                uId = parseInt(uId);
                 this.chatWithChosen = uId;
-                this.getMessageRecordById({uId:uId, type:this.isPrivateChosen});
+                this.handleMessageChosen();
             }
-
         },
-        handleTeamChosen(e){
-            let uId = e.target.getAttribute('index');
-            if(uId){
-                this.chatWithChosen = uId;
-                this.getMessageRecordById({uId:uId, type:this.isPrivateChosen});
+        handleMessageChosen(){
+            if(this.chatWithChosen!=0){
+                if(this.isTeamChosen)
+                    this.chatWithName = this.myTeamMessage.find((item)=>{return this.chatWithChosen==item.teamId}).team;
+                else
+                    this.chatWithName = this.myPrivateMessage.find((item)=>{return this.chatWithChosen==item.chatWithId}).sender;
+                this.getMessageRecordById({id:this.chatWithChosen, type:this.isTeamChosen});
             }
         },
         async getMessageRecordById(uId){
@@ -141,7 +149,7 @@ export default {
                 let param = {
                     sender: this.getUserId,
                     receiver: this.chatWithChosen, 
-                    type: this.isPrivateChosen
+                    type: this.isTeamChosen
                 };
                 sendMessageApi(param).then((result)=>{
                     this.pushMessage();
@@ -171,7 +179,8 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="less">
+@import "../../assets/css/common.less";
 
 .contact-head{
     display: flex;
@@ -240,17 +249,23 @@ export default {
     white-space: nowrap;
 }
 
+.send-message-to{
+    margin: 0 1rem 1rem;
+    font-size: 1.2rem;
+    color: #555555;
+}
+
 .message-body{
     padding: 1rem;
 }
 
 .message-frame{
     width: 90%;
-    height: calc(100vh - 14rem);
+    height: calc(100vh - 16rem);
     margin: auto;
-    background: #fafafa;
+    background: @support-color-bg;
     border-radius: 1rem;
-    box-shadow: #aaaaaa 0 0 0.4rem;
+    box-shadow: #cccccc 0 0 .5rem;
     overflow: scroll;
     padding: 1rem;
 }
@@ -295,8 +310,7 @@ export default {
 
 }
 
-.message-input-area>>>.el-textarea__inner{
-    resize: none;/* 去掉 textarea 下面拉伸的标志*/
+.message-body .el-textarea__inner{
     width: 90%;
     height: 5rem;
     margin: 1rem auto;

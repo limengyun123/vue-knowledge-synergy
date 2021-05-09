@@ -2,13 +2,13 @@ import router from './router'
 
 router.beforeEach((to, from, next)=>{
     if(to.matched.some(record=>record.meta.requireAuth)){
-        const toen = localStorage.getItem("token");
+        const token = localStorage.getItem("token");
         if(token){
-            if(to.path === '/user/loginIn'){}
+            if(to.path === '/user/login'){}
             else next();
         }
         else{
-            next({path: '/user/loginIn'});
+            next({path: '/user/login'});
         }
     }
     else{

@@ -80,7 +80,7 @@ export default {
         }
     },
     upload_resources_suc:(param)=>{
-        console.log('内容', param.body);
+        // console.log('内容', param.body);
         return {
             code: 200,
             msg: "上传成功",

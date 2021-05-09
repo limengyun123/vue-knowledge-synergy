@@ -102,7 +102,6 @@ export default{
         }
     },
     save_shorthand_suc:(param)=>{
-        //console.log(param.body);
         return {
             code: 200,
             msg: "添加成功",

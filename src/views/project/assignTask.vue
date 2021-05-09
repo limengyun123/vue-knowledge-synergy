@@ -75,14 +75,14 @@ export default {
         this.task.assigner = this.$store.state.userInfo.userName;
         this.task.assignerName = this.$store.state.userInfo.actualName;
 
-        let pId = this.$store.state.teamChosenId;
+        let pId = this.$store.state.teamInfo.teamChosenId;
         if(pId==null){
             this.$message.error("不好意思，出错了");
         }
         else{
-            let mates = this.$store.state.teammates;
+            let mates = this.$store.state.teamInfo.teammates;
             if(mates.length){
-                console.log("from memory");
+                // console.log("from memory");
                 this.mates = mates;
             }
             else{
@@ -92,7 +92,7 @@ export default {
                 }).catch((reason)=>{
                     this.$message.error(reason);
                 });
-                console.log("from request");
+                // console.log("from request");
             }
         }
         

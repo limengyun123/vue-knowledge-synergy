@@ -88,7 +88,8 @@ export default {
         },
         handleRemove(e) {
             let index = e.target.getAttribute('index');
-            if(index){
+            if(index!=null){
+                index = parseInt(index);
                 for(let i=0;i<this.fileList.length;i++){
                     if(this.fileList[i].signId==index){
                         this.fileList.splice(i,1);

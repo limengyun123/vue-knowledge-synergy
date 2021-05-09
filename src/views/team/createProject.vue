@@ -66,8 +66,10 @@ export default {
             }
         }
     },
-    created(){
-        // console.log("创建项目", this.$route.params.id);
+    computed:{
+        teamChosenId: function (){
+            return this.$store.state.teamInfo.teamChosenId;
+        }
     },
     methods:{
         submitProject(){

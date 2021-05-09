@@ -39,6 +39,7 @@ export default {
                 ],
                 password: [
                     { required: true, message: "请输入密码", trigger: 'blur' },
+                    { min: 6, max: 30, message: "请输入6-30位密码", trigger: 'blur' },
                     {
                         validator: (rule, value, callback)=>{
                             if(value === '') callback(new Error("请输入密码"));
@@ -56,7 +57,6 @@ export default {
             this.$refs[formName].validate((valid)=>{
                 if (valid) {
                     loginApi({user:this.loginForm}).then((result)=> {
-                        console.log('1');
                         this.$store.commit('SET_TOKEN', result.data.token);
                         // this.loginForm.password = this.loginForm.password.replace(/\w/g, '*');
                         this.$store.commit('SET_USERINFO', Object.assign({},this.loginForm,result.data.user));
@@ -64,11 +64,10 @@ export default {
                             message: '登录成功',
                             type: 'success',
                             duration: 1000,
-                            onClose:()=>{this.$router.push('/common');console.log(2);}
+                            onClose:()=>{this.$router.push('/common');}
                         });
                         
                     }).catch((reason) =>{
-                        console.log(3);
                         this.$message.error(reason);
                     })
                 } 

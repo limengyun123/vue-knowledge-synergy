@@ -96,7 +96,7 @@ export default {
     },
     computed:{
         getUserId(){
-            console.log(this.$store.state.userInfo.userName);
+            // console.log(this.$store.state.userInfo.userName);
             return this.$store.state.userInfo.userName;
         },
         getResourceRepliesCount(){
@@ -139,7 +139,7 @@ export default {
         },
         handleOperate(e){
             let index = e.target.getAttribute("index");
-            if(index){
+            if(index!=null){
                 let chosenCommentId = parseInt(index.substring(1,index.length));
                 if(index[0]=='r'){
                     this.dialogVisible = true;
@@ -354,8 +354,6 @@ export default {
 .comments-reply-button:hover{
     color: @main-color;
 }
-.resource-detail-comments .el-textarea__inner:focus{
-    border-color: @support-color-ps;
-}
+
 
 </style>
