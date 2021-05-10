@@ -7,7 +7,6 @@
             </el-form-item>
             <el-form-item prop="password">
                 <el-input v-model="loginForm.password" prefix-icon="el-icon-lock" :show-password='true' auto-complete="off" placeholder="请输入密码">
-                    <!-- <el-checkbox v-model="isRemember" slot="append" class='remember-password'>记住密码</el-checkbox> -->
                 </el-input>
             </el-form-item>
             <el-form-item>

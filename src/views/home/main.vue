@@ -2,7 +2,7 @@
     <div class="home-page">
         <el-row>
             <el-col :span='18'>
-                <el-card class="box-card">
+                <el-card class="box-card card-process">
                     <div slot="header" class="clearfix">
                         <span>进度简明</span>
                     </div>
@@ -14,7 +14,7 @@
                 </el-card>
             </el-col>
             <el-col :span='6'>
-                <el-card class="box-card">
+                <el-card class="box-card card-dynamic">
                     <div slot="header" class="clearfix">
                         <span>最新动态</span>
                     </div>
@@ -29,10 +29,13 @@
                 </el-card>
             </el-col>
         </el-row>
-        <div>
+        <el-card class="box-card card-chart">
+            <div slot="header" class="clearfix">
+                <span>团队与项目关系图谱</span>
+            </div>
             <div id='main'>
             </div>
-        </div>
+        </el-card>
     </div>
 </template>
 
@@ -79,16 +82,12 @@ export default {
             let myChart = echarts.init(document.getElementById('main'));
             let graph = this.getData();
             let option = {
-                legend: {
-                    data: ['HTMLElement', 'WebGL', 'SVG', 'CSS', 'Other']
-                },
                 series: [{
                     type: 'graph',
                     layout: 'force',
                     animation: false,
                     label: {
                         show: true,
-                        // position: 'right',
                         formatter: '{b}',
                         color: '#888888',
                     },
@@ -99,8 +98,8 @@ export default {
                     }),
                     categories: graph.categories,
                     force: {
-                        edgeLength: [100, 200],
-                        repulsion: 800,
+                        edgeLength: [100, 180],
+                        repulsion: 600,
                         // gravity: 1.1
                     },
                     edges: graph.links
@@ -117,12 +116,7 @@ export default {
                 };
             });
             let option = {
-                // title: {
-                //     text: 'Les Miserables',
-                //     subtext: 'Default layout',
-                //     top: 'bottom',
-                //     left: 'right'
-                // },
+               
                 tooltip: {},
                 legend: [{
                     // selectedMode: 'single',
@@ -134,7 +128,6 @@ export default {
                 animationEasingUpdate: 'quinticInOut',
                 series: [
                     {
-                        // name: 'Les Miserables',
                         type: 'graph',
                         layout: 'none',
                         data: graph.nodes,
@@ -181,6 +174,19 @@ export default {
 .box-card{
     margin: 2rem;
 }
+
+.card-process{
+    min-width: 25rem;
+}
+
+.card-dynamic{
+    min-width: 15rem;
+}
+.card-chart{
+    min-width: 50rem;
+    overflow: scroll;
+}
+
 .brief-process{
     display: flex;
 }
@@ -209,7 +215,7 @@ export default {
 }
 
 #main{
-    width: calc(100vw - 6rem);
-    height: calc(100vh);
+    width: 70rem;
+    height: 50rem;
 }
 </style>

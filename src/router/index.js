@@ -14,7 +14,7 @@ const routes = [
 		children:[
 			{ path: 'login', name: 'loginIn', component: () => import(/* webpackChunkName: "loginIn" */ '../views/user/login.vue') },
 			{ path: 'register', name: 'register', component: () => import(/* webpackChunkName: "register" */ '../views/user/register.vue') },
-			{ path: 'forgetPassword', name: 'forgetPassword',  meta: {requireAuth: true}, component: () => import(/* webpackChunkName: "forgetPassword" */ '../views/user/forgetPassword.vue') },
+			{ path: 'forgetPassword', name: 'forgetPassword', component: () => import(/* webpackChunkName: "forgetPassword" */ '../views/user/forgetPassword.vue') },
 		]
 	},
 	{ 
@@ -23,7 +23,7 @@ const routes = [
 		component: ()=> import('../views/home/commonNav.vue'),
 		redirect: '/common/main',
 		children:[
-			{ path: 'main', component: ()=> import('../views/home/main.vue') },
+			{ path: 'main', meta: {requireAuth: true}, component: ()=> import('../views/home/main.vue') },
 			{ 
 				path: 'team', 
 				component: ()=> import('../views/team/myTeams.vue'),
