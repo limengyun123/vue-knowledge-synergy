@@ -31,7 +31,7 @@ export default {
                 break;
             case "editTeammates":
                 this.parentDir = "团队协同";
-                this.childDir = "编辑团员信息";
+                this.childDir = "团员权限";
                 break;
             case "createProject":
                 this.parentDir = "团队协同";
@@ -39,7 +39,7 @@ export default {
                 break;
             case "editTeam":
                 this.parentDir = "团队协同";
-                this.childDir = "编辑团队信息";
+                this.childDir = "团队信息";
                 break;
             case "addTeammates":
                 this.parentDir = "团队协同";
