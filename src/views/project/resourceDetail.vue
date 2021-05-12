@@ -6,7 +6,7 @@
             <div class="resource-detail-description">
                 <!-- 资源简略信息 -->
                 <div class="resource-detail-description-pic">
-                    <div class='resource-cover-page'></div>
+                    <img :src="require('@/assets/img/fileIcons/doc.png')" class='resource-cover-page'/>
                 </div>
                 <div class="resource-detail-description-text">
                     <div><b>名    称： </b>{{resourceInfo.resourceName}}</div>
@@ -223,11 +223,9 @@ export default {
 }
 
 .resource-cover-page{
-    width: 10rem;
+    width: 12rem;
     height: 12rem;
     margin: auto;
-    background-image: url('~@/assets/img/file_type_1.png');
-    background-repeat: no-repeat;
 }
 
 .resource-detail-show{

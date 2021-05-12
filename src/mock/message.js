@@ -20,11 +20,12 @@ const teamMessage = [
 ];
 
 const messageRecord = [
-    { messageId:1, senderId: 24124, senderName: "赵如海", sendTime: '2020-03-05 14:23', messageType: 1, content: 'hello! 请多多指教'},//文字内容
-    { messageId:2, senderId: 24124, senderName: "赵如海", sendTime: '2020-03-05 14:24', messageType: 1, content: '/微笑'},//文字内容
-    { messageId:3, senderId: 4124, senderName: "秦淑远", sendTime: '2020-03-05 14:24', messageType: 1, content: '欢迎！'},//文字内容
-    { messageId:4, senderId: 111111, senderName: "赵天泽", sendTime: '2020-03-05 14:24', messageType: 1, content: '你好，欢迎加入我们团队'},//文字内容
-    { messageId:5, senderId: 111111, senderName: "赵天泽", sendTime: '2020-03-05 14:25', messageType: 1, content: '有了你的加入，咱们的团队生活就更丰富了有了你的加入，咱们的团队生活就更丰富了有了你的加入，咱们的团队生活就更丰富了有了你的加入，咱们的团队生活就更丰富了有了你的加入，咱们的团队生活就更丰富了有了你的加入，咱们的团队生活就更丰富了有了你的加入，咱们的团队生活就更丰富了有了你的加入，咱们的团队生活就更丰富了'},//文字内容
+    { messageId:1, senderId: 24124, senderName: "赵如海", sendTime: '2020-03-05 14:23', messageType: 1, content: 'hello! 请多多指教'},
+    { messageId:2, senderId: 24124, senderName: "赵如海", sendTime: '2020-03-05 14:24', messageType: 1, content: '/微笑'},
+    { messageId:3, senderId: 4124, senderName: "秦淑远", sendTime: '2020-03-05 14:24', messageType: 1, content: '欢迎！'},
+    { messageId:4, senderId: 111111, senderName: "赵天泽", sendTime: '2020-03-05 14:24', messageType: 1, content: '你好，欢迎加入我们团队'},
+    { messageId:5, senderId: 111111, senderName: "赵天泽", sendTime: '2020-03-05 14:25', messageType: 1, content: '有了你的加入，咱们的团队生活就更丰富了'},
+    // { messageId:5, senderId: 111111, senderName: "赵天泽", sendTime: '2020-03-05 14:25', messageType: 1, content: '有了你的加入，咱们的团队生活就更丰富了有了你的加入，咱们的团队生活就更丰富了有了你的加入，咱们的团队生活就更丰富了有了你的加入，咱们的团队生活就更丰富了有了你的加入，咱们的团队生活就更丰富了有了你的加入，咱们的团队生活就更丰富了有了你的加入，咱们的团队生活就更丰富了有了你的加入，咱们的团队生活就更丰富了'},//文字内容
 ];
 
 

@@ -1,34 +1,28 @@
 <template>
     <div class="home-page">
-        <el-row>
-            <el-col :span='18'>
-                <el-card class="box-card card-process">
-                    <div slot="header" class="clearfix">
-                        <span>进度简明</span>
-                    </div>
-                    <div class='brief-process'>
-                        <div class='brief-process-item' title="三天内需完成的任务">紧急任务<div class='task urgent-task'>2</div></div>
-                        <div class='brief-process-item'>我的任务<div class='task my-task'>12</div></div>
-                        <div class='brief-process-item'>进行中的项目<div class='task project-ing'>3</div></div>
-                    </div>
-                </el-card>
-            </el-col>
-            <el-col :span='6'>
-                <el-card class="box-card card-dynamic">
-                    <div slot="header" class="clearfix">
-                        <span>最新动态</span>
-                    </div>
-                    <el-timeline>
-                        <el-timeline-item
-                            v-for="(activity, index) in activities"
-                            :key="index"
-                            :timestamp="activity.timestamp">
-                            {{activity.content}}
-                        </el-timeline-item>
-                    </el-timeline>
-                </el-card>
-            </el-col>
-        </el-row>
+        <el-card class="box-card card-process">
+            <div slot="header" class="clearfix">
+                <span>进度简明</span>
+            </div>
+            <div class='brief-process'>
+                <div class='brief-process-item' title="三天内需完成的任务">紧急任务<div class='home-page-task home-page-urgent-task'>2</div></div>
+                <div class='brief-process-item'>我的任务<div class='home-page-task home-page-my-task'>12</div></div>
+                <div class='brief-process-item'>进行中的项目<div class='home-page-task home-page-project-ing'>3</div></div>
+            </div>
+        </el-card>
+        <el-card class="box-card card-dynamic">
+            <div slot="header" class="clearfix">
+                <span>最新动态</span>
+            </div>
+            <el-timeline>
+                <el-timeline-item
+                    v-for="(activity, index) in activities"
+                    :key="index"
+                    :timestamp="activity.timestamp">
+                    {{activity.content}}
+                </el-timeline-item>
+            </el-timeline>
+        </el-card>
         <el-card class="box-card card-chart">
             <div slot="header" class="clearfix">
                 <span>团队与项目关系图谱</span>
@@ -63,14 +57,14 @@ export default {
       return {
             reverse: true,
             activities: [{
-            content: '活动按期开始',
-            timestamp: '2018-04-15'
+            content: '张祁侗上传了文件《需求规格说明书》',
+            timestamp: '2021-04-15'
             }, {
-            content: '通过审核',
-            timestamp: '2018-04-13'
+            content: '高铭上传了文件《商业计划书》',
+            timestamp: '2021-04-10'
             }, {
-            content: '创建成功',
-            timestamp: '2018-04-11'
+            content: '章娞薇创建项目“电影院售票系统”',
+            timestamp: '2018-04-04'
             }]
       };
     },
@@ -169,6 +163,8 @@ export default {
 .home-page{
     height: calc(100vh);
     overflow: scroll;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .box-card{
@@ -177,6 +173,8 @@ export default {
 
 .card-process{
     min-width: 25rem;
+    flex: 1;
+    height: 12rem;
 }
 
 .card-dynamic{
@@ -197,20 +195,20 @@ export default {
     font-size: 1.2rem;
 }
 
-.task{
+.home-page-task{
     font-size: 3rem;
-    
+    margin-top: 1rem;
 }
 
-.urgent-task{
+.home-page-urgent-task{
     color:@danger-color;
 }
 
-.my-task{
+.home-page-my-task{
     color:@brand-color;
 }
 
-.project-ing{
+.home-page-project-ing{
     color: @success-color;
 }
 

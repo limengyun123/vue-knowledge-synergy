@@ -1,7 +1,9 @@
 <template>
     <div class="common-nav-page">
         <div class="common-nav-left"> 
-            <div class="common-nav-logo">LOGO</div> 
+            <div class="common-nav-logo">
+                <img :src="require('@/assets/img/logo.png')"  class="common-nav-logo-pic"/>
+            </div> 
             <div class="common-navigation">  
                 <router-link to="/common/main" class="common-nav-item">
                     <div class="el-icon-s-home"></div>
@@ -27,7 +29,7 @@
             <el-dropdown @command="handleCommand" class="common-nav-avatar" placement="right-end">
                 <span>
                     <el-badge :value="noticeNum" :max="99" class="notice-item">
-                        <el-avatar :src="require('@/assets/img/avatar_1.png')"></el-avatar>
+                        <div class='common_nav_avatar'>{{getUser}}</div>
                     </el-badge>
                 </span>
                 <el-dropdown-menu slot="dropdown">
@@ -104,9 +106,15 @@ export default {
     height: 4rem;
 	text-align: center;
 	color: white;
-	line-height: 4rem;
     border-bottom: white 1px solid;
     margin-bottom: 1rem;
+}
+
+.common-nav-logo-pic{
+    width: 3.4rem;
+    height: 3.4rem;
+    margin-top: 0.3rem;
+    border-radius: .4rem;
 }
 
 /* 修改导航栏样式*/
@@ -153,6 +161,15 @@ export default {
 .icon-user-special{
     position: relative;
     left: -0.5rem;
+}
+
+.common_nav_avatar{
+    width: 3rem;
+    height: 3rem;
+    line-height: 3rem;
+    border-radius: 50%;
+    background-color: white;
+    // color: @main-color;
 }
 
 .common-navigation a {

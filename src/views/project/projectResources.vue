@@ -19,7 +19,10 @@
             <el-table :data="resources" class="resource-table">
                 <el-table-column prop="resourceType" label="类型" width="80">
                     <template slot-scope="scope">
-                        <el-avatar :src="require('@/assets/img/file_type_1.png')" shape="square" size="large" :index="scope.row.resourceType"></el-avatar>
+                        <img v-if="scope.row.resourceId==2" :src="require('@/assets/img/fileIcons/xls.png')" class="reource-type-img" :index="scope.row.resourceId" />
+                        <img v-else-if="scope.row.resourceId==4" :src="require('@/assets/img/fileIcons/pdf.png')" class="reource-type-img" :index="scope.row.resourceId" />
+                        <img v-else-if="scope.row.resourceId==5" :src="require('@/assets/img/fileIcons/rar.png')" class="reource-type-img" :index="scope.row.resourceId" />
+                        <img v-else :src="require('@/assets/img/fileIcons/doc.png')" class="reource-type-img" :index="scope.row.resourceId" />
                     </template>
                 </el-table-column>
                 <el-table-column prop="resourceName" label="名称" width="300"></el-table-column>
@@ -171,6 +174,12 @@ export default {
     background-color: @support-color-bg;
 }
 
+.reource-type-img{
+    width: 3rem;
+    height: 3rem;
+    background-color: transparent;
+}
+
 .resource-table{
     box-shadow: #dddddd 0 0 0.4rem;
     border: solid #dddddd 1px;
@@ -193,7 +202,7 @@ export default {
 }
 
 .resource-square-pic{
-    background-image: url('../../assets/img/file_type_1.png');
+    background-image: url('../../assets/img/fileIcons/xls.png');
     background-size: 4rem 4rem;
     width: 4rem;
     height: 4rem;
