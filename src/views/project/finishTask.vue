@@ -1,9 +1,9 @@
 <template>
     <div>
         <GoBackHead />
-        <div class="upload-resource-body">
+        <div class="finish-task-body">
             <div>
-                <input type="file" @change="chooseFile($event)" multiple="multiplt" id="chosen-resource-button-hidden">
+                <input type="file" @change="chooseFile($event)" multiple="multiplt" id="chosen-task-resource-button-hidden">
                 <button @click="chooseFileClick" class="chosen-resource-button">选择文件</button>
                 <button @click="submitUpload" class="upload-resource-button">上传</button>
             </div>
@@ -27,7 +27,7 @@ import GoBackHead from '../../components/goBackHead';
 import {uploadResourcesApi} from '../../api/project';
 
 export default {
-    name: "UploadResource",
+    name: "FinishTask",
     components:{
         'GoBackHead': GoBackHead
     },
@@ -40,7 +40,7 @@ export default {
     },
     methods: {
         chooseFileClick(){
-            document.querySelector('#chosen-resource-button-hidden').click();
+            document.querySelector('#chosen-task-resource-button-hidden').click();
         },
         chooseFile(e){
             // console.log(this.fileList);
@@ -108,86 +108,86 @@ export default {
 <style lang="less">
 @import "../../assets/css/common.less";
 
-.upload-resource-body{
+.finish-task-body{
     width:30rem;
     margin: 2rem auto;
 }
-#chosen-resource-button-hidden{
+#chosen-task-resource-button-hidden{
     display: none;
 }
 
-.chosen-resource-button{
-    outline:none;
-    padding: 0.6rem 1rem;
-    background-color: white;
-    color: #888888;
-    border: solid 0.1rem #dddddd;
-    border-radius: 0.3rem;
-}
+// .chosen-resource-button{
+//     outline:none;
+//     padding: 0.6rem 1rem;
+//     background-color: white;
+//     color: #888888;
+//     border: solid 0.1rem #dddddd;
+//     border-radius: 0.3rem;
+// }
 
-.chosen-resource-button:hover{
-    background-color:@support-color-bg;
-}
+// .chosen-resource-button:hover{
+//     background-color:@support-color-bg;
+// }
 
-.upload-resource-button{
-    outline:none;
-    padding: 0.6rem 1rem;
-    background-color: @support-color-ps;
-    color: white;
-    border: solid 0.1rem #dddddd;
-    border-radius: 0.3rem;
-    float: right;
-}
+// .upload-resource-button{
+//     outline:none;
+//     padding: 0.6rem 1rem;
+//     background-color: @support-color-ps;
+//     color: white;
+//     border: solid 0.1rem #dddddd;
+//     border-radius: 0.3rem;
+//     float: right;
+// }
 
-.upload-resource-button:hover{
-    background-color:@main-color;
-}
+// .upload-resource-button:hover{
+//     background-color:@main-color;
+// }
 
-.choose-resource-tooltip{
-    font-size: 0.8rem;
-    color: #aaaaaa;
-    margin: .8rem auto;
-}
-.upload-resource-show{
-    height:22rem;
-    overflow: scroll;
-}
+// .choose-resource-tooltip{
+//     font-size: 0.8rem;
+//     color: #aaaaaa;
+//     margin: .8rem auto;
+// }
+// .upload-resource-show{
+//     height:22rem;
+//     overflow: scroll;
+// }
 
-.upload-resource-item{
-    color: #888888;
-    margin: .3rem auto;
-    padding: .5rem;
-}
+// .upload-resource-item{
+//     color: #888888;
+//     margin: .3rem auto;
+//     padding: .5rem;
+// }
 
-.file-item-name{
-    display: inline-block;
-    width: 25.5rem;
-    height: 1.2rem;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: none;
-}
+// .file-item-name{
+//     display: inline-block;
+//     width: 25.5rem;
+//     height: 1.2rem;
+//     overflow: hidden;
+//     text-overflow: ellipsis;
+//     white-space: none;
+// }
 
-.upload-resource-item:hover{
-    background-color: @support-color-bg ;
-    border-radius: .3rem;
-}
+// .upload-resource-item:hover{
+//     background-color: @support-color-bg ;
+//     border-radius: .3rem;
+// }
 
-.upload-resource-delete-icon{
-    display: inline-block;
-    margin-left: 1rem;
-    // margin-right: 1rem;
-}
+// .upload-resource-delete-icon{
+//     display: inline-block;
+//     margin-left: 1rem;
+//     // margin-right: 1rem;
+// }
 
-.upload-resource-delete-icon:hover{
-    color: #F56C6C;
-}
+// .upload-resource-delete-icon:hover{
+//     color: #F56C6C;
+// }
 
-.resources-list-enter-active, .resources-list-leave-active {
-    transition: all .8s;
-}
-.resources-list-enter, .resources-list-leave-to{
-    opacity: 0;
-    transform: translateY(-30px);
-}
+// .resources-list-enter-active, .resources-list-leave-active {
+//     transition: all .8s;
+// }
+// .resources-list-enter, .resources-list-leave-to{
+//     opacity: 0;
+//     transform: translateY(-30px);
+// }
 </style>

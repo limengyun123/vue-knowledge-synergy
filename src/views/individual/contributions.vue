@@ -1,7 +1,7 @@
 <template>
     <div>
-        <div class='contributions-title'><h3>贡献总览</h3></div>
-        <div class='contributions-overview'>
+        <!-- <div class='contributions-title'><h3>贡献总览</h3></div> -->
+        <!-- <div class='contributions-overview'>
             <p>自加入网站以来，您一共加入了X个团队，参与了XX个项目，在X个团队中担任重要位置</p>
             <p>完成了XXX项任务，上传了XXX份资源</p>
             <p>在XXX团队上传的资源数最多，共XX份，占容量XXXM</p>
@@ -9,7 +9,7 @@
             <p>在XXX份资源下发表了评论，共XXX条</p>
             <p>在XXX份资源下收到了评论，共XXX条</p>
             <p>其中与 XXX 好友交流得最为频繁</p>
-        </div>
+        </div> -->
         <div class='contributions-title'><h3>贡献详情</h3></div>
         <div class="contributions-detail">
             <!-- <div>成员动态类型：创建项目、上传资源、删除资源、发布任务、取消任务、完成任务、修改项目</div> -->
@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import {getDynamicsApi} from '../../api/project';
+import {getContributionsApi} from '../../api/individual';
 
 export default {
     name: 'Contributions',
@@ -68,8 +68,8 @@ export default {
     },
     methods:{
         getContributions(){
-            getDynamicsApi(this.paginationInfo).then((result)=>{
-                this.contributions = result.data.dynamics;
+            getContributionsApi(this.paginationInfo).then((result)=>{
+                this.contributions = result.data.contributions;
                 this.paginationInfo.totalNum = result.data.totalNum;
             }).catch((reason=>{
                 this.$message.error(reason);

@@ -25,11 +25,14 @@ Mock.mock("http://localhost:8080/user/logout", "post", userApi.logout_result_suc
  Mock.mock("http://localhost:8080/user/forgetPassword", "post", userApi.forget_result_suc);
 //  Mock.mock("http://localhost:8080/user/forgetPassword", "post", userApi.forget_result_fai);
 
+ Mock.mock("http://localhost:8080/user/verify", "post", userApi.get_verify_code_suc);
+//  Mock.mock("http://localhost:8080/user/verify", "post", userApi.get_verify_code_fai);
+
 Mock.mock("http://localhost:8080/profile/pswd", "post", infoApi.change_pswd_suc);
 // Mock.mock("http://localhost:8080/profile/pswd", "post", infoApi.change_pswd_fai);
 
-Mock.mock("http://localhost:8080/profile/info", "post", infoApi.change_info_suc);
-// Mock.mock("http://localhost:8080/profile/info", "post", infoApi.change_info_fai);
+Mock.mock("http://localhost:8080/user/update", "post", infoApi.change_info_suc);
+// Mock.mock("http://localhost:8080/user/update", "post", infoApi.change_info_fai);
 
 Mock.mock("http://localhost:8080/profile/getNotifications", "post", infoApi.get_notifications_suc);
 // Mock.mock("http://localhost:8080/profile/getNotifications", "post", infoApi.get_notifications_fai);
@@ -108,6 +111,9 @@ Mock.mock("http://localhost:8080/individual/getAshorthand", "post", individualAp
 
 Mock.mock("http://localhost:8080/individual/editShorthand", "post", individualApi.edit_shorthand_suc);
 // Mock.mock("http://localhost:8080/individual/editShorthand", "post", individualApi.edit_shorthand_fai);
+
+Mock.mock("http://localhost:8080/individual/getContributions", "post", individualApi.get_contributions_suc);
+// Mock.mock("http://localhost:8080/individual/getContributions", "post", individualApi.get_contributions_fai);
 
 Mock.mock("http://localhost:8080/message/getPrivateChat", "post", messageApi.get_private_chat_suc);
 // Mock.mock("http://localhost:8080/message/getPrivateChat", "post", messageApi.get_private_chat_fai);

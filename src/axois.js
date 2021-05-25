@@ -21,17 +21,18 @@ axios.interceptors.response.use(response=>{
     else return Promise.reject(result.msg);
 },
 error=>{
-    if(error.response.data) error.message = error.response.msg;
-    switch(error.response.code){
-        case 401:
-            store.commit('REMOVE_INFO');
-            router.push({path: '/user/login'});
-            error.message = "请重新登录";
-            break;
-        case 403:
-            error.message = "权限不足，无法访问";
-            break;
+    if (error && error.response && error.response.status) {
+        switch(error.response.code){
+            case 401:
+                store.commit('REMOVE_INFO');
+                router.push({path: '/user/login'});
+                error.message = "请重新登录";
+                break;
+            case 403:
+                router.push({path: '/error'});
+                error.message = "权限不足，无法访问";
+                break;
+        }
     }
     return Promise.reject(error);
-    
-})
+});

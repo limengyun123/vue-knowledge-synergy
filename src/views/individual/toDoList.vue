@@ -33,7 +33,7 @@
                     <!-- 事件重要程度：a>b>c -->
                     <div v-for="item in toDoList" :key="item.eId" class='todo-detail-item'>
                         <span :class="'el-icon-s-opportunity '+item.type"></span>
-                        {{item.description}} {{item.startTime}}->{{item.deadline}}
+                        {{item.description}} <span class="todo-detail-time">{{item.startTime}}->{{item.deadline}}</span>
                     </div>
                 </div>
             </div>
@@ -53,11 +53,11 @@ export default {
             timeOptions:["近一周","近半月","近一月","近三月","近一年","所有"],
             toDoList:[
                 {eId: 1, startTime: '2020-03-02', deadline: '2020-03-04', type: 'b', description: '完成待办事项界面设计'},
-                {eId: 2, startTime: '2020-03-02', deadline: '2020-03-7', type: 'c', description: '完成开题报告'},
-                {eId: 3, startTime: '2020-03-02', deadline: '2020-6-20', type: 'a', description: '考驾照'},
-                {eId: 4, startTime: '2020-03-02', deadline: '2020-6-20', type: 'b', description: '准备生日礼物，并于阴历4月20送出'},
-                {eId: 5, startTime: '2020-03-03', deadline: '2020-07-01', type: 'a', description: '再次参观武汉市植物园'},
-                {eId: 6, startTime: '2020-03-03', deadline: '2020-03-07', type: 'b', description: '和室友吃韩式料理'},
+                {eId: 2, startTime: '2020-03-03', deadline: '2020-03-07', type: 'c', description: '完成开题报告'},
+                {eId: 3, startTime: '2020-03-07', deadline: '2020-06-20', type: 'a', description: '考驾照'},
+                {eId: 4, startTime: '2020-03-11', deadline: '2020-04-20', type: 'b', description: '准备生日礼物，并于阴历4月20送出'},
+                {eId: 5, startTime: '2020-05-04', deadline: '2020-05-06', type: 'a', description: '再次参观武汉市植物园'},
+                {eId: 6, startTime: '2020-06-10', deadline: '2020-06-10', type: 'b', description: '和室友吃韩式料理'},
             ]
         }
     },
@@ -172,6 +172,10 @@ export default {
     margin: 0.8rem 0;
     padding: 1rem;
     border-radius: 1rem;
+}
+
+.todo-detail-time{
+    float: right;
 }
 
 .el-icon-s-opportunity{

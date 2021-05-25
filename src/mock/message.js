@@ -2,15 +2,15 @@ const privateMessage = [
     {chatWithId:1, sender:'赵如海',notReadNum: 1, latestMessage:'咱们谈谈需求吧！咱们谈谈需求吧！咱们谈谈需求吧！咱们谈谈需求吧！咱们谈谈需求吧！咱们谈谈需求吧！咱们谈谈需求吧！咱们谈谈需求吧！咱们谈谈需求吧！',latestTime: '2020-03-09'},
     {chatWithId:2, sender:'李思源',notReadNum: 0, latestMessage:'项目启动已完成',latestTime: '2020-03-09'},
     {chatWithId:3, sender:'刘芳',notReadNum: 0, latestMessage:'挺好的，我看好你',latestTime: '2020-03-09'},
-    {chatWithId:4, sender:'赵如海',notReadNum: 1, latestMessage:'咱们谈谈需求吧！',latestTime: '2020-03-09'},
-    {chatWithId:5, sender:'李思源',notReadNum: 0, latestMessage:'项目启动已完成',latestTime: '2020-03-09'},
-    {chatWithId:6, sender:'刘芳',notReadNum: 0, latestMessage:'挺好的，我看好你',latestTime: '2020-03-09'},
-    {chatWithId:7, sender:'赵如海',notReadNum: 1, latestMessage:'咱们谈谈需求吧！',latestTime: '2020-03-09'},
-    {chatWithId:8, sender:'李思源',notReadNum: 0, latestMessage:'项目启动已完成',latestTime: '2020-03-09'},
-    {chatWithId:9, sender:'刘芳',notReadNum: 0, latestMessage:'挺好的，我看好你',latestTime: '2020-03-09'},
-    {chatWithId:10, sender:'赵如海',notReadNum: 1, latestMessage:'咱们谈谈需求吧！',latestTime: '2020-03-09'},
-    {chatWithId:11, sender:'李思源',notReadNum: 0, latestMessage:'项目启动已完成',latestTime: '2020-03-09'},
-    {chatWithId:12, sender:'刘芳',notReadNum: 0, latestMessage:'挺好的，我看好你',latestTime: '2020-03-09'},
+    // {chatWithId:4, sender:'赵如海',notReadNum: 1, latestMessage:'咱们谈谈需求吧！',latestTime: '2020-03-09'},
+    // {chatWithId:5, sender:'李思源',notReadNum: 0, latestMessage:'项目启动已完成',latestTime: '2020-03-09'},
+    // {chatWithId:6, sender:'刘芳',notReadNum: 0, latestMessage:'挺好的，我看好你',latestTime: '2020-03-09'},
+    // {chatWithId:7, sender:'赵如海',notReadNum: 1, latestMessage:'咱们谈谈需求吧！',latestTime: '2020-03-09'},
+    // {chatWithId:8, sender:'李思源',notReadNum: 0, latestMessage:'项目启动已完成',latestTime: '2020-03-09'},
+    // {chatWithId:9, sender:'刘芳',notReadNum: 0, latestMessage:'挺好的，我看好你',latestTime: '2020-03-09'},
+    // {chatWithId:10, sender:'赵如海',notReadNum: 1, latestMessage:'咱们谈谈需求吧！',latestTime: '2020-03-09'},
+    // {chatWithId:11, sender:'李思源',notReadNum: 0, latestMessage:'项目启动已完成',latestTime: '2020-03-09'},
+    // {chatWithId:12, sender:'刘芳',notReadNum: 0, latestMessage:'挺好的，我看好你',latestTime: '2020-03-09'},
 ];
 
 const teamMessage = [
@@ -23,8 +23,8 @@ const messageRecord = [
     { messageId:1, senderId: 24124, senderName: "赵如海", sendTime: '2020-03-05 14:23', messageType: 1, content: 'hello! 请多多指教'},
     { messageId:2, senderId: 24124, senderName: "赵如海", sendTime: '2020-03-05 14:24', messageType: 1, content: '/微笑'},
     { messageId:3, senderId: 4124, senderName: "秦淑远", sendTime: '2020-03-05 14:24', messageType: 1, content: '欢迎！'},
-    { messageId:4, senderId: 111111, senderName: "赵天泽", sendTime: '2020-03-05 14:24', messageType: 1, content: '你好，欢迎加入我们团队'},
-    { messageId:5, senderId: 111111, senderName: "赵天泽", sendTime: '2020-03-05 14:25', messageType: 1, content: '有了你的加入，咱们的团队生活就更丰富了'},
+    { messageId:4, senderId: 111111, senderName: "李思源", sendTime: '2020-03-05 14:24', messageType: 1, content: '你好，欢迎加入我们团队'},
+    { messageId:5, senderId: 111111, senderName: "李思源", sendTime: '2020-03-05 14:25', messageType: 1, content: '有了你的加入，咱们的团队生活就更丰富了'},
     // { messageId:5, senderId: 111111, senderName: "赵天泽", sendTime: '2020-03-05 14:25', messageType: 1, content: '有了你的加入，咱们的团队生活就更丰富了有了你的加入，咱们的团队生活就更丰富了有了你的加入，咱们的团队生活就更丰富了有了你的加入，咱们的团队生活就更丰富了有了你的加入，咱们的团队生活就更丰富了有了你的加入，咱们的团队生活就更丰富了有了你的加入，咱们的团队生活就更丰富了有了你的加入，咱们的团队生活就更丰富了'},//文字内容
 ];
 

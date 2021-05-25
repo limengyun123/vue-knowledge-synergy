@@ -1,8 +1,8 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+import Home from '../views/Home.vue';
 
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
 const routes = [
 	{ path: '/', name: 'Home', component: Home },
@@ -34,10 +34,10 @@ const routes = [
 						component: ()=> import('../views/project/project.vue'),
 						redirect: 'project/:id/resources', 
 						children:[
-							{ path: 'resources', name:'resources', component: ()=> import('../views/project/projectResources.vue') },
-							{ path: 'tasks', name:'tasks', component: ()=> import('../views/project/projectTasks.vue') },
-							{ path: 'dynamic', name:'dynamic', component: ()=> import('../views/project/matesDynamic.vue') },
-							{ path: 'setting', name:'setting', component: ()=> import('../views/project/projectSetting.vue') },
+							{ path: 'resources', meta: {requireAuth: true}, name:'resources', component: ()=> import('../views/project/projectResources.vue') },
+							{ path: 'tasks', meta: {requireAuth: true}, name:'tasks', component: ()=> import('../views/project/projectTasks.vue') },
+							{ path: 'dynamic', meta: {requireAuth: true}, name:'dynamic', component: ()=> import('../views/project/matesDynamic.vue') },
+							{ path: 'setting', meta: {requireAuth: true}, name:'setting', component: ()=> import('../views/project/projectSetting.vue') },
 						]
 					},
 				]
@@ -48,35 +48,34 @@ const routes = [
 				component: ()=> import('../views/individual/individual.vue'),
 				redirect: '/common/individual/toDoList',
 				children:[
-					{ path: 'toDoList', name:'toDoList', component: ()=> import('../views/individual/toDoList.vue') },
-					{ path: 'shorthand', name:'shorthand', component: ()=> import('../views/individual/shorthand.vue') },
-					{ path: 'taskStats', name:'taskStats', component: ()=> import('../views/individual/taskStats.vue') },
-					{ path: 'contributions', name:'contribution', component: ()=> import('../views/individual/contributions.vue') },
+					{ path: 'toDoList', meta: {requireAuth: true}, name:'toDoList', component: ()=> import('../views/individual/toDoList.vue') },
+					{ path: 'shorthand', meta: {requireAuth: true}, name:'shorthand', component: ()=> import('../views/individual/shorthand.vue') },
+					{ path: 'taskStats', meta: {requireAuth: true}, name:'taskStats', component: ()=> import('../views/individual/taskStats.vue') },
+					{ path: 'contributions', meta: {requireAuth: true}, name:'contribution', component: ()=> import('../views/individual/contributions.vue') },
 				]
 			},
 			{
-				path: 'message',
-				name: 'message',
-				component: ()=>import('../views/message/message.vue')
+				path: 'message', meta: {requireAuth: true}, name: 'message', component: ()=>import('../views/message/message.vue')
 			},
-			{ path: 'profile/siteSetting',name:'siteSetting', component: ()=> import('../views/profile/siteSetting.vue') },
 		]
 	},
-	{ path: '/personalInfo', component: ()=> import('../views/profile/personalInfo.vue') },
-	{ path: '/notification', component: ()=> import('../views/profile/notification.vue') },
-	{ path: '/common/team/createTeam', component: ()=> import('../views/team/createTeam.vue') },
-	{ path: '/common/team/joinTeam', component: ()=> import('../views/team/joinTeam.vue') },
-	{ path: '/common/team/createProject', component: ()=> import('../views/team/createProject.vue') },
-	{ path: '/common/team/addTeammates', component: ()=> import('../views/team/addTeammates.vue') },
-	{ path: '/common/team/editTeam', component: ()=> import('../views/team/editTeam.vue') },
-	{ path: '/common/team/editTeammates', component: ()=> import('../views/team/editTeammates.vue') },
-	{ path: '/common/project/uploadResource/:id', component: ()=> import('../views/project/uploadResource.vue') },
-	{ path: '/common/project/checkTasks/:id', component: ()=> import('../views/project/checkTasks.vue') },
-	{ path: '/common/project/assignTask/:id', component: ()=> import('../views/project/assignTask.vue') },
-	{ path: '/common/project/resourceDetail/:id', component: ()=> import('../views/project/resourceDetail.vue') },
-	{ path: '/common/individual/editShorthand/:id', component: ()=> import('../views/individual/editShorthand.vue') },
-	{ path: '/common/individual/checkEvents', component: ()=> import('../views/individual/checkEvents.vue') },
-	{ path: '/common/individual/addEvent', component: ()=> import('../views/individual/addEvent.vue') },
+	{ path: '/personalInfo', meta: {requireAuth: true}, component: ()=> import('../views/profile/personalInfo.vue') },
+	{ path: '/notification', meta: {requireAuth: true}, component: ()=> import('../views/profile/notification.vue') },
+	{ path: '/common/team/createTeam', meta: {requireAuth: true}, component: ()=> import('../views/team/createTeam.vue') },
+	{ path: '/common/team/joinTeam', meta: {requireAuth: true}, component: ()=> import('../views/team/joinTeam.vue') },
+	{ path: '/common/team/createProject', meta: {requireAuth: true}, component: ()=> import('../views/team/createProject.vue') },
+	{ path: '/common/team/addTeammates', meta: {requireAuth: true}, component: ()=> import('../views/team/addTeammates.vue') },
+	{ path: '/common/team/editTeam', meta: {requireAuth: true}, component: ()=> import('../views/team/editTeam.vue') },
+	{ path: '/common/team/editTeammates', meta: {requireAuth: true}, component: ()=> import('../views/team/editTeammates.vue') },
+	{ path: '/common/project/uploadResource/:id', meta: {requireAuth: true}, component: ()=> import('../views/project/uploadResource.vue') },
+	{ path: '/common/project/checkTasks/:id', meta: {requireAuth: true}, component: ()=> import('../views/project/checkTasks.vue') },
+	{ path: '/common/project/assignTask/:id', meta: {requireAuth: true}, component: ()=> import('../views/project/assignTask.vue') },
+	{ path: '/common/project/finishTask/:id', meta: {requireAuth: true}, component: ()=> import('../views/project/finishTask.vue') },
+	{ path: '/common/project/resourceDetail/:id', meta: {requireAuth: true}, component: ()=> import('../views/project/resourceDetail.vue') },
+	{ path: '/common/individual/editShorthand/:id', meta: {requireAuth: true}, component: ()=> import('../views/individual/editShorthand.vue') },
+	{ path: '/common/individual/checkEvents', meta: {requireAuth: true}, component: ()=> import('../views/individual/checkEvents.vue') },
+	{ path: '/common/individual/addEvent', meta: {requireAuth: true}, component: ()=> import('../views/individual/addEvent.vue') },
+	{ path: '/common/individual/finishEvent', meta: {requireAuth: true}, component: ()=> import('../views/individual/finishEvent.vue') },
 	{ path: '*', name: 'error', component: () => import('../components/error.vue') }, 
 ]
 
@@ -86,4 +85,4 @@ const router = new VueRouter({
   routes
 })
 
-export default router
+export default router;

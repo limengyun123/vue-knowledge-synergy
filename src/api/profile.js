@@ -1,16 +1,12 @@
 import axios from 'axios';
 
 export const changePswdApi = param=>{
-    return axios.post('/user/changePassword',param);
+    return axios.post('/user/forgetPassword',param);
 }
 
 export const changeInfoApi = param=>{
     return axios.post('/user/update',param);
 }
-
-// export const changePswdApi = oldPswd=>{
-//     return axios.post('http://localhost:8080/profile/pswd',oldPswd);
-// }
 
 // export const changeInfoApi = oldInfo=>{
 //     return axios.post('http://localhost:8080/profile/info',oldInfo);

@@ -43,7 +43,7 @@
                 </el-form>
             </div>
         </div>
-        <el-dialog title="修改密码" :visible.sync="showDialog" width="40%">
+        <el-dialog title="修改密码" :visible.sync="showDialog" width="35rem">
             <el-form :model="passwordForm" :rules="pswdRules" ref="passwordForm" label-width="90px" class='change-password-form'>
                 <el-form-item label="邮箱" prop="email">
                 <el-input type="text" v-model="passwordForm.email">
@@ -71,7 +71,7 @@
 <script>
 import {sendEmailCodeApi} from '../../api/user';
 import {changePswdApi, changeInfoApi} from '../../api/profile';
-import GoBackHead from '../../components/goBackHead'
+import GoBackHead from '../../components/goBackHead';
 
 export default {
     name: "PersonalInfo",
@@ -272,6 +272,7 @@ export default {
 
 
 .change-password-form{
+    width: 25rem;
     margin: 0 4rem 0 3rem;
 }
 

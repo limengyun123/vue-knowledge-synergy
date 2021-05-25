@@ -27,7 +27,7 @@
                         <el-option label="所有任务" :value="4"></el-option>
                     </el-select>
                 </div>
-                <div class='task-detail-body'>
+                <div class='task-detail-body' @click="finishTask">
                     <div v-for="task in showedTasksIndividual" :key="task.tId" class='task-detail-item'>
                         <div class='task-detail-item-info'>
                             <div>{{task.startTime}}</div>
@@ -185,6 +185,14 @@ export default {
         },
         checkTasks(){
             this.$router.push('/common/project/checkTasks/'+this.$route.params.id);
+        },
+        finishTask(e){
+            
+            let tg = e.target;
+            console.log(tg);
+            let index = tg.getAtrribute('index');
+            // if(tg.getAtrribute('index') || e.parentNode.getAttribute('index) || e.parentNode.parentNode.getAtrribute('index))
+            // this.$router.push('/common/project/finishTasks/');
         },
         changeMethodIndividual(e){
             this.getTasksDetail(false);

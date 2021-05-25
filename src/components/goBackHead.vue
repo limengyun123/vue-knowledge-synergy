@@ -56,9 +56,11 @@ export default {
             case 'personalInfo':
                 this.parentDir = "个人信息";
                 this.childDir = "个人档案";
+                break;
             case 'notification':
                 this.parentDir = "个人信息";
                 this.childDir = "通知";
+                break;
             default:
                 switch(path.pop()){
                     case "editShorthand":

@@ -66,6 +66,18 @@ export default{
             msg: "用户名或密码错误",
             data: {}
         }
+    },
+    get_verify_code_suc: () => {
+        return {
+            code: 200,
+            msg: "获取成功",
+        }
+    },
+    get_verify_code_fai: ()=> {
+        return {
+            code: 400,
+            msg: "获取失败",
+        }
     }
 }
 

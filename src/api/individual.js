@@ -27,3 +27,7 @@ export const getAShorthandApi = (param) =>{
 export const editShorthandApi = (param)=>{
     return axios.post('individual/editShorthand',param);
 }
+
+export const getContributionsApi = (param)=>{
+    return axios.post('individual/getContributions',param);
+}

@@ -21,10 +21,6 @@
                     <div class="el-icon-chat-dot-round"></div>
                     <div>消息</div>
                 </router-link>
-                <!-- <router-link to="/common/profile/siteSetting" class="common-nav-item">
-                    <div class="el-icon-s-tools"></div>
-                    <div>设置中心</div>
-                </router-link> -->
             </div>
             <el-dropdown @command="handleCommand" class="common-nav-avatar" placement="right-end">
                 <span>

@@ -72,7 +72,7 @@ export default {
     methods: {
         sendCode(){
             if(this.sendCodeHandle==null){
-                sendEmailCodeApi({email: this.forgetForm.email}).then((result)=>{
+                sendEmailCodeApi({email: this.forgetForm.email}).then(()=>{
                     this.$message.success("验证码发送成功，请注意查收");
                     let count = 60;
                     this.sendCodeHandle = setInterval(()=>{

@@ -23,7 +23,7 @@
                     </el-tag> 
                 </el-form-item>
                 <el-form-item>
-                    <el-button @click="submitTeam" class='create-team-button'>创建团队</el-button>
+                    <el-button type="primary" @click="submitTeam" class='create-team-button'>创建团队</el-button>
                 </el-form-item>
             </el-form>
         </div>
@@ -101,7 +101,7 @@ export default {
         }
     },
     created(){
-        this.teamInfo.teamLeader = this.$store.state.userInfo.userName;
+        this.teamInfo.teamLeader = this.$store.state.userInfo.actualName;
         getContactsApi(this.teamInfo.teamLeader).then((result)=>{
             this.myContacts = result.data;
         }).catch((reason)=>{
