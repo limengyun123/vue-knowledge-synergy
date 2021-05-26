@@ -34,6 +34,10 @@ export const assignTaskApi = (taskInfo)=>{
     return axios.post('/project/assignTask', taskInfo);
 };
 
+export const finishTaskApi = (param)=>{
+    return axios.post('/project/finishTask', param);
+};
+
 export const getDynamicsApi = (param) =>{
     return axios.post('/project/getDynamics', param);
 };

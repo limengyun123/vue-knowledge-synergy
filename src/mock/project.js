@@ -188,6 +188,18 @@ export default {
             msg: "任务分配失败",
         }
     },
+    finish_task_suc:(param)=>{
+        return {
+            code: 200,
+            msg: "成功提交",
+        }
+    },
+    finish_task_fai:(param)=>{
+        return {
+            code: 503,
+            msg: "任务完成失败",
+        }
+    },
     get_dynamics_suc:(param)=>{
         let prm = JSON.parse(param.body);
         let cp = prm.currentPage, ps = prm.pageSize;

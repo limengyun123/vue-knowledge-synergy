@@ -73,6 +73,9 @@ Mock.mock("http://localhost:8080/project/getMyTasks", "post", projectApi.get_my_
 Mock.mock("http://localhost:8080/project/assignTask", "post", projectApi.assign_task_suc);
 // Mock.mock("http://localhost:8080/project/assignTask", "post", projectApi.assign_task_fai);
 
+Mock.mock("http://localhost:8080/project/finishTask", "post", projectApi.finish_task_suc);
+// Mock.mock("http://localhost:8080/project/finishTask", "post", projectApi.finish_task_fai);
+
 Mock.mock("http://localhost:8080/project/deleteMyTask", "post", projectApi.delete_my_task_suc);
 // Mock.mock("http://localhost:8080/project/deleteMyTask", "post", projectApi.delete_my_task_fai);
 

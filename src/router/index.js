@@ -75,7 +75,6 @@ const routes = [
 	{ path: '/common/individual/editShorthand/:id', meta: {requireAuth: true}, component: ()=> import('../views/individual/editShorthand.vue') },
 	{ path: '/common/individual/checkEvents', meta: {requireAuth: true}, component: ()=> import('../views/individual/checkEvents.vue') },
 	{ path: '/common/individual/addEvent', meta: {requireAuth: true}, component: ()=> import('../views/individual/addEvent.vue') },
-	{ path: '/common/individual/finishEvent', meta: {requireAuth: true}, component: ()=> import('../views/individual/finishEvent.vue') },
 	{ path: '*', name: 'error', component: () => import('../components/error.vue') }, 
 ]
 

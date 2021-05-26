@@ -75,6 +75,10 @@ export default {
                         this.parentDir = "项目管理";
                         this.childDir = "分配任务";
                         break;
+                    case "finishTask":
+                        this.parentDir = "项目管理";
+                        this.childDir = "完成任务";
+                        break;
                     case "uploadResource":
                         this.parentDir = "项目管理";
                         this.childDir = "上传资源";

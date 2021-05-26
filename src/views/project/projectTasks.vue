@@ -28,7 +28,7 @@
                     </el-select>
                 </div>
                 <div class='task-detail-body' @click="finishTask">
-                    <div v-for="task in showedTasksIndividual" :key="task.tId" class='task-detail-item'>
+                    <div v-for="task in showedTasksIndividual" :key="task.tId" :index="task.tId" class='task-detail-item'>
                         <div class='task-detail-item-info'>
                             <div>{{task.startTime}}</div>
                             <div class='content-dash'></div>
@@ -189,10 +189,11 @@ export default {
         finishTask(e){
             
             let tg = e.target;
-            console.log(tg);
-            let index = tg.getAtrribute('index');
-            // if(tg.getAtrribute('index') || e.parentNode.getAttribute('index) || e.parentNode.parentNode.getAtrribute('index))
-            // this.$router.push('/common/project/finishTasks/');
+            let index = tg.getAttribute('index') || tg.parentNode.getAttribute('index') || tg.parentNode.parentNode.getAttribute('index');
+            if(index!=null){
+                index = parseInt(index);
+                this.$router.push('/common/project/finishTask/'+index);
+            }
         },
         changeMethodIndividual(e){
             this.getTasksDetail(false);

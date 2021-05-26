@@ -29,11 +29,12 @@
                     </el-select>
                     <el-button type="primary" @click="checkEvents" class='add-event-button'>查看事项</el-button>
                 </div>
-                <div class='todo-detail-body'>
+                <div class='todo-detail-body' @click="finishEvent">
                     <!-- 事件重要程度：a>b>c -->
                     <div v-for="item in toDoList" :key="item.eId" class='todo-detail-item'>
                         <span :class="'el-icon-s-opportunity '+item.type"></span>
                         {{item.description}} <span class="todo-detail-time">{{item.startTime}}->{{item.deadline}}</span>
+                        <span :index="item.eId" class="el-icon-circle-check"></span>
                     </div>
                 </div>
             </div>
@@ -42,7 +43,7 @@
 </template>
 
 <script>
-import {getToDoOverviewApi, getToDoListApi} from '../../api/individual'
+import {getToDoOverviewApi, getToDoListApi,finishToDoApi} from '../../api/individual'
 export default {
     name: "ToDoList",
     data(){
@@ -84,6 +85,17 @@ export default {
         checkEvents(){
             this.$router.push('/common/individual/checkEvents');
         },
+        finishEvent(e){
+            let index = e.target.getAttribute('index');
+            if(index!=null){
+                index = parseInt(index);
+                finishToDoApi({index:index}).then(()=>{
+                    // this.$message.success("完成一件待办事项");
+                }).catch((reason)=>{
+                    this.$message.error(reason);
+                });
+            }
+        }
     }
 }
 </script>
