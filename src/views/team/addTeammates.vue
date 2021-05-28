@@ -90,7 +90,7 @@ export default {
         },
         submitTeammates(){
             if(this.teamMembers.length>0){
-                addTeammatesApi({teamId:this.teamId, users:this.teamMembers.map((item)=>{return item.id})}).then(()=>{
+                addTeammatesApi({teamId:this.teamId, userIds:this.teamMembers.map((item)=>{return item.id})}).then(()=>{
                     this.$message.success("邀请已发送");
                     this.teamMembers = [];
                 }).catch((reason)=>{

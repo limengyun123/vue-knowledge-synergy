@@ -38,7 +38,7 @@ export default {
                 ],
                 password: [
                     { required: true, message: "请输入密码", trigger: 'blur' },
-                    { min: 6, max: 30, message: "请输入6-30位密码", trigger: 'blur' },
+                    { min: 5, max: 30, message: "请输入6-30位密码", trigger: 'blur' },
                     {
                         validator: (rule, value, callback)=>{
                             if(value === '') callback(new Error("请输入密码"));

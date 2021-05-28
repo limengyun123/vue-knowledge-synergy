@@ -1,7 +1,7 @@
 import axios from 'axios';
 import store from './store';
 import router from './router';
-axios.defaults.baseURL='/'; //for web test
+axios.defaults.baseURL='/api'; //for web test
 // axios.defaults.baseURL='http://localhost:8080';  //for local test
 
 

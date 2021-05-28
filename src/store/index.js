@@ -9,6 +9,10 @@ export default new Vuex.Store({
       	userInfo: JSON.parse(sessionStorage.getItem("userInfo"))||{},
 		teamInfo:{
 			teamChosenId: sessionStorage.getItem("teamChosenId")||0,
+			teamName: "",
+			leaderId: 0,
+			institute:"",
+			brief:"",
 			authority: JSON.parse(sessionStorage.getItem("authority"))||{},
 			teammates:[]
 		},
@@ -30,6 +34,18 @@ export default new Vuex.Store({
 		SET_TEAMCHOSENID: (state, id)=>{
 			state.teamInfo.teamChosenId = id;
 			sessionStorage.setItem("teamChosenId", id);
+		},
+		SET_TEAMNAME: (state, name)=>{
+			state.teamInfo.teamName = name;
+		},
+		SET_LEADERID: (state, id)=>{
+			state.teamInfo.leaderId = id;
+		},
+		SET_TEAMBRIEF: (state, brief)=>{
+			state.teamInfo.brief = brief;
+		},
+		SET_TEAMINSTITUTE: (state, institute)=>{
+			state.teamInfo.institute = institute;
 		},
 		SET_AUTHORITY: (state, auth)=>{
 			if(auth != ""){

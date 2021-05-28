@@ -7,7 +7,7 @@
                         <i @click="changeNavState" title="隐藏团队项目" class='el-icon-s-fold team-icon'></i>
                         <el-dropdown @command="handleCommand" placement="bottom-end">
                             <div>
-                                <span class='team-chosen-name'>{{getTeamName}}</span>
+                                <span class='team-chosen-name'>{{teamChosen.teamName}}</span>
                                 <i class="el-icon-arrow-down"></i>
                             </div>
                             <el-dropdown-menu slot="dropdown">
@@ -23,7 +23,8 @@
                                 </el-dropdown-item>
                             </el-dropdown-menu>
                         </el-dropdown>
-                        <router-link to="/common/team/editTeam"><span class="el-icon-edit team-icon" /></router-link>
+                        <router-link v-if="getTeamAuth['TEAM']" to="/common/team/editTeam"><span class="el-icon-edit team-icon" /></router-link>
+                        <span v-else class="el-icon-s-release team-icon" @click="quitTeam"/>
                         <span class="el-icon-chat-dot-round team-icon" @click="chatWithTeam"/>
                     </div>
                     <div class="team-page-project-items" @click="handleProjectChosen">
@@ -32,7 +33,7 @@
                             <span v-else class="el-icon-folder-opened"></span>
                             {{project.projectName}}
                         </div>
-                        <div class='team-page-project' :index='-1'>
+                        <div v-if="getTeamAuth['PROJECT']" class='team-page-project' :index='-1'>
                             <span class="el-icon-circle-plus-outline"></span> 新建项目
                         </div>
                     </div>
@@ -41,7 +42,7 @@
             <transition name="fade-supplement">
                 <div v-show="!navShow" class="team-page-hide-nav">
                     <i @click="changeNavState" class='el-icon-s-unfold team-icon' title="展示团队项目"></i>
-                    <span class="hide-text">{{getTeamName}}{{getProjecteamName}}</span>
+                    <span class="hide-text">{{teamChosen.teamName}}{{getProjecteamName}}</span>
                 </div>
             </transition>
             </div>
@@ -59,7 +60,7 @@
             <transition name="fade-member" mode="out-in">
                 <div v-if="memberShow" class="team-page-right" key="right" @click="operateOnTeammates">
                     <i class="el-icon-s-unfold team-icon" title="隐藏队员" :index='-1'></i>
-                    <div class="team-page-teammates" :index='0'>
+                    <div v-if="getTeamAuth['TEAM']" class="team-page-teammates" :index='0'>
                         <span class="el-icon-plus" :index='0'></span>
                     </div>
                     <div v-for="mate in myTeammates" :key="mate.id" class="team-page-teammates" :index="mate.id">
@@ -75,7 +76,7 @@
 </template>
 
 <script>
-import {getTeamsApi, getTeamInfoApi} from '../../api/team';
+import {getTeamsApi, getTeamInfoApi, quitTeamApi} from '../../api/team';
 import NoData from '../../components/noData';
 
 export default {
@@ -87,22 +88,16 @@ export default {
         return {
             navShow:true,
             memberShow: true,
-            teamChosenId: -1,
+            teamChosen: {},
             projectChosenId: -1,
             myTeams:[],
             myTeammates:[],
             myProjects:[],
-            timer: null // 单双击事件区分标志
+            timer: null, // 单双击事件区分标志
+            chatWith: 0
         }
     },
     computed:{
-        getTeamName(){
-            for(let item of this.myTeams){
-                if(item.teamId == this.teamChosenId)
-                    return item.teamName;
-            }
-            return "";
-        },
         getProjecteamName(){
             for(let item of this.myProjects){
                 if(item.projectId==this.projectChosenId)
@@ -110,15 +105,20 @@ export default {
             }
             return null;
         },
+        getTeamAuth(){
+            return this.$store.state.teamInfo.authority;
+        }
     },
     created(){
         getTeamsApi().then((result)=>{
             this.myTeams = result.data||[];
             if(this.myTeams.length > 0){
-                if(this.$store.state.teamInfo.teamChosenId>0)
-                    this.teamChosenId = this.$store.state.teamInfo.teamChosenId;
+                let id = this.$store.state.teamInfo.teamChosenId;
+                if(id > 0)
+                    this.teamChosen.teamId = id;
                 else
-                    this.teamChosenId = this.myTeams[0].teamId;
+                    this.teamChosen.teamId = this.myTeams[0].teamId;
+                this.teamChosen = this.getTeamById(this.teamChosen.teamId);
                 this.getTeamInfo();
             }
             
@@ -128,19 +128,31 @@ export default {
 
     },
     methods:{
+        getTeamById(index){
+            for(let item of this.myTeams){
+                if(item.teamId == index)
+                    return item;
+            }
+            return {};
+        },
         handleCommand(index) {
             if(index!=-1){
-                this.teamChosenId = index;
+                this.teamChosen = this.getTeamById(index);
                 this.getTeamInfo();
             }
 		},
         getTeamInfo(){
-            this.$store.commit('SET_TEAMCHOSENID', this.teamChosenId);
+                this.$store.commit('SET_TEAMNAME', this.teamChosen.teamName);
+                this.$store.commit('SET_LEADERID', this.teamChosen.leaderId);
+                this.$store.commit('SET_TEAMBRIEF', this.teamChosen.brief || "");
+                this.$store.commit('SET_TEAMINSTITUTE', this.teamChosen.institute || "");
+                this.$store.commit('SET_TEAMCHOSENID', this.teamChosen.teamId);
             // 请求项目数据
-            getTeamInfoApi({teamId:this.teamChosenId}).then((result)=>{
+            getTeamInfoApi({teamId:this.teamChosen.teamId}).then((result)=>{
                 let data = result.data;
                 this.myProjects = data.projects || [];
                 this.myTeammates = data.teamMembers || [];
+                
                 this.$store.commit('SET_AUTHORITY', data.authority || "");
                 this.$store.commit('SET_TEAMMATES', this.myTeammates);
             }).catch((reason)=>{
@@ -167,7 +179,7 @@ export default {
             }
         },
         chatWithTeam(){
-            this.$store.commit('SET_CHAT_INFO',{isTeam: true, chateamId: this.teamChosenId});
+            this.$store.commit('SET_CHAT_INFO',{isTeam: true, chateamId: this.teamChosen.teamId});
             this.$router.push('/common/message');
         },
         operateOnTeammates(e){
@@ -178,8 +190,17 @@ export default {
                     if(this.timer==null){
                         this.timer = setTimeout(()=>{
                             clearTimeout(this.timer);
-                            this.timer==null;
-                            this.$router.push('/common/team/editTeammates');
+                            this.timer=null;
+                            if(this.getTeamAuth['TEAM']) this.$router.push('/common/team/editTeammates');
+                        }, 300);
+                    }
+                    else if(this.chatWith!=index){
+                        clearTimeout(this.timer);
+                        this.chatWith = index;
+                        this.timer = setTimeout(()=>{
+                            clearTimeout(this.timer);
+                            this.timer=null;
+                            if(this.getTeamAuth['TEAM']) this.$router.push('/common/team/editTeammates');
                         }, 300);
                     }
                     else{
@@ -194,6 +215,22 @@ export default {
                 else this.changeMemberState();
             }
         },
+        quitTeam(){
+            this.$confirm(`您将退出团队“${this.teamChosen.teamName}”, 是否继续?`, '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+            }).then(() => {
+                quitTeamApi({teamId: this.teamChosen.teanId}).then(()=>{
+                    this.$message.sucess('成功退出');
+                    this.$router.push('/common/team');
+                }).catch((reason)=>{
+                    this.$message.error(reason);
+                });
+            }).catch(() => {
+                this.$message.info('已取消');          
+            });
+        }
     }
 }
 </script>

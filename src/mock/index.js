@@ -61,11 +61,26 @@ Mock.mock("http://localhost:8080/team/getContacts", "post", teamApi.get_contacts
 Mock.mock("http://localhost:8080/team/searchUser", "post", teamApi.search_user_suc);
 // Mock.mock("http://localhost:8080/team/searchUser", "post", teamApi.search_user_fai);addTeammates
 
-Mock.mock("http://localhost:8080/team/addTeammates", "post", teamApi.add_teammates_suc);
-// Mock.mock("http://localhost:8080/team/addTeammates", "post", teamApi.add_teammates_fai);
+Mock.mock("http://localhost:8080/team/addMember", "post", teamApi.add_teammates_suc);
+// Mock.mock("http://localhost:8080/team/addMember", "post", teamApi.add_teammates_fai);
 
 Mock.mock("http://localhost:8080/team/getTeammates", "post", teamApi.get_teammates_suc);
 // Mock.mock("http://localhost:8080/team/getTeammates", "post", teamApi.get_teammates_fai);
+
+Mock.mock("http://localhost:8080/team/editTeam", "post", teamApi.edit_team_suc);
+// Mock.mock("http://localhost:8080/team/editTeam", "post", teamApi.edit_team_fai);
+
+Mock.mock("http://localhost:8080/team/transfer", "post", teamApi.transfer_team_suc);
+// Mock.mock("http://localhost:8080/team/transfer", "post", teamApi.transfer_team_fai);
+
+Mock.mock("http://localhost:8080/team/getAuthority", "post", teamApi.get_authority_suc);
+// Mock.mock("http://localhost:8080/team/getAuthority", "post", teamApi.get_authority_fai);
+
+Mock.mock("http://localhost:8080/team/editAuthority", "post", teamApi.edit_authority_suc);
+// Mock.mock("http://localhost:8080/team/editAuthority", "post", teamApi.edit_authority_fai);
+
+Mock.mock("http://localhost:8080/team/quit", "post", teamApi.quit_team_suc);
+// Mock.mock("http://localhost:8080/team/quit", "post", teamApi.quit_team_fai);
 
 Mock.mock("http://localhost:8080/project/getResources", "post", projectApi.get_resources_suc);
 // Mock.mock("http://localhost:8080/project/getResources", "post", projectApi.get_resources_fai);

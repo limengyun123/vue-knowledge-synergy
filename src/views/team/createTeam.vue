@@ -9,11 +9,11 @@
                 <el-form-item label="组长" prop="teamLeader">
                     <el-input v-model="teamInfo.teamLeader" disabled></el-input>
                 </el-form-item>
-                <el-form-item label="团队简介" prop="teamBrief">
-                    <el-input v-model="teamInfo.teamBrief"></el-input>
+                <el-form-item label="团队简介" prop="brief">
+                    <el-input v-model="teamInfo.brief"></el-input>
                 </el-form-item>
-                <el-form-item label="所属机构" prop="teamInstitute">
-                    <el-input v-model="teamInfo.teamInstitute"></el-input>
+                <el-form-item label="所属机构" prop="institute">
+                    <el-input v-model="teamInfo.institute"></el-input>
                 </el-form-item>
                 <el-form-item>
                     <el-button type="primary" @click="submitTeam" class='create-team-button'>创建团队</el-button>
@@ -39,48 +39,21 @@ export default {
                 teamName: "",
                 teamLeader: "",
                 teamLeaderId: "",
-                teamBrief:"",
-                teamInstitute: "",
+                brief:"",
+                institute: "",
             },
             infoRules:{
                 teamName:[
-                    {
-                        min: 2,
-                        max: 30,
-                        message: "请输入2-30个字符",
-                        trigger: 'blur'
-                    },
-                    {
-                        required: true,
-                        message: "请输入团队名称",
-                        trigger: 'blur'
-                    }
+                    { min: 2, max: 30, message: "请输入2-30个字符", trigger: 'blur' },
+                    { required: true, message: "请输入团队名称", trigger: 'blur' }
                 ],
-                teamBrief:[
-                    {
-                        min: 2,
-                        max: 30,
-                        message: "请输入1-100个字符",
-                        trigger: 'blur'
-                    },
-                    {
-                        required: true,
-                        message: "请输入团队简介",
-                        trigger: 'blur'
-                    }
+                brief:[
+                    { min: 2, max: 30, message: "请输入1-100个字符", trigger: 'blur' },
+                    { required: true, message: "请输入团队简介", trigger: 'blur' }
                 ],
-                teamInstitute:[
-                    {
-                        min: 1,
-                        max: 30,
-                        message: "请输入1-30个字符",
-                        trigger: 'blur'
-                    },
-                    {
-                        required: true,
-                        message: "请输入团队所属机构",
-                        trigger: 'blur'
-                    }
+                institute:[
+                    { min: 1, max: 30, message: "请输入1-30个字符", trigger: 'blur' },
+                    { required: true, message: "请输入团队所属机构", trigger: 'blur' }
                 ],
             }
             

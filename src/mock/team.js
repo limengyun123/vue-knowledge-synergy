@@ -74,7 +74,28 @@ const contacts = [
     { userName: "7209534753", actualName: "张三" },
     { userName: "19658230", actualName: "李四" },
     { userName: "2689323", actualName: "王老五" }
-]
+];
+
+const authority = [
+    {
+        id: 481933,
+        actualName: '赵浩',
+        sex: true,
+        email: '47828743@qq.com',
+        phone: '18573829753',
+        enterTime: '2020-09-21 18:42',
+        authority:'1111111'
+    },
+    {
+        id: 53454,
+        actualName: '钱正来',
+        sex: false,
+        email: '4756@qq.com',
+        phone: '15083927492',
+        enterTime: '2020-09-21 18:42',
+        authority:'1010110'
+    },
+];
 
 export default{
     get_teams_suc:(param)=>{
@@ -205,6 +226,67 @@ export default{
             code: 403,
             msg: "项目名称重复",
             data: { }
+        }
+    },
+    edit_team_suc:(param)=>{
+        return {
+            code: 200,
+            msg: "信息修改成功",
+        }
+    },
+    edit_team_fai:(param)=>{
+        return {
+            code: 403,
+            msg: "信息修改失败",
+        }
+    },
+    transfer_team_suc:(param)=>{
+        return {
+            code: 200,
+            msg: "成功移交团队",
+        }
+    },
+    transfer_team_fai:(param)=>{
+        return {
+            code: 403,
+            msg: "移交团队失败",
+        }
+    },
+    quit_team_suc:(param)=>{
+        return {
+            code: 200,
+            msg: "成功退出",
+        }
+    },
+    quit_team_fai:(param)=>{
+        return {
+            code: 403,
+            msg: "退出团队失败",
+        }
+    },
+    get_authority_suc:(param)=>{
+        return {
+            code: 200,
+            msg: "成功获取成员权限",
+            data: authority
+        }
+    },
+    get_authority_fai:(param)=>{
+        return {
+            code: 403,
+            msg: "获取成员权限失败",
+        }
+    },
+    edit_authority_suc:(param)=>{
+        return {
+            code: 200,
+            msg: "成功修改权限",
+        }
+    },
+    edit_authority_fai:(param)=>{
+        return {
+            code: 403,
+            msg: "修改权限失败",
         }
     },
 }

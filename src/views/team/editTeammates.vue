@@ -12,47 +12,47 @@
                     </template>
             </el-table-column>
             <el-table-column prop="email" label="邮箱"></el-table-column>
-            <el-table-column prop="joinTime" label="入群时间" width="150"></el-table-column>
-            <el-table-column prop="permission" label="成员权限" >
+            <el-table-column prop="enterTime" label="入群时间" width="150"></el-table-column>
+            <el-table-column prop="authority" label="成员权限" >
                 <el-table-column label="设置团员权限" width="110">
                     <template slot-scope="scope">
-                        <span v-if="scope.row.permission[0]==1" class="el-icon-check"></span>
+                        <span v-if="scope.row.authority[0]=='1'" class="el-icon-check"></span>
                         <span v-else class="el-icon-close"></span>
                     </template>
                 </el-table-column>
                 <el-table-column label="编辑团队" width="80">
                     <template slot-scope="scope">
-                        <span v-if="scope.row.permission[1]==1" class="el-icon-check" ></span>
+                        <span v-if="scope.row.authority[1]=='1'" class="el-icon-check" ></span>
                         <span v-else class="el-icon-close" ></span>
                     </template>
                 </el-table-column>
                 <el-table-column label="发布公告" width="80">
                     <template slot-scope="scope">
-                        <span v-if="scope.row.permission[2]==1" class="el-icon-check"></span>
+                        <span v-if="scope.row.authority[2]=='1'" class="el-icon-check"></span>
                         <span v-else class="el-icon-close" ></span>
                     </template>
                 </el-table-column>
                 <el-table-column label="项目权限" width="80">
                     <template slot-scope="scope">
-                        <span v-if="scope.row.permission[3]==1" class="el-icon-check" ></span>
+                        <span v-if="scope.row.authority[3]=='1'" class="el-icon-check" ></span>
                         <span v-else class="el-icon-close"></span>
                     </template>
                 </el-table-column>
                 <el-table-column label="资源权限" width="80">
                     <template slot-scope="scope">
-                        <span v-if="scope.row.permission[4]==1" class="el-icon-check" ></span>
+                        <span v-if="scope.row.authority[4]=='1'" class="el-icon-check" ></span>
                         <span v-else class="el-icon-close"></span>
                     </template>
                 </el-table-column>
                 <el-table-column label="任务权限" width="80">
                     <template slot-scope="scope">
-                        <span v-if="scope.row.permission[5]==1" class="el-icon-check"></span>
+                        <span v-if="scope.row.authority[5]=='1'" class="el-icon-check"></span>
                         <span v-else class="el-icon-close"></span>
                     </template>
                 </el-table-column>
                 <el-table-column label="查看成员贡献" width="110">
                     <template slot-scope="scope">
-                        <span v-if="scope.row.permission[6]==1" class="el-icon-check" ></span>
+                        <span v-if="scope.row.authority[6]=='1'" class="el-icon-check" ></span>
                         <span v-else class="el-icon-close"></span>
                     </template>
                 </el-table-column>
@@ -64,7 +64,7 @@
 
 <script>
 import GoBackHead from '../../components/goBackHead';
-import {getTeammateInfoApi} from '../../api/team';
+import {getAuthorityApi, editAuthorityApi} from '../../api/team';
 
 export default {
     name: 'EditTeammates',
@@ -74,33 +74,40 @@ export default {
     data(){
         return {
             isEditing: false,
-            teammates:[
-                {
-                    id: 481933,
-                    actualName: '赵浩',
-                    sex: true,
-                    email: '47828743@qq.com',
-                    phone: '18573829753',
-                    joinTime: '2020-09-21 18:42',
-                    permission:[1,1,1,1,1,1,1]
-                },
-                {
-                    id: 53454,
-                    actualName: '钱正来',
-                    sex: false,
-                    email: '4756@qq.com',
-                    phone: '15083927492',
-                    joinTime: '2020-09-21 18:42',
-                    permission:[1,0,1,0,1,0,0]
-                },
-            ],
+            teammates:[],
         }
+    },
+    computed:{
+        teamId(){
+            return this.$store.state.teamInfo.teamChosenId;
+        }
+    },
+    created(){
+        getAuthorityApi({teamId: this.teamId}).then((result)=>{
+            this.teammates = result.data || [];
+            for(let mate of this.teammates){
+                let len = mate.authority.length;
+                mate.authority = mate.authority+'0'.repeat(7-len);
+            }
+            console.log(this.teammates);
+        }).catch((reason)=>{
+            this.$message.error(reason);
+        })
     },
     methods:{
         changeState(){
             this.isEditing = !this.isEditing;
             if(!this.isEditing){
-                this.$message.success('修改成功');
+                editAuthorityApi({
+                    teamId: this.teamId,
+                    changes: this.teammates.map((item)=>{
+                        return {id:item.id, authority:item.authority};
+                    })
+                }).then(()=>{
+                    this.$message.success('权限修改成功');
+                }).catch((reason)=>{
+                    this.$message.error(reason);
+                });
             }
         },
         changePermission(row, column, cell, event){
@@ -138,12 +145,12 @@ export default {
         changePermissionById(id, index, cell){
             for(let item of this.teammates){
                 if(item.id==id){
-                    if(item.permission[index] === 1){
-                        item.permission[index] = 0;
+                    if(item.authority[index] === '1'){
+                        item.authority = item.authority.substring(0, index)+'0'+item.authority.substring(index + 1);
                         cell.innerHTML = "<div class='cell'><span class='el-icon-close'></span></div>";
                     }
                     else{
-                        item.permission[index] = 1;
+                        item.authority = item.authority.substring(0, index)+'1'+item.authority.substring(index + 1);
                         cell.innerHTML = "<div class='cell'><span class='el-icon-check'></span></div>";
                     }
                     cell.style.backgroundColor = '#f5f5f5';
