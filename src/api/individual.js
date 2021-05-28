@@ -12,7 +12,7 @@ export const addTodoApi = (param)=>{
     return Promise.resolve(1);
 };
 
-export const finishTodoApi = (param)=>{
+export const finishToDoApi = (param)=>{
     return Promise.resolve(1);
 };
 

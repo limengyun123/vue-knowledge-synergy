@@ -9,9 +9,9 @@
                     </el-input>    
                     <div class='searched-team-list' @click="handleTeamChosen">
                         <transition-group name="searched-teams">
-                            <div v-for="team in searchedTeams" :key="team.tId" :index="team.tId" class='searched-team-item'>
-                                <div class='searched-team-name'>{{team.tName}}</div>
-                                <div>(队长: {{team.userName}})</div>
+                            <div v-for="team in searchedTeams" :key="team.teamId" :index="team.teamId" class='searched-team-item'>
+                                <div class='searched-team-name'>{{team.teamName}}</div>
+                                <div>(队长: {{team.leaderName}})</div>
                             </div>
                         </transition-group>
                     </div>
@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import {getTeamsApi, joinTeamApi} from '../../api/team';
+import {searchTeamsApi, joinTeamApi} from '../../api/team';
 import GoBackHead from '../../components/goBackHead';
 
 export default {
@@ -57,8 +57,9 @@ export default {
         handleSearch(){
             let content = this.joinInfo.searchInput.trim();
             if(content!=''){
-                getTeamsApi({searchInput: content}).then((result)=>{
-                    this.searchedTeams = result.data;
+                searchTeamsApi({input: content}).then((result)=>{
+                    if(result.data.length==0) this.$message.info("未搜索到团队");
+                    else this.searchedTeams = result.data;
                 }).catch((reason)=>{
                     this.$message.error(reason);
                 })
@@ -69,17 +70,19 @@ export default {
         },
         handleTeamChosen(e){
             let tId = e.target.getAttribute('index')||e.target.parentNode.getAttribute('index');
+            console.log(tId);
             if(tId){
                 tId = parseInt(tId);
                 this.joinInfo.searchInput = this.getTeamNameById(tId);
-                this.teamChosen = e;
+                this.teamChosen = tId;
                 this.searchedTeams = [];
+                console.log(tId);
             }
         },
         getTeamNameById(tId){
             for(let team of this.searchedTeams){
-                if(team.tId==tId){
-                    return team.tName;
+                if(team.teamId==tId){
+                    return team.teamName;
                 }
             }
             return '';

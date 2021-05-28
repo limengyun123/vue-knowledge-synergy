@@ -1,8 +1,8 @@
 import axios from 'axios';
 import store from './store';
 import router from './router';
-// axios.defaults.baseURL='/api';
-axios.defaults.baseURL='http://localhost:8080';
+axios.defaults.baseURL='/'; //for web test
+// axios.defaults.baseURL='http://localhost:8080';  //for local test
 
 
 axios.interceptors.request.use(config=>{
@@ -11,13 +11,15 @@ axios.interceptors.request.use(config=>{
     if(token){
         config.headers['Authorization'] = token;
     }
+    console.log(config);
     return config;
 });
 
 axios.interceptors.response.use(response=>{
+    console.log(response);
     let result = response.data;
-    if(result.code === 200) return Promise.resolve(result);
-    // if(result.code[0] === '0') return Promise.resolve(result);
+    // if(result.code === 200) return Promise.resolve(result);
+    if(result.code[0] === '0') return Promise.resolve(result);
     else return Promise.reject(result.msg);
 },
 error=>{

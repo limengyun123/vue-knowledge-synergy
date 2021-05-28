@@ -15,29 +15,16 @@
                 <el-form-item label="所属机构" prop="teamInstitute">
                     <el-input v-model="teamInfo.teamInstitute"></el-input>
                 </el-form-item>
-                <el-form-item label="成员" prop="teamMembers">
-                    <span class="el-icon-refresh" @click="showDialog = true">添加成员</span>
-                    <el-tag v-for="member in teamInfo.teamMembers" :key="member" closable :disable-transitions="false" 
-                        @close="handleClose(member.userName)" class='create-team-add-teammates'>
-                        {{getActualName(member)}}
-                    </el-tag> 
-                </el-form-item>
                 <el-form-item>
                     <el-button type="primary" @click="submitTeam" class='create-team-button'>创建团队</el-button>
                 </el-form-item>
             </el-form>
         </div>
-        <el-dialog title="添加成员" :visible.sync="showDialog" width="30%">
-            <el-checkbox-group v-model="teamInfo.teamMembers" :max="50">
-                <div v-for="member in myContacts" :key="member.userName"  class='create-team-add-teammates'><el-checkbox :label="member.userName">{{member.actualName}}</el-checkbox></div>
-            </el-checkbox-group>
-            <el-button @click="showDialog = false" class='create-team-button'>确 定</el-button>
-        </el-dialog>
     </div>
 </template>
 
 <script>
-import {createTeamApi,getContactsApi} from '../../api/team'
+import {createTeamApi} from '../../api/team'
 import GoBackHead from '../../components/goBackHead'
 
 export default {
@@ -51,11 +38,10 @@ export default {
             teamInfo: {
                 teamName: "",
                 teamLeader: "",
+                teamLeaderId: "",
                 teamBrief:"",
                 teamInstitute: "",
-                teamMembers: []
             },
-            myContacts:[],
             infoRules:{
                 teamName:[
                     {
@@ -101,24 +87,9 @@ export default {
         }
     },
     created(){
-        this.teamInfo.teamLeader = this.$store.state.userInfo.actualName;
-        getContactsApi(this.teamInfo.teamLeader).then((result)=>{
-            this.myContacts = result.data;
-        }).catch((reason)=>{
-            this.$message.error(reason);
-        });
-    },
-    computed:{
-        getActualName(){
-            return (member)=>{
-                for(let item of this.myContacts){
-                    if(item.userName==member){
-                        return item.actualName;
-                    }
-                }
-                return "";
-            }
-        }
+        let userInfo = this.$store.state.userInfo;
+        this.teamInfo.teamLeader = userInfo.actualName;
+        this.teamInfo.teamLeaderId = userInfo.id;
     },
     methods:{
         submitTeam(){
@@ -138,14 +109,6 @@ export default {
                 }
             })
         },
-        handleClose(tag) {
-            for(let index in this.teamInfo.teamMembers){
-                if(this.teamInfo.teamMembers[index].userName==tag){
-                    this.teamInfo.teamMembers.splice(index,1);
-                    break;
-                }
-            }
-        },
     }
 }
 </script>
@@ -156,9 +119,6 @@ export default {
 .create-team-body{
     width:30rem;
     margin: 2rem auto;
-}
-.create-team-add-teammates{
-    margin: .5rem;
 }
 
 .create-team-button{

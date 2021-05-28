@@ -37,14 +37,20 @@ Mock.mock("http://localhost:8080/user/update", "post", infoApi.change_info_suc);
 Mock.mock("http://localhost:8080/profile/getNotifications", "post", infoApi.get_notifications_suc);
 // Mock.mock("http://localhost:8080/profile/getNotifications", "post", infoApi.get_notifications_fai);
 
-Mock.mock("http://localhost:8080/team/getTeams", "post", teamApi.get_teams_suc);
-// Mock.mock("http://localhost:8080/team/getTeams", "post", teamApi.get_teams_fai);
+Mock.mock("http://localhost:8080/team/getTeams", "get", teamApi.get_teams_suc);
+// Mock.mock("http://localhost:8080/team/getTeams", "get", teamApi.get_teams_fai);
 
 Mock.mock("http://localhost:8080/team/getTeamInfo", "post", teamApi.get_team_info_suc);
 // Mock.mock("http://localhost:8080/team/getTeamInfo", "post", teamApi.get_team_info_fai);
 
 Mock.mock("http://localhost:8080/team/createTeam", "post", teamApi.create_team_suc);
 // Mock.mock("http://localhost:8080/team/createTeam", "post", teamApi.create_team_fai);
+
+Mock.mock("http://localhost:8080/team/searchTeams", "post", teamApi.get_teams_suc);
+// Mock.mock("http://localhost:8080/team/searchTeams", "post", teamApi.get_teams_fai);
+
+Mock.mock("http://localhost:8080/team/joinTeam", "post", teamApi.join_team_suc);
+// Mock.mock("http://localhost:8080/team/joinTeam", "post", teamApi.join_team_fai);
 
 Mock.mock("http://localhost:8080/team/createProject", "post", teamApi.create_project_suc);
 // Mock.mock("http://localhost:8080/team/createProject", "post", teamApi.create_project_fai);

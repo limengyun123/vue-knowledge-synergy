@@ -7,22 +7,14 @@
                     <span>待选用户</span>
                 </div>
                 <div>
-                    <p>1、通过账号搜索</p>
-                    <el-input placeholder="请输入用户账号" v-model="inputName">
+                    <el-input placeholder="请输入用户邮箱" v-model="inputEmail">
                         <el-button slot="append" icon="el-icon-search" @click="searchUser"></el-button>
                     </el-input>
-                    <div v-if="Object.keys(searchedUser).length > 0">
-                        <el-checkbox @change="addChosenUser" v-model="checked">{{searchedUser.userName}}   {{searchedUser.actualName}}</el-checkbox>
-                    </div>
+                    <el-checkbox-group v-model="checkedUsers" @change="addChosenUser">
+                        <el-checkbox v-for="user in searchedUsers" :label="user.id" :key="user.id">{{user.userName}}   {{user.actualName}}</el-checkbox>
+                    </el-checkbox-group>
                 </div>
-                <div>
-                    <p>2、从联系人中添加</p>
-                    <div class="contacts-box">
-                        <el-checkbox-group v-model="teamMembers" :max="50">
-                            <div v-for="member in myContacts" :key="member.userName"><el-checkbox :label="member.userName">{{member.actualName}}</el-checkbox></div>
-                        </el-checkbox-group>
-                    </div>
-                </div>
+                
             </el-card>
         </el-col>
         <el-col :span='2'>
@@ -34,7 +26,7 @@
                     <span>已选择成员</span>
                 </div>
                 <div class="chosen-mates">
-                <el-tag v-for="member in teamMembers" :key="member.userName" closable :disable-transitions="false" @close="handleClose(member.userName)">
+                <el-tag v-for="member in teamMembers" :key="member.id" closable :disable-transitions="false" @close="handleClose(member.id)">
                     {{member.actualName}}
                 </el-tag>
                 </div>
@@ -47,7 +39,7 @@
 </template>
 
 <script>
-import {getContactsApi, searchUserApi,addTeammatesApi} from '../../api/team';
+import {searchUserApi,addTeammatesApi} from '../../api/team';
 import GoBackHead from '../../components/goBackHead';
 
 export default {
@@ -57,44 +49,49 @@ export default {
     },
     data(){
         return { 
-            checked: false,
-            inputName: "",
-            searchedUser: {},
+            inputEmail: "",
+            searchedUsers: [],
+            checkedUsers: [],
             teamMembers: [],    
-            myContacts:[],
         }
     },
-    created(){
-        // console.log("添加组员", this.$route.params.id);
-        getContactsApi(this.$store.state.userInfo.id).then((result)=>{
-            this.myContacts = result.data;
-        }).catch((reason)=>{
-            this.$message.error(reason);
-        })
+    computed:{
+        teamId: function (){
+            return this.$store.state.teamInfo.teamChosenId;
+        }
     },
     methods:{
         searchUser(){
-            if(this.inputName){
-                searchUserApi(this.inputName).then((result)=>{
-                    this.searchedUser=result.data;
+            if(this.inputEmail){
+                searchUserApi({teamId: this.teamId, email:this.inputEmail}).then((result)=>{
+                    if(result.data.length==0) this.$message.info("未搜索到用户");
+                    else this.searchedUsers = result.data;
                 }).catch((reason)=>{
                     this.$message.error(reason);
                 })
             }
         },
-        addChosenUser(){
+        addChosenUser(value){
+            let index = value[0];
             if(this.teamMembers.every((currentValue)=>{
-                return currentValue.userName!=this.searchedUser.userName;
-            })) this.teamMembers.push(this.searchedUser);
+                return currentValue.id!=index;
+            })) this.teamMembers.push({id:index, actualName:this.getNameById(index)});
             else this.$message.error("该用户已添加");
-            this.searchedUser = {};
-            this.inputName = "";
-            this.checked = false;
+            this.searchedUsers = [];
+            this.checkedUsers = [];
+            this.inputEmail = "";
+            
+        },
+        getNameById(id){
+            for(let user of this.searchedUsers){
+                if(user.id==id) return user.actualName;
+            }
+            return "";
         },
         submitTeammates(){
-            if(this.teamMembers.length){
-                addTeammatesApi(this.teamMembers.map((item)=>{return item.userName})).then((result)=>{
-                    this.$message.success(result.msg);
+            if(this.teamMembers.length>0){
+                addTeammatesApi({teamId:this.teamId, users:this.teamMembers.map((item)=>{return item.id})}).then(()=>{
+                    this.$message.success("邀请已发送");
                     this.teamMembers = [];
                 }).catch((reason)=>{
                     this.$message.error(reason);
@@ -106,7 +103,7 @@ export default {
         },
         handleClose(tag) {
             for(let index in this.teamMembers){
-                if(this.teamMembers[index].userName==tag){
+                if(this.teamMembers[index].id==tag){
                     this.teamMembers.splice(index,1);
                     break;
                 }
@@ -132,12 +129,7 @@ export default {
 .card2{
     float: left;
 }
-.contacts-box{
-    width: 16rem;
-    height:13rem;
-    margin: auto;
-    overflow: scroll;
-}
+
 .el-icon-d-arrow-right{
     font-size: 4rem;
     color: #dddddd;

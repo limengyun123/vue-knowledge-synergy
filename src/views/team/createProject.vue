@@ -6,11 +6,11 @@
                 <el-form-item label="项目名称" prop="projectName">
                     <el-input v-model="projectInfo.projectName" autocomplete="off"></el-input>
                 </el-form-item>
-                <el-form-item label="截止时间" prop="projectDeadline">
-                    <el-date-picker v-model="projectInfo.projectDeadline" type="datetime" placeholder="选择日期时间"> </el-date-picker>
+                <el-form-item label="截止时间" prop="preTime">
+                    <el-date-picker v-model="projectInfo.preTime" type="datetime" placeholder="选择日期时间"> </el-date-picker>
                 </el-form-item>
-                <el-form-item label="项目描述" prop="projectDescription">
-                    <el-input type="textarea" v-model="projectInfo.projectDescription"></el-input>
+                <el-form-item label="项目描述" prop="pDescription">
+                    <el-input type="textarea" v-model="projectInfo.pDescription"></el-input>
                 </el-form-item>
                 <el-form-item>
                     <el-button type="primary" @click="submitProject" class="create-project-button">新建项目</el-button>
@@ -33,8 +33,8 @@ export default {
         return {
             projectInfo: {
                 projectName: "",
-                projectDeadline: "",
-                projectDescription: ""
+                preTime: "",
+                pDescription: ""
             },
             infoRules:{
                 projectName:[
@@ -50,7 +50,7 @@ export default {
                         trigger: 'blur'
                     }
                 ],
-                projectDescription:[
+                pDescription:[
                     {
                         min: 1,
                         max: 100,
@@ -75,7 +75,7 @@ export default {
         submitProject(){
             this.$refs["projectInfo"].validate((valid)=>{
                 if(valid){
-                    createProjectApi(this.projectInfo).then((result)=>{
+                    createProjectApi({teamId:this.teamChosenId,...this.projectInfo}).then((result)=>{
                         this.$message({
                             message: '创建成功',
                             type: 'success',

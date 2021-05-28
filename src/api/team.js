@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-export const getTeamsApi = (userName)=>{
-    return axios.post('team/getTeams', userName);
+export const getTeamsApi = ()=>{
+    return axios.get('team/getTeams');
 }
 
 export const getTeamInfoApi = (teamId)=>{
@@ -12,8 +12,12 @@ export const createTeamApi = (teamInfo)=>{
     return axios.post('team/createTeam', teamInfo);
 }
 
+export const searchTeamsApi = (param)=>{
+    return axios.post('team/searchTeams', param);
+}
+
 export const joinTeamApi = (param)=>{
-    return Promise.resolve(1);
+    return axios.post('team/joinTeam', param);
 }
 
 export const getContactsApi = (userName)=>{

@@ -3,10 +3,10 @@
         <div class='login-title'>登录</div>
         <el-form :model="loginForm" :rules="rules" ref="loginForm" status-icon >
             <el-form-item prop="email">
-                <el-input v-model="loginForm.email" prefix-icon="el-icon-user-solid" placeholder="请输入邮箱"></el-input>
+                <el-input v-model="loginForm.email" name="email" prefix-icon="el-icon-user-solid" placeholder="请输入邮箱" autocomplete="on"></el-input>
             </el-form-item>
             <el-form-item prop="password">
-                <el-input v-model="loginForm.password" prefix-icon="el-icon-lock" :show-password='true' auto-complete="off" placeholder="请输入密码">
+                <el-input v-model="loginForm.password" prefix-icon="el-icon-lock" :show-password='true' placeholder="请输入密码">
                 </el-input>
             </el-form-item>
             <el-form-item>

@@ -1,46 +1,46 @@
 const teams = [
-    { tName: "暨南软件影票售卖系统", tId: 1, tType: "C", tLeader: '41514', userName: '钱正来'},
-    { tName: "你知科研团队", tId: 2, tType: "A", tLeader: '12414', userName: '周欣'},
-    { tName: "刘培念课题组", tId: 3, tType: "B", tLeader: '12424', userName: '吴名'},
-    { tName: "长江数据中心云计算与安全平台", tId: 4, tType: "C", tLeader: '41514', userName: '赵四海'},
-    { tName: "湘西文化学院考古科研团队", tId: 5, tType: "A", tLeader: '12414', userName: '杨为家'},
-    { tName: "刘培念课题组", tId: 6, tType: "B", tLeader: '12424', userName: '吴名'},
-    { tName: "长江数据中心云计算与安全平台", tId: 7, tType: "C", tLeader: '41514', userName: '赵四海'},
-    { tName: "湘西文化学院考古科研团队", tId: 8, tType: "A", tLeader: '12414', userName: '杨为家'},
+    { teamName: "暨南软件影票售卖系统", teamId: 1, tLeader: '41514', userName: '钱正来'},
+    { teamName: "你知科研团队", teamId: 2, tLeader: '12414', userName: '周欣'},
+    { teamName: "刘培念课题组", teamId: 3, tLeader: '12424', userName: '吴名'},
+    { teamName: "长江数据中心云计算与安全平台", teamId: 4, tLeader: '41514', userName: '赵四海'},
+    { teamName: "湘西文化学院考古科研团队", teamId: 5, tLeader: '12414', userName: '杨为家'},
+    { teamName: "刘培念课题组", teamId: 6, tLeader: '12424', userName: '吴名'},
+    { teamName: "长江数据中心云计算与安全平台", teamId: 7, tLeader: '41514', userName: '赵四海'},
+    { teamName: "湘西文化学院考古科研团队", teamId: 8, tLeader: '12414', userName: '杨为家'},
 ];
 
 const projects = [
     [
-        { pName: "cinema_tickets_version_0.8", pId: 1, isFinised: false},
-        { pName: "cinema_tickets_version_1.0", pId: 2, isFinised: false},
+        { projectName: "cinema_tickets_version_0.8", projectId: 1, isFinish: false},
+        { projectName: "cinema_tickets_version_1.0", projectId: 2, isFinish: false},
     ],
     [
-        { pName: "河北省公路地质灾害预警系统的初步构建", pId: 3, isFinised: false},
-        { pName: "新民居建设对耕地利用的影响调查研究", pId: 4, isFinised: false},
-        { pName: "中西方高等教育背景下大学生创业意识的比较研究", pId: 5, isFinised: false},
-        { pName: "有限元强度折减法在边坡稳定性中的应用研究", pId: 6, isFinised: false},
+        { projectName: "河北省公路地质灾害预警系统的初步构建", projectId: 3, isFinish: false},
+        { projectName: "新民居建设对耕地利用的影响调查研究", projectId: 4, isFinish: false},
+        { projectName: "中西方高等教育背景下大学生创业意识的比较研究", projectId: 5, isFinish: false},
+        { projectName: "有限元强度折减法在边坡稳定性中的应用研究", projectId: 6, isFinish: false},
 
-        { pName: "河北省公路地质灾害预警系统的初步构建", pId: 13, isFinised: false},
-        { pName: "新民居建设对耕地利用的影响调查研究", pId: 14, isFinised: false},
-        { pName: "中西方高等教育背景下大学生创业意识的比较研究", pId: 15, isFinised: false},
-        { pName: "有限元强度折减法在边坡稳定性中的应用研究", pId: 16, isFinised: false},
-        { pName: "河北省公路地质灾害预警系统的初步构建", pId: 23, isFinised: false},
-        { pName: "新民居建设对耕地利用的影响调查研究", pId: 24, isFinised: false},
-        { pName: "中西方高等教育背景下大学生创业意识的比较研究", pId: 25, isFinised: false},
-        { pName: "有限元强度折减法在边坡稳定性中的应用研究", pId: 26, isFinised: false},
-        { pName: "河北省公路地质灾害预警系统的初步构建", pId: 33, isFinised: true},
-        { pName: "新民居建设对耕地利用的影响调查研究", pId: 34, isFinised: true},
-        { pName: "中西方高等教育背景下大学生创业意识的比较研究", pId: 35, isFinised: false},
-        { pName: "有限元强度折减法在边坡稳定性中的应用研究", pId: 36, isFinised: true},
-        { pName: "河北省公路地质灾害预警系统的初步构建", pId: 43, isFinised: true},
-        { pName: "新民居建设对耕地利用的影响调查研究", pId: 44, isFinised: true},
-        { pName: "中西方高等教育背景下大学生创业意识的比较研究", pId: 45, isFinised: true},
-        { pName: "有限元强度折减法在边坡稳定性中的应用研究", pId: 46, isFinised: true},
+        { projectName: "河北省公路地质灾害预警系统的初步构建", projectId: 13, isFinish: false},
+        { projectName: "新民居建设对耕地利用的影响调查研究", projectId: 14, isFinish: false},
+        { projectName: "中西方高等教育背景下大学生创业意识的比较研究", projectId: 15, isFinish: false},
+        { projectName: "有限元强度折减法在边坡稳定性中的应用研究", projectId: 16, isFinish: false},
+        { projectName: "河北省公路地质灾害预警系统的初步构建", projectId: 23, isFinish: false},
+        { projectName: "新民居建设对耕地利用的影响调查研究", projectId: 24, isFinish: false},
+        { projectName: "中西方高等教育背景下大学生创业意识的比较研究", projectId: 25, isFinish: false},
+        { projectName: "有限元强度折减法在边坡稳定性中的应用研究", projectId: 26, isFinish: false},
+        { projectName: "河北省公路地质灾害预警系统的初步构建", projectId: 33, isFinish: true},
+        { projectName: "新民居建设对耕地利用的影响调查研究", projectId: 34, isFinish: true},
+        { projectName: "中西方高等教育背景下大学生创业意识的比较研究", projectId: 35, isFinish: false},
+        { projectName: "有限元强度折减法在边坡稳定性中的应用研究", projectId: 36, isFinish: true},
+        { projectName: "河北省公路地质灾害预警系统的初步构建", projectId: 43, isFinish: true},
+        { projectName: "新民居建设对耕地利用的影响调查研究", projectId: 44, isFinish: true},
+        { projectName: "中西方高等教育背景下大学生创业意识的比较研究", projectId: 45, isFinish: true},
+        { projectName: "有限元强度折减法在边坡稳定性中的应用研究", projectId: 46, isFinish: true},
     ],
     [
-        { pName: "功能有机分子的设计与合成", pId: 7},
-        { pName: "表面合成反应与低维纳米材料合成", pId: 8},
-        { pName: "精细化学品与医药中间体合成", pId: 9},
+        { projectName: "功能有机分子的设计与合成", projectId: 7},
+        { projectName: "表面合成反应与低维纳米材料合成", projectId: 8},
+        { projectName: "精细化学品与医药中间体合成", projectId: 9},
     ]
 ];
 const teammates = [
@@ -95,7 +95,7 @@ export default{
         return {
             code: 200,
             msg: "查询成功",
-            data: {projects: projects[param.body-1], teammates:teammates[param.body-1]}
+            data: {projects: projects[param.body-1], teamMembers:teammates[param.body-1]}
             
         }
     },
@@ -103,7 +103,6 @@ export default{
         return {
             code: 403,
             msg: "查询失败，请稍后重试",
-            data: { }
         }
     },
     create_team_suc:(param)=>{
@@ -118,6 +117,18 @@ export default{
             code: 403,
             msg: "团队名称重复",
             data: { }
+        }
+    },
+    join_team_suc:(param)=>{
+        return {
+            code: 200,
+            msg: "已发送申请",
+        }
+    },
+    join_team_fai:(param)=>{
+        return {
+            code: 403,
+            msg: "申请发送失败",
         }
     },
     get_contacts_suc:(param)=>{
