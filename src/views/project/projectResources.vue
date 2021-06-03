@@ -22,12 +22,12 @@
                         <img v-if="scope.row.resourceId==2" :src="require('@/assets/img/fileIcons/xls.png')" class="reource-type-img" :index="scope.row.resourceId" />
                         <img v-else-if="scope.row.resourceId==4" :src="require('@/assets/img/fileIcons/pdf.png')" class="reource-type-img" :index="scope.row.resourceId" />
                         <img v-else-if="scope.row.resourceId==5" :src="require('@/assets/img/fileIcons/rar.png')" class="reource-type-img" :index="scope.row.resourceId" />
-                        <img v-else :src="require('@/assets/img/fileIcons/doc.png')" class="reource-type-img" :index="scope.row.resourceId" />
+                        <img v-else :src="getResourceType(scope.row.resourceName)" class="reource-type-img" :index="scope.row.resourceId" />
                     </template>
                 </el-table-column>
                 <el-table-column prop="resourceName" label="名称" width="300"></el-table-column>
-                <el-table-column prop="resourceCreateTime" label="上传时间" width="140"></el-table-column>
-                <el-table-column prop="userName" label="上传者" width="80"></el-table-column>
+                <el-table-column prop="resourceCreateTime" label="上传时间" width="180"></el-table-column>
+                <el-table-column prop="actualName" label="上传者" width="80"></el-table-column>
                 <el-table-column prop="resourceSize" label="大小" width="60"></el-table-column>
                 <el-table-column fixed="right" label="详情" width="60">
                     <template slot-scope="scope">
@@ -37,7 +37,8 @@
                 </el-table-column>
                 <el-table-column fixed="right" label="下载" width="60">
                     <template slot-scope="scope">
-                        <a :index="scope.row.resourceId" href='newteach.pbworks.com%2Ff%2Fele%2Bnewsletter.docx' download='newteach.pbworks.com%2Ff%2Fele%2Bnewsletter.docx'><span class="el-icon-download"></span></a>
+                        <span @click="handleDownload(scope.row.resourceContent)" class="el-icon-download"></span>
+                        <!-- <a :index="scope.row.resourceId" href='' download="http://81.68.71.40:8080/resource/2818254e-be51-4eb5-a9e6-bf9923e3c806-doc.png"><span class="el-icon-download"></span></a> -->
                     </template>
                 </el-table-column>
             </el-table>
@@ -49,7 +50,7 @@
                     <span>{{item.resourceName}}</span>
                 </div>
                 <div>
-                    <span> 来自 </span><span>{{item.userName}}</span> <span> {{item.resourceSize}}</span>
+                    <span> 来自 </span><span>{{item.actualName}}</span> <span> {{item.resourceSize}}</span>
                 </div>
                 <div>{{item.resourceCreateTime}}</div>
                 <div class="resource-square-operate">
@@ -82,6 +83,7 @@
 <script>
 import {getResourcesApi} from '../../api/project';
 import NoData from '../../components/noData';
+// const baseURL = 'http://81.68.71.40:8080';
 
 export default {
     name: "ProjectResources",
@@ -90,6 +92,7 @@ export default {
     },
     data(){
         return {
+            baseURL: 'http://81.68.71.40:8080',
             searchInput:'',
             searchMethod: '',
             listLayout: true,
@@ -111,12 +114,30 @@ export default {
     methods:{
         getResource(){
             // console.log(getResourcesApi(this.paginationInfo));
-            getResourcesApi(this.paginationInfo).then((result)=>{
+            getResourcesApi({
+                projectId: this.$route.params.id,
+                currentPage: this.paginationInfo.currentPage,
+                pageSize: this.paginationInfo.currentPage
+            }).then((result)=>{
                 this.resources = result.data.resources;
                 this.paginationInfo.totalNum = result.data.totalNum;
             }).catch((reason=>{
                 this.$message.error(reason);
             }));
+        },
+        getResourceType(type){
+            type = type.split('.').pop();
+            let validFileType = ['pdf', 'doc', 'docx', 'txt', 'xls', 'xlsx', 'jpg', 'jpeg', 'png'];
+            if(validFileType.indexOf(type)==-1) return require("@/assets/img/fileIcons/undefined.png");
+            
+            return require(`@/assets/img/fileIcons/${type}.png`);
+        },
+        handleDownload(e){
+            let a = document.createElement('a');
+            a.href = "";
+            a.download = "http://81.68.71.40:8080"+e;
+            a.click();
+
         },
         handleSizeChange(val){
             this.paginationInfo.pageSize = val;

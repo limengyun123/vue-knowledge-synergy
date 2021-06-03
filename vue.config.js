@@ -13,13 +13,6 @@ module.exports = {
 				'^/api': ''
 				}
 			},
-			'/': {
-				target: 'http://81.68.71.40:8080', //API服务器的地址
-				changeOrigin: true,
-				pathRewrite: {
-				'^/': '/page'
-				}
-			},
 		},
 	}
 }

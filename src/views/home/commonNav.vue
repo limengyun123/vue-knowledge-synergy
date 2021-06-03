@@ -59,10 +59,10 @@ export default {
         handleCommand(command) {
             switch(command){
                 case '/personal':
-                    this.$router.push('/page/personalInfo');
+                    this.$router.push('/personalInfo');
                     break;
                 case '/notification':
-                    this.$router.push('/page/notification');
+                    this.$router.push('/notification');
                     break;
                 default:
                     logoutApi().then(()=>{

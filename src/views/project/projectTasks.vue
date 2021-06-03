@@ -10,7 +10,7 @@
                     <p>已完成</p><div class='green-text'>{{taskOverviewIndividual.finished}}</div>
                 </div>
                 <div class='task-overview-item'>
-                    <p>待完成</p><div class='yellow-text'>{{taskOverviewIndividual.unFinished}}</div>
+                    <p>待完成</p><div class='yellow-text'>{{taskOverviewIndividual.unfinished}}</div>
                 </div> 
                 <div class='task-overview-item'>
                     <p>逾期</p><div class='red-text'>{{taskOverviewIndividual.overdue}}</div>
@@ -58,7 +58,7 @@
                     <p>已完成</p><div class='green-text'>{{taskOverviewTeam.finished}}</div>
                 </div>
                 <div class='task-overview-item'>
-                    <p>待完成</p><div class='yellow-text'>{{taskOverviewTeam.unFinished}}</div>
+                    <p>待完成</p><div class='yellow-text'>{{taskOverviewTeam.unfinished}}</div>
                 </div> 
                 <div class='task-overview-item'>
                     <p>逾期</p><div class='red-text'>{{taskOverviewTeam.overdue}}</div>
@@ -101,7 +101,7 @@
                                     <div class='content-dash'></div>
                                     <div class='el-icon-message'></div>
                                     <div class='content-dash'></div>
-                                    <div>> {{task.assigned}}</div>
+                                    <!-- <div>> {{task.assigned}}</div> -->
                                 </div>                        
                             </div>
                         </div>
@@ -136,14 +136,14 @@
 </template>
 
 <script>
-import {getTasksOverviewApi, getTasksDetailApi} from '../../api/project';
+import {getTasksOverviewApi, getIndividualTasksDetailApi,getTeamTasksDetailApi} from '../../api/project';
 
 export default {
     name: "ProjectTasks",
     data(){
         return {
-            taskOverviewIndividual:{ total: 0, finished: 0, unFinished:0, erdue: 0 },
-            taskOverviewTeam:{ total: 0, finished: 0, unFinished:0, erdue: 0 },
+            taskOverviewIndividual:{ total: 0, finished: 0, unfinished:0, overdue: 0 },
+            taskOverviewTeam:{ total: 0, finished: 0, unfinished:0, overdue: 0 },
             chosenMethodIndividual: 1,
             chosenMethodTeam: 1,
             taskClassifierChosen: true,
@@ -161,27 +161,37 @@ export default {
             showedTasksTeam:[]
         }
     },
+    computed:{
+        getProjectId(){ return this.$route.params.id; }
+    },
     created(){
         this.getTasksOverview();
-        this.getTasksDetail(false);
-        this.getTasksDetail(true);
+        this.getIndividualTasksDetail();
+        this.getTeamTasksDetail();
     },
     methods:{
         getTasksOverview(){
-            getTasksOverviewApi().then((result)=>{
-                this.taskOverviewIndividual = result.data.overview[0];
-                this.taskOverviewTeam = result.data.overview[1];
+            getTasksOverviewApi({projectId: this.getProjectId}).then((result)=>{
+                this.taskOverviewIndividual = result.data.personal;
+                this.taskOverviewTeam = result.data.project;
             }).catch((reason)=>{
                 this.$message.error(reason);
             })
         },
-        getTasksDetail(isTeamTasks){
-            getTasksDetailApi({isTeamTasks:isTeamTasks, classifiedByTask: this.taskClassifierChosen}).then((result)=>{
-                if(isTeamTasks) this.showedTasksTeam = result.data.tasks; 
-                else this.showedTasksIndividual = result.data.tasks; 
+        getIndividualTasksDetail(){
+            getIndividualTasksDetailApi({projectId:this.getProjectId, classifiedByTask: this.chosenMethodIndividual}).then((result)=>{
+                this.showedTasksIndividual = result.data||[]; 
             }).catch((reason)=>{
                 this.$message.error(reason);
-            })
+            });
+        },
+        getTeamTasksDetail(){
+            getTeamTasksDetailApi({projectId:this.getProjectId, classifiedByTask: this.chosenMethodTeam}).then((result)=>{
+                this.showedTasksTeam = result.data||[]; 
+                console.log(result.data);
+            }).catch((reason)=>{
+                this.$message.error(reason);
+            });
         },
         checkTasks(){
             this.$router.push('/common/project/checkTasks/'+this.$route.params.id);
@@ -195,14 +205,14 @@ export default {
                 this.$router.push('/common/project/finishTask/'+index);
             }
         },
-        changeMethodIndividual(e){
-            this.getTasksDetail(false);
+        changeMethodIndividual(){
+            this.getIndividualTasksDetail();
         },
         changeMethodTeam(e){
             if(e<5) this.taskClassifierChosen = true;
             else this.taskClassifierChosen = false;
 
-            this.getTasksDetail(true);
+            this.getTeamTasksDetail();
         }
     }
 }
@@ -250,19 +260,19 @@ export default {
 }
 
 .blue-text{
-    color: #409EFF;
+    color: @brand-color;
 }
 
 .red-text{
-    color: #F56C6C;
+    color: @danger-color;
 }
 
 .green-text{
-    color: #67C23A;
+    color: @success-color;
 }
 
 .yellow-text{
-    color: #E6A23C;
+    color: @warning-color;
 }
 
 .todo-detail{

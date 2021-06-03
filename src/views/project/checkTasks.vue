@@ -3,23 +3,23 @@
         <GoBackHead />
         <el-button type="primary" @click='addTask' class='assign-task-button'>添加任务</el-button>
         <el-table :data="tasks" class="my-tasks-table">
-                <el-table-column prop="assigned" label="受任者" width="80"> </el-table-column>
+                <el-table-column prop="assigned" label="受任者" width="120"></el-table-column>
                 <el-table-column prop="content" label="内容"></el-table-column>
-                <!-- <el-table-column prop="status" label="状态" width="50">
-                    <span v-if="scope.row.status===0">未开始</span>
-                    <span v-else-if="scope.row.status===1">执行中</span>
-                    <span v-else-if="scope.row.status===2">已完成</span>
-                    <span v-else>逾期</span>
-                </el-table-column> -->
-                <el-table-column prop="startTime" label="开始时间" width="200"> </el-table-column>
-                <el-table-column prop="endTime" label="截止时间" width="150"> </el-table-column>
+                <el-table-column prop="startTime" label="开始时间" width="200"></el-table-column>
+                <el-table-column prop="endTime" label="截止时间" width="150"></el-table-column>
+                <el-table-column prop="isFinished" label="是否完成" width="60">
+                    <template slot-scope="scope">
+                        <span v-if ="scope.row.isFinished">是</span>
+                        <span v-else>否</span>
+                    </template>
+                </el-table-column>
                 <el-table-column fixed="right" label="详情" width="60">
                     <template slot-scope="scope">
-                        <span class="el-icon-delete" :index="scope.row.tId" @click="handleClick"></span>
+                        <span class="el-icon-delete" :index="scope.row.taskId" @click="handleClick"></span>
                     </template>
                 </el-table-column>
             </el-table>
-            <el-pagination
+            <!-- <el-pagination
             @size-change="handleSizeChange"
             @current-change="handleCurrentChange"
             :current-page="paginationInfo.currentPage"
@@ -30,7 +30,7 @@
             :pager-count="paginationInfo.paperCount"
             hide-on-single-page
         >
-        </el-pagination>
+        </el-pagination> -->
     </div>
 </template>
 
@@ -59,9 +59,12 @@ export default {
     },
     methods:{
         getTasks(){
-            getMyTasksApi(this.paginationInfo).then((result)=>{
-                this.tasks = result.data.tasks;
-                this.paginationInfo.totalNum = result.data.totalNum;
+            getMyTasksApi({
+                projectId: this.$route.params.id,
+                currentPage: this.paginationInfo.currentPage,
+                pageSize: this.paginationInfo.pageSize
+            }).then((result)=>{
+                this.tasks = result.data;
             }).catch((reason)=>{
                 this.$message.error(reason);
             });
@@ -72,7 +75,6 @@ export default {
                 index = parseInt(index);
                 deleteMyTaskApi({tId: index}).then(()=>{
                     this.deleteTaskFromMemory(index);
-                    this.paginationInfo.totalNum-=1;
                 }).catch((reason)=>{
                     this.$message.error(reason);
                 });
@@ -99,8 +101,8 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang='less'>
+@import "../../assets/css/common.less";
 .assign-task-button{
     float: right;
     margin: 2rem;
@@ -114,4 +116,5 @@ export default {
     margin-left: 5%;
     margin-bottom: 2rem;
 }
+
 </style>

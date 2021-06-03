@@ -8,7 +8,7 @@
                 <button @click="submitUpload" class="upload-resource-button">上传</button>
             </div>
             <div class="choose-resource-tooltip">
-                只能上传pdf/doc/docx/txt/xls/xlsx/jpg/jpeg/png文件，且不超过3M、10个
+                一次只能上传1个pdf/doc/docx/txt/xls/xlsx/jpg/jpeg/png文件，且不超过3M
             </div>
             <div class='upload-resource-show' @click="handleRemove">
                 <transition-group name="resources-list" >
@@ -34,7 +34,7 @@ export default {
     data() {
         return {
             fileIdCount: 0,
-            fileMaxCount: 10,
+            fileMaxCount: 1,
             fileList: []
         };
     },
@@ -67,17 +67,19 @@ export default {
             }
         },
         submitUpload(){
-            // console.log(this.fileList);
-            let formData = new FormData();
+            console.log(this.fileList);
             if(this.fileList.length){
-                this.fileList.forEach((file,index) => {
-                    formData.append(`file_${index}`,file);
-                });
+                let formData = new FormData();
+                formData.append('projectId',this.$route.params.id);
+                formData.append('fileList',this.fileList[0]);
+                // this.fileList.forEach((file,index) => {
+                //     formData.append(`file_${index}`,file);
+                // });
 
-                uploadResourcesApi({pId:1, fileList: formData}).then((result)=>{
+                uploadResourcesApi(formData).then((result)=>{
                     this.$message({
                         type: 'success',
-                        message: result.msg,
+                        message: "成功上传文件",
                         duration: 800,
                         onClose: ()=>{this.fileList = [];}
                     });

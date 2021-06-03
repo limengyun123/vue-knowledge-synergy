@@ -6,12 +6,12 @@ axios.defaults.baseURL='/api'; //for web test
 
 
 axios.interceptors.request.use(config=>{
-    config.headers['content-type'] = 'application/json';
+    console.log(config);
+    // config.headers['content-type'] = 'application/json';
     let token = localStorage.getItem('token');
     if(token){
         config.headers['Authorization'] = token;
     }
-    console.log(config);
     return config;
 });
 

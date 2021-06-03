@@ -106,6 +106,12 @@ Mock.mock("http://localhost:8080/project/getTasksOverview", "post", projectApi.g
 Mock.mock("http://localhost:8080/project/getTasksDetail", "post", projectApi.get_tasks_detail_suc);
 // Mock.mock("http://localhost:8080/project/getTasksDetail", "post", projectApi.get_tasks_detail_fai);
 
+Mock.mock("http://localhost:8080/project/getIndividualTasksDetail", "post", projectApi.get_idv_tasks_detail_suc);
+// Mock.mock("http://localhost:8080/project/getIndividualTasksDetail", "post", projectApi.get_idv_tasks_detail_fai);
+
+Mock.mock("http://localhost:8080/project/getTeamTasksDetail", "post", projectApi.get_team_tasks_detail_suc);
+// Mock.mock("http://localhost:8080/project/getTeamTasksDetail", "post", projectApi.get_team_tasks_detail_fai);
+
 Mock.mock("http://localhost:8080/project/getDynamics", "post", projectApi.get_dynamics_suc);
 // Mock.mock("http://localhost:8080/project/getDynamics", "post", projectApi.get_dynamics_fai);
 
@@ -114,6 +120,15 @@ Mock.mock("http://localhost:8080/project/editProject", "post", projectApi.edit_p
 
 Mock.mock("http://localhost:8080/project/deleteProject", "post", projectApi.delete_project_suc);
 // Mock.mock("http://localhost:8080/project/deleteProject", "post", projectApi.delete_project_fai);
+
+Mock.mock("http://localhost:8080/project/sendComment", "post", projectApi.delete_project_suc);
+// Mock.mock("http://localhost:8080/project/sendComment", "post", projectApi.delete_project_fai);
+
+Mock.mock("http://localhost:8080/project/sendReply", "post", projectApi.delete_project_suc);
+// Mock.mock("http://localhost:8080/project/sendReply", "post", projectApi.delete_project_fai);
+
+Mock.mock("http://localhost:8080/project/deleteComment", "post", projectApi.delete_project_suc);
+// Mock.mock("http://localhost:8080/project/deleteComment", "post", projectApi.delete_project_fai);
 
 Mock.mock("http://localhost:8080/project/getResourceDetail", "post", projectApi.get_resource_detail_suc);
 // Mock.mock("http://localhost:8080/project/getResourceDetail", "post", projectApi.get_resource_detail_fai);

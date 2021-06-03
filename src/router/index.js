@@ -36,7 +36,7 @@ const routes = [
 						children:[
 							{ path: 'resources', meta: {requireAuth: true}, name:'resources', component: ()=> import(/* webpackChunkName: "project" */ '../views/project/projectResources.vue') },
 							{ path: 'tasks', meta: {requireAuth: true}, name:'tasks', component: ()=> import(/* webpackChunkName: "project" */ '../views/project/projectTasks.vue') },
-							{ path: 'dynamic', meta: {requireAuth: true}, name:'dynamic', component: ()=> import(/* webpackChunkName: "project" */ '../views/project/matesDynamic.vue') },
+							// { path: 'dynamic', meta: {requireAuth: true}, name:'dynamic', component: ()=> import(/* webpackChunkName: "project" */ '../views/project/matesDynamic.vue') },
 							{ path: 'setting', meta: {requireAuth: true}, name:'setting', component: ()=> import(/* webpackChunkName: "project" */ '../views/project/projectSetting.vue') },
 						]
 					},

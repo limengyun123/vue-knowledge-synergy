@@ -135,6 +135,13 @@ export default {
             }
             return {};
         },
+        getProjectById(index){
+            for(let item of this.myProjects){
+                if(item.projectId == index)
+                    return item;
+            }
+            return {};
+        },
         handleCommand(index) {
             if(index!=-1){
                 this.teamChosen = this.getTeamById(index);
@@ -174,6 +181,7 @@ export default {
                 else if(pId != this.projectChosenId){
                     this.projectChosen = e.target.innerText;
                     this.projectChosenId = pId;
+                    this.$store.commit('SET_PROJECT', this.getProjectById(pId));
                     this.$router.push('/common/team/project/'+pId);
                 }
             }

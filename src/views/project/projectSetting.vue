@@ -2,13 +2,16 @@
     <div>
         <el-form :model="projectInfo" status-icon ref="projectInfo" :rules="infoRules" label-width="100px" class="project-setting-body">
             <el-form-item label="项目名称" prop="projectName">
-                <el-input v-model="projectInfo.teamName" autocomplete="off"></el-input>
+                <el-input v-model="projectInfo.projectName" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="项目描述" prop="pDescription">
+                <el-input type="textarea" v-model="projectInfo.pDescription" autocomplete="off"></el-input>
             </el-form-item>
             <el-form-item label="截止日期" prop="deadline">
                 <el-date-picker v-model="projectInfo.deadline" type="datetime" placeholder="选择日期时间"> </el-date-picker>
             </el-form-item>
-            <el-form-item label="是否归档" prop="finished">
-                <el-radio-group v-model="projectInfo.finished">
+            <el-form-item label="是否归档" prop="isFinish">
+                <el-radio-group v-model="projectInfo.isFinish">
                     <el-radio :label="true">是</el-radio>
                     <el-radio :label="false">否</el-radio>
                 </el-radio-group>
@@ -29,18 +32,39 @@ export default {
     data(){
         return {
             projectInfo:{
-                pId: '',
+                projectId: '',
                 projectName: '',
+                pDescription:'',
                 deadline: '',
-                finished: false
+                isFinish: false
             },
             infoRules:{
-
+                projectName:[
+                    { min: 2, max: 30, message: "请输入2-30个字符", trigger: 'blur' },
+                    { required: true, message: "请输入项目名称", trigger: 'blur' }
+                ],
+                pDescription:[
+                    { min: 1, max: 100, message: "请输入1-100个字符", trigger: 'blur' },
+                    { required: true, message: "请输入项目描述", trigger: 'blur' }
+                ],
+                deadline:[
+                    { required: true, message: "请选择任务结束时间", trigger: 'blur' },
+                    {
+                        validator:(rule, value, callback)=>{
+                            if(value>new Date()){
+                                callback();
+                            }
+                            callback(new Error("请检查是否选择错误"));
+                            
+                        },
+                        trigger: blur
+                    }
+                ]
             }
         }
     },
     created(){
-        this.projectInfo.pId = this.$route.params.id;
+        this.projectInfo = this.$store.state.projectInfo;
     },
 
     methods:{
@@ -48,7 +72,7 @@ export default {
             this.$refs['projectInfo'].validate((valid)=>{
                 if(valid){
                     editProjectApi(this.projectInfo).then((result)=>{
-                        this.$message.success(result.msg);
+                        this.$message.success("成功修改项目");
                     }).catch((reason)=>{
                         this.$message.error(reason);
                     })
@@ -56,7 +80,7 @@ export default {
             })
         },
         deleteProject(){
-            deleteProjectApi(this.projectInfo.pId).then((result)=>{
+            deleteProjectApi(this.projectInfo.projectId).then((result)=>{
                 this.$message({
                     message: '删除成功',
                     type: 'success',
@@ -71,7 +95,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 
 .project-setting-body{
     width:30rem;

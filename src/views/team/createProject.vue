@@ -9,7 +9,7 @@
                 <el-form-item label="截止时间" prop="preTime">
                     <el-date-picker v-model="projectInfo.preTime" type="datetime" placeholder="选择日期时间"> </el-date-picker>
                 </el-form-item>
-                <el-form-item label="项目描述" prop="pDescription">
+                <el-form-item type="textarea" label="项目描述" prop="pDescription">
                     <el-input type="textarea" v-model="projectInfo.pDescription"></el-input>
                 </el-form-item>
                 <el-form-item>

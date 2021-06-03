@@ -44,11 +44,11 @@
                                 <span class='comment-operate'>{{cmt.commentTime}}</span>
                             </div>
                             <div class="comments-item-right">
-                                <div class="comment-content">{{cmt.commentContent}}</div>
+                                <div class="comment-content">{{cmt.commentContet}}</div>
                                 <div><button class="comments-reply-button" :index="'r'+cmt.commentId">回复Ta</button></div>
                                 <div class='comments-reply'>
                                     <div v-for="rpl in cmt.replies" :key="rpl.commentId" class="comments-reply-item">
-                                        <b>{{rpl.userName}} </b>回复：{{rpl.commentContent}}</div>
+                                        <b>{{rpl.userName}} </b>回复：{{rpl.commentContet}}</div>
                                 </div>
                             </div>
                         </div>
@@ -85,19 +85,20 @@ export default {
             dialogVisible: false,
             commentInput:'',
             replyInput:'',
+            chosenCommentId: 0,
             chosenCommentName: '评论',
             comments:[]
         }
     },
     created(){
-        // console.log(this.$route.params.id);
-        // this.getResourceInfo();
         this.getResourceDetail();
     },
     computed:{
         getUserId(){
-            // console.log(this.$store.state.userInfo.userName);
-            return this.$store.state.userInfo.userName;
+            return this.$store.state.userInfo.id;
+        },
+        getResourceId(){
+            return this.$route.params.id;
         },
         getResourceRepliesCount(){
             return this.comments.length;
@@ -105,13 +106,33 @@ export default {
     },
     methods:{
         getResourceDetail(){
-            getResourceDetailApi().then((result)=>{
+            getResourceDetailApi({resourceId: this.getResourceId}).then((result)=>{
                 // console.log()
                 this.resourceInfo = result.data.resource;
-                this.comments = result.data.comments;
+                this.comments = this.seperateCmtAndRpl(result.data.comments);
             }).catch((reason)=>{
                 this.$message.error(reason);
             })
+        },
+        seperateCmtAndRpl(comments){
+            let commentsReturned = [];
+            // 前提是评论为时间正序
+            for(let item of comments){
+                if(item.commentReply==null){
+                    commentsReturned.push(item);
+                }
+                else{
+                    for(let comts of commentsReturned){
+                        if(item.commentReply==comts.commentId){
+                            if(comts.replies==undefined) comts.replies=[];
+                            comts.replies.push(item);
+                            break;
+                        }
+                    }
+                }
+            }
+            console.log(commentsReturned);
+            return commentsReturned;
         },
         deleteResource(){
             this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
@@ -119,19 +140,14 @@ export default {
                 cancelButtonText: '取消',
                 type: 'warning'
                 }).then(() => {
-                this.$message({
-                    type: 'success',
-                    message: '删除成功!'
-                });
+                this.$message.success('删除成功!');
                 }).catch(() => {
-                this.$message({
-                    type: 'info',
-                    message: '已取消删除'
-                });          
+                this.$message.info('已取消删除');          
             });
         },
         sendComment(){
-            sendCommentApi({resourceId: this.resourceInfo.resourceId, content: this.commentInput}).then((result)=>{
+            sendCommentApi({resourceId: this.resourceInfo.resourceId, content: this.commentInput}).then(()=>{
+                this.getResourceDetail();
                 this.commentInput='';
             }).catch((reason)=>{
                 this.$message.error(reason);
@@ -143,6 +159,7 @@ export default {
                 let chosenCommentId = parseInt(index.substring(1,index.length));
                 if(index[0]=='r'){
                     this.dialogVisible = true;
+                    this.chosenCommentId = chosenCommentId;
                     this.assignNameById(chosenCommentId);
                 }
                 else{
@@ -173,12 +190,16 @@ export default {
             
         },
         sendReply(){
-            sendReplyApi({resourceId: this.resourceInfo.resourceId}).then((result)=>{
+            sendReplyApi({
+                resourceId: this.resourceInfo.resourceId,
+                content:this.replyInput,
+                commentId: this.chosenCommentId
+            }).then(()=>{
                 this.$message({
                     type: 'success',
                     message: '回复成功',
                     duration: 800,
-                    onClose:()=>{this.closeDialog();}
+                    onClose:()=>{this.closeDialog();this.getResourceDetail();}
                 });
             }).catch((reason)=>{
                 this.$message.error(reason);
@@ -338,6 +359,7 @@ export default {
 
 .comments-reply-item{
     padding: .5rem;
+    line-height: 1.2rem;
 }
 
 .comments-reply-button{

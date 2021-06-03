@@ -1,12 +1,17 @@
 import axios from 'axios';
-import store from '../store/index';
 
 export const getResourcesApi = (param)=>{
     return axios.post('/project/getResources',param);    
 }
 
 export const uploadResourcesApi = (param)=>{
-    return axios.post('/project/uploadResources',param);
+    return axios({
+            url: '/project/uploadResources',
+            method: 'post',
+            data: param,
+            headers: { 'Content-Type': 'multipart/form-data' }
+        }
+    );
 };
 
 
@@ -16,6 +21,14 @@ export const getTeammatesApi = (tId)=>{
 
 export const getTasksOverviewApi = param=>{
     return axios.post('/project/getTasksOverview',param);
+};
+
+export const getIndividualTasksDetailApi = param=>{
+    return axios.post('/project/getIndividualTasksDetail',param);
+};
+
+export const getTeamTasksDetailApi = param=>{
+    return axios.post('/project/getTeamTasksDetail',param);
 };
 
 export const getTasksDetailApi = param=>{
@@ -55,13 +68,13 @@ export const getResourceDetailApi = param =>{
 };
 
 export const sendCommentApi = param=>{
-    return Promise.resolve(1);
+    return axios.post('/project/sendComment', param);
 };
 
 export const deleteCommentApi = param=>{
-    return Promise.resolve(1);
+    return axios.post('/project/deleteComment', param);
 };
 
 export const sendReplyApi = param =>{
-    return Promise.resolve(1);
+    return axios.post('/project/sendReply', param);
 };

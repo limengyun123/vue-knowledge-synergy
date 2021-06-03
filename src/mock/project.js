@@ -1,15 +1,15 @@
 const resources=[
-    { resourceId: 1, resourceName: "立项文档", authorId: '234', userName: '赵浩', resourceCreateTime: '2020-03-22 12:45', resourceContent: '', resourceType: 1, resourceSize: '12KB', resourceReview: 0, resourceIsDeleted: false },
-    { resourceId: 2, resourceName: "项目计划", authorId: '41514', userName: '钱正来', resourceCreateTime: '2020-03-25 12:45', resourceContent: '', resourceType: 1, resourceSize: '12KB', resourceReview: 1, resourceIsDeleted: false },
-    { resourceId: 3, resourceName: "需求文档", authorId: '12414', userName: '赵浩', resourceCreateTime: '2020-04-01 12:45', resourceContent: '', resourceType: 1, resourceSize: '12KB',resourceReview: 2, resourceIsDeleted: false },
-    { resourceId: 4, resourceName: "关于系统设计的一些自我感想", authorId: '1242', userName: '钱正来', resourceCreateTime: '2020-4-12 12:45', resourceContent: '', resourceType: 1, resourceSize: '12KB', resourceReview: 0, resourceIsDeleted: false },
-    { resourceId: 5, resourceName: "系统设计", authorId: '2456', userName: '钱正来', resourceCreateTime: '2020-04-22 12:45', resourceContent: '', resourceType: 1, resourceSize: '12KB', resourceReview: 1, resourceIsDeleted: false },
-    // { resourceId: 6, resourceName: "源码", authorId: '12424', userName: '吴名', resourceCreateTime: '2020-05-01 12:45', resourceContent: '', resourceType: 1, resourceSize: '12KB', resourceReview: 2, resourceIsDeleted: false },
-    { resourceId: 7, resourceName: "用户手册", authorId: '234', userName: '赵浩', resourceCreateTime: '2020-05-19 12:45', resourceContent: '', resourceType: 1, resourceSize: '12KB', resourceReview: 0, resourceIsDeleted: false },
-    { resourceId: 8, resourceName: "项目关闭总结报告", authorId: '41514', userName: '钱正来', resourceCreateTime: '2020-05-25 12:45', resourceContent: '', resourceType: 1, resourceSize: '12KB', resourceReview: 1, resourceIsDeleted: false },
-    // { resourceId: 9, resourceName: "总结感言-孙香", authorId: '12414', userName: '孙香', resourceCreateTime: '2020-04-01 12:45', resourceContent: '', resourceType: 1, resourceSize: '12KB', resourceReview: 2, resourceIsDeleted: false },
-    // { resourceId: 10, resourceName: "总结感言-李志鹏", authorId: '1242', userName: '李志鹏', resourceCreateTime: '2020-4-12 12:45', resourceContent: '', resourceType: 1, resourceSize: '12KB', resourceReview: 0, resourceIsDeleted: false },
-    // { resourceId: 11, resourceName: "源码", authorId: '2456', userName: '周欣', resourceCreateTime: '2020-04-22 12:45', resourceContent: '', resourceType: 1, resourceSize: '12KB', resourceReview: 1, resourceIsDeleted: false },
+    { resourceId: 1, resourceName: "立项文档", authorId: '234', actualName: '赵浩', resourceCreateTime: '2020-03-22 12:45', resourceContent: '', resourceType: 1, resourceSize: '12KB', resourceReview: 0, resourceIsDeleted: false },
+    { resourceId: 2, resourceName: "项目计划", authorId: '41514', actualName: '钱正来', resourceCreateTime: '2020-03-25 12:45', resourceContent: '', resourceType: 1, resourceSize: '12KB', resourceReview: 1, resourceIsDeleted: false },
+    { resourceId: 3, resourceName: "需求文档", authorId: '12414', actualName: '赵浩', resourceCreateTime: '2020-04-01 12:45', resourceContent: '', resourceType: 1, resourceSize: '12KB',resourceReview: 2, resourceIsDeleted: false },
+    { resourceId: 4, resourceName: "关于系统设计的一些自我感想", authorId: '1242', actualName: '钱正来', resourceCreateTime: '2020-4-12 12:45', resourceContent: '', resourceType: 1, resourceSize: '12KB', resourceReview: 0, resourceIsDeleted: false },
+    { resourceId: 5, resourceName: "系统设计", authorId: '2456', actualName: '钱正来', resourceCreateTime: '2020-04-22 12:45', resourceContent: '', resourceType: 1, resourceSize: '12KB', resourceReview: 1, resourceIsDeleted: false },
+    // { resourceId: 6, resourceName: "源码", authorId: '12424', actualName: '吴名', resourceCreateTime: '2020-05-01 12:45', resourceContent: '', resourceType: 1, resourceSize: '12KB', resourceReview: 2, resourceIsDeleted: false },
+    { resourceId: 7, resourceName: "用户手册", authorId: '234', actualName: '赵浩', resourceCreateTime: '2020-05-19 12:45', resourceContent: '', resourceType: 1, resourceSize: '12KB', resourceReview: 0, resourceIsDeleted: false },
+    { resourceId: 8, resourceName: "项目关闭总结报告", authorId: '41514', actualName: '钱正来', resourceCreateTime: '2020-05-25 12:45', resourceContent: '', resourceType: 1, resourceSize: '12KB', resourceReview: 1, resourceIsDeleted: false },
+    // { resourceId: 9, resourceName: "总结感言-孙香", authorId: '12414', actualName: '孙香', resourceCreateTime: '2020-04-01 12:45', resourceContent: '', resourceType: 1, resourceSize: '12KB', resourceReview: 2, resourceIsDeleted: false },
+    // { resourceId: 10, resourceName: "总结感言-李志鹏", authorId: '1242', actualName: '李志鹏', resourceCreateTime: '2020-4-12 12:45', resourceContent: '', resourceType: 1, resourceSize: '12KB', resourceReview: 0, resourceIsDeleted: false },
+    // { resourceId: 11, resourceName: "源码", authorId: '2456', actualName: '周欣', resourceCreateTime: '2020-04-22 12:45', resourceContent: '', resourceType: 1, resourceSize: '12KB', resourceReview: 1, resourceIsDeleted: false },
 ];
 
 const tasks = [
@@ -27,16 +27,16 @@ const tasks = [
 ];
 
 const comments = [
-    {commentId:1, userName:"黎忖", id:41244, commentTime:"2020-05-10 13:19", commentReplyId:null, commentContent:"你这儿需要改改。‘3、详细需求’的用例图应该详细些，分析使用该系统的所有人群，他们将用系统来干什么，会在系统用到哪些操作"},
-    {commentId:2, userName:"赵浩", id:52323, commentTime:"2020-05-10 13:23", commentReplyId:1, commentContent:"好的，知道了！"},
-    {commentId:3, userName:"刘欣悦", id:7563, commentTime:"2020-05-10 13:25", commentReplyId:null, commentContent:"赵兄太强了！"},
-    {commentId:4, userName:"楚霖", id:222222, commentTime:"2020-05-10 13:26", commentReplyId:null, commentContent:"太强了！"},
-    {commentId:5, userName:"张琪誉", id:12435, commentTime:"2020-05-10 13:26", commentReplyId:null, commentContent:"太强了！"},
-    {commentId:6, userName:"赵浩", id:52323, commentTime:"2020-05-10 13:28", commentReplyId:5, commentContent:"你跟着瞎起什么哄呀"},
-    {commentId:7, userName:"张琪誉", id:12435, commentTime:"2020-05-10 13:29", commentReplyId:5, commentContent:"哈哈，好玩儿"},
-    {commentId:8, userName:"赵浩", id:52323, commentTime:"2020-05-10 13:35", commentReplyId:5, commentContent:"这位老弟，一边玩儿去"},
-    {commentId:9, userName:"房梅玲", id:46457, commentTime:"2020-05-10 18:01", commentReplyId:null, commentContent:"强"},
-    {commentId:10, userName:"高灵梦", id:111111, commentTime:"2020-05-10 21:43", commentReplyId:null, commentContent:"太强了！"},
+    {commentId:1, actualName:"黎忖", id:41244, commentTime:"2020-05-10 13:19", commentReply:null, commentContent:"你这儿需要改改。‘3、详细需求’的用例图应该详细些，分析使用该系统的所有人群，他们将用系统来干什么，会在系统用到哪些操作"},
+    {commentId:2, actualName:"赵浩", id:52323, commentTime:"2020-05-10 13:23", commentReply:1, commentContent:"好的，知道了！"},
+    {commentId:3, actualName:"刘欣悦", id:7563, commentTime:"2020-05-10 13:25", commentReply:null, commentContent:"赵兄太强了！"},
+    {commentId:4, actualName:"楚霖", id:222222, commentTime:"2020-05-10 13:26", commentReply:null, commentContent:"太强了！"},
+    {commentId:5, actualName:"张琪誉", id:12435, commentTime:"2020-05-10 13:26", commentReply:null, commentContent:"太强了！"},
+    {commentId:6, actualName:"赵浩", id:52323, commentTime:"2020-05-10 13:28", commentReply:5, commentContent:"你跟着瞎起什么哄呀"},
+    {commentId:7, actualName:"张琪誉", id:12435, commentTime:"2020-05-10 13:29", commentReply:5, commentContent:"哈哈，好玩儿"},
+    {commentId:8, actualName:"赵浩", id:52323, commentTime:"2020-05-10 13:35", commentReply:5, commentContent:"这位老弟，一边玩儿去"},
+    {commentId:9, actualName:"房梅玲", id:46457, commentTime:"2020-05-10 18:01", commentReply:null, commentContent:"强"},
+    {commentId:10, actualName:"高灵梦", id:111111, commentTime:"2020-05-10 21:43", commentReply:null, commentContent:"太强了！"},
 ];
 
 const dynamics = [
@@ -98,10 +98,8 @@ export default {
             code: 200,
             msg: "查询任务总览成功",
             data:{
-                overview:[
-                    {total: 2, finished: 1, unFinished:1, overdue: 0 },
-                    {total: 8, finished: 5, unFinished:2, overdue: 1 }
-                ]
+                project:{total: 2, finished: 1, unfinished:1, overdue: 0 },
+                personal:{total: 8, finished: 5, unfinished:2, overdue: 1 }
             }
         }
     },
@@ -144,6 +142,20 @@ export default {
         return {
             code: 503,
             msg: "查询失败",
+        }
+    },
+    get_idv_tasks_detail_suc:(param)=>{
+        return {
+            code: 200,
+            msg: "查询个人任务详情成功",
+            data:{}
+        }
+    },
+    get_team_tasks_detail_suc:(param)=>{
+        return {
+            code: 200,
+            msg: "查询团队任务详情成功",
+            data:{}
         }
     },
     get_my_tasks_suc:(param)=>{
@@ -249,12 +261,12 @@ export default {
         let commentsReturned = [];
         // 前提是评论为时间正序
         for(let item of comments){
-            if(item.commentReplyId==null){
+            if(item.commentReply==null){
                 commentsReturned.push(item);
             }
             else{
                 for(let comts of commentsReturned){
-                    if(item.commentReplyId==comts.commentId){
+                    if(item.commentReply==comts.commentId){
                         if(comts.replies==undefined) comts.replies=[];
                         comts.replies.push(item);
                         break;

@@ -16,6 +16,7 @@ export default new Vuex.Store({
 			authority: JSON.parse(sessionStorage.getItem("authority"))||{},
 			teammates:[]
 		},
+		projectInfo:{},
 		shortHandChosen:{},
 		chatInfo:{
 			isTeam: false,
@@ -62,6 +63,9 @@ export default new Vuex.Store({
 		SET_TEAMMATES: (state, mates)=>{
 			state.teamInfo.teammates = mates;
 		},
+		SET_PROJECT(state, project){
+			state.projectInfo = project;
+		},
 		SET_SHORTHAND(state, shorthand){
 			state.shortHandChosen = shorthand;
 		},
@@ -79,6 +83,7 @@ export default new Vuex.Store({
 			state.teamInfo.teamChosenId = -1;
 			state.teamInfo.authority = {};
 			state.teamInfo.teammates = [];
+			state.projectInfo={};
 			state.shortHandChosen={};
 			state.chatInfo.isTeam = false;
 			state.chatInfo.chatId = 0;
