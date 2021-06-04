@@ -21,7 +21,7 @@
 
 <script>
 import GoBackHead from '../../components/goBackHead';
-import {addTodoApi} from '../../api/individual';
+import {addToDoApi} from '../../api/individual';
 
 export default {
     name: "AddEvent",
@@ -63,7 +63,7 @@ export default {
             this.$refs['todo'].validate((valid)=>{
                 if(valid){
                     //console.log(this.todo);
-                    addTodoApi(this.todo).then((result)=>{
+                    addToDoApi({...this.todo, deadline:"2021-03-12 12:30"}).then((result)=>{
                         this.$message.success("成功新建事项");
                         this.$refs["todo"].resetFields();
                     }).catch((reason)=>{

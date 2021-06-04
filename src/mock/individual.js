@@ -1,10 +1,10 @@
 const toDoLidt = [
-    {eId: 1, startTime: '2020-03-02', deadline: '2020-03-04', type: 'b', description: '完成待办事项界面设计'},
-    {eId: 2, startTime: '2020-03-03', deadline: '2020-03-07', type: 'c', description: '完成开题报告'},
-    {eId: 3, startTime: '2020-03-07', deadline: '2020-06-20', type: 'a', description: '考驾照'},
-    {eId: 4, startTime: '2020-03-11', deadline: '2020-04-20', type: 'b', description: '准备生日礼物，并于阴历4月20送出'},
-    {eId: 5, startTime: '2020-05-04', deadline: '2020-05-06', type: 'a', description: '再次参观武汉市植物园'},
-    {eId: 6, startTime: '2020-06-10', deadline: '2020-06-10', type: 'b', description: '和室友吃韩式料理'},
+    {taskId: 1, startTime: '2020-03-02', deadline: '2020-03-04', type: 'b', description: '完成待办事项界面设计'},
+    {taskId: 2, startTime: '2020-03-03', deadline: '2020-03-07', type: 'c', description: '完成开题报告'},
+    {taskId: 3, startTime: '2020-03-07', deadline: '2020-06-20', type: 'a', description: '考驾照'},
+    {taskId: 4, startTime: '2020-03-11', deadline: '2020-04-20', type: 'b', description: '准备生日礼物，并于阴历4月20送出'},
+    {taskId: 5, startTime: '2020-05-04', deadline: '2020-05-06', type: 'a', description: '再次参观武汉市植物园'},
+    {taskId: 6, startTime: '2020-06-10', deadline: '2020-06-10', type: 'b', description: '和室友吃韩式料理'},
 ];
 
 const contributions = [
@@ -149,7 +149,7 @@ export default{
     },
     edit_shorthand_fai:(param)=>{
         return {
-            code: 200,
+            code: 403,
             msg: "修改失败",
             data: {}
         }
@@ -169,9 +169,59 @@ export default{
     },
     get_contributions_fai:(param)=>{
         return {
-            code: 200,
+            code: 403,
             msg: "修改失败",
             data: {}
+        }
+    },
+    get_task_urgent_suc:(param)=>{
+        let type = param.body;
+        let data = [];
+        switch(type){
+            case 1:
+                data = [7, 1, 2, 0 ];
+                break;
+            case 2:
+                data = [36, 5, 6, 3 ];
+                break;
+            default:
+                data = [43, 6, 8, 3];
+        }
+        return {
+            code: 200,
+            msg: "查询成功",
+            data: data
+        }
+    },
+    get_task_urgent_fai:(param)=>{
+        return {
+            code: 403,
+            msg: "查询失败",
+        }
+    },
+    get_task_time_suc:(param)=>{
+        let type = param.body;
+        let data = [];
+        switch(type){
+            case 1:
+                data = [[0, 1, 0, 0, 1, 1, 1, 0 ], [0, 1, 0, 0, 1, 0, 1, 0 ]];
+                break;
+            case 2:
+                data = [[0, 1, 1, 0 ],[0, 0, 0, 0]];
+                break;
+            default:
+                data = [[2, 3, 4, 1, 5, 2, 5, 7, 1, 3, 4, 5], [0, 1, 0, 1, 1, 2, 0, 3, 1, 1, 0, 2]];
+        }
+        return {
+            code: 200,
+            msg: "查询成功",
+            data: data
+        }
+    },
+    get_task_time_fai:(param)=>{
+        return {
+            code: 403,
+            msg: "查询失败",
         }
     },
 }

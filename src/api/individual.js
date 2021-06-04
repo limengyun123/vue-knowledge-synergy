@@ -1,19 +1,19 @@
 import axios from 'axios';
 
 export const getToDoOverviewApi=()=>{
-    return axios.post('individual/getToDoOverview');
+    return axios.get('individual/getTodoOverview');
 };
 
 export const getToDoListApi=(time)=>{
-    return axios.post('individual/getToDoList',time);
+    return axios.post('individual/getTodoList',time);
 };
 
-export const addTodoApi = (param)=>{
-    return Promise.resolve(1);
+export const addToDoApi = (param)=>{
+    return axios.post('individual/addTodo',param);
 };
 
-export const finishToDoApi = (param)=>{
-    return Promise.resolve(1);
+export const deleteToDoApi = (eventId)=>{
+    return axios.post('individual/deleteTodo',eventId);
 };
 
 export const getShorthandsApi = (pageInfo)=>{
@@ -21,7 +21,11 @@ export const getShorthandsApi = (pageInfo)=>{
 }
 
 export const saveShorthandApi = (param)=>{
-    return axios.post('individual/saveShorthand', param);
+    return axios.post('individual/addShorthand', param);
+}
+
+export const deleteShorthandApi = (param)=>{
+    return axios.post('individual/deleteShorthand', param);
 }
 
 export const getAShorthandApi = (param) =>{
@@ -34,4 +38,12 @@ export const editShorthandApi = (param)=>{
 
 export const getContributionsApi = (param)=>{
     return axios.post('individual/getContributions',param);
+}
+
+export const getTaskByUrgentApi = (param)=>{
+    return axios.post('individual/getTaskByUrgent',param);
+}
+
+export const getTaskByTimeApi = (param)=>{
+    return axios.post('individual/getTaskByTime',param);
 }

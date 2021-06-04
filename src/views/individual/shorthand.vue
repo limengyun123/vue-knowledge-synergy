@@ -2,27 +2,27 @@
     <div ref='shorthand'>
         <div class='shorthand-body'>
             <div class="shorthand-box-card">
-                <div class="shorthand-box-head">
+                <!-- <div class="shorthand-box-head">
                     <span>
                         <el-input placeholder="请输入标题..." v-model="inputContent" ref="inputContent" class='input-title'></el-input>
                     </span>
-                </div>
+                </div> -->
                 <div class="shorthand-box-body">
-                    <el-input type="textarea" placeholder="请输入内容..." v-model="textareaContent" ref="textareaContent" class='input-content'> </el-input>
+                    <el-input type="textarea" placeholder="请输入内容..." v-model="textareaContent" ref="textareaContent" class='shorthand-textarea-content'> </el-input>
                 </div>
                 <div class="shorthand-box-footer">
                     <span class='icon-right el-icon-download' @click="saveShorthand"></span>
                 </div>
             </div>
-            <div class="shorthand-box-card" v-for="item in myShorthands" :key="item.sId">
-                <div class="shorthand-box-head">
+            <div class="shorthand-box-card" v-for="item in myShorthands" :key="item.shorthandId">
+                <!-- <div class="shorthand-box-head">
                     <span>{{item.title}}</span>
-                </div>
+                </div> -->
                 <div class="shorthand-box-body"><div>{{item.content}}</div></div>
                 <div class="shorthand-box-footer">
                     <span class='el-icon-time'>{{item.time}}</span>
-                    <span class='icon-right el-icon-delete' @click="deleteShorthand(item.sId)"></span>
-                    <span class='icon-right el-icon-edit' @click="editShorthand(item.sId)"></span>
+                    <span class='icon-right el-icon-delete' @click="deleteShorthand(item.shorthandId)"></span>
+                    <span class='icon-right el-icon-edit' @click="editShorthand(item.shorthandId)"></span>
                 </div>
             </div>
         </div>
@@ -42,13 +42,13 @@
 </template>
 
 <script>
-import {getShorthandsApi, saveShorthandApi} from '../../api/individual';
+import {getShorthandsApi, saveShorthandApi,deleteShorthandApi} from '../../api/individual';
 
 export default {
     name: "Shorthand",
     data(){
         return {
-            inputContent:'',
+            // inputContent:'',
             textareaContent:'',
             myShorthands: [],
             paginationInfo:{
@@ -74,13 +74,13 @@ export default {
             this.$refs['shorthand'].scrollTo(0,this.$refs['shorthand'].scrollHeight);
         },
         saveShorthand(){
-            let input = this.$refs['inputContent'].value.trim();
+            // let input = this.$refs['inputContent'].value.trim();
             let textarea = this.$refs['textareaContent'].value.trim();
-            if(input.length){
+            // if(input.length){
                 if(textarea.length){
-                    saveShorthandApi({inputContent:this.inputContent, textareaContent:this.textareaContent}).then((result)=>{
+                    saveShorthandApi({content:this.textareaContent}).then((result)=>{
                         this.$message.success(result.msg);
-                        this.inputContent = this.textareaContent = "";
+                        this.textareaContent = "";
                         this.getShorthands();
                     }).catch((reason)=>{
                         this.$message.error(reason);
@@ -88,34 +88,31 @@ export default {
                 }
                 else
                     this.$refs['textareaContent'].focus();
-            }
-            else
-                this.$refs['inputContent'].focus();
+            // } else this.$refs['inputContent'].focus();
         },
         editShorthand:function(e){            
             for(let item of this.myShorthands){
-                if(item.sId===e){
+                if(item.shorthandId===e){
                     this.$store.commit('SET_SHORTHAND',item);
                 }
             }
             this.$router.push('/common/individual/editShorthand/'+e);
         },
         deleteShorthand:function(e){            
-            // console.log(e);
+            console.log(e);
             this.$confirm('您将永久删除该速记, 是否继续?', '提示', {
                 confirmButtonText: '确定',
                 cancelButtonText: '取消',
                 type: 'warning'
-            }).then(() => {
-                this.$message({
-                    type: 'success',
-                    message: '删除成功!'
-                });
+            }).then(()=>{
+                deleteShorthandApi({shorthandId: e}).then(()=>{
+                    this.$message.success( '删除成功!');
+                    this.getShorthands();
+                }).catch((reason)=>{
+                    this.$message.error(reason);
+                });  
             }).catch(() => {
-                this.$message({
-                    type: 'info',
-                    message: '已取消删除'
-                });          
+                this.$message.info('已取消删除');          
             });
         },
         handleSizeChange(val){
@@ -130,7 +127,9 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="less">
+@import "../../assets/css/common.less";
+
 .shorthand-body{
     display: flex;
     flex-wrap: wrap;
@@ -140,7 +139,7 @@ export default {
 }
 
 .shorthand-box-card{
-    width: 15rem;
+    width: 16rem;
     padding: 1rem;
     margin: 1rem;
     border: solid .1rem #dddddd;
@@ -153,14 +152,7 @@ export default {
     box-shadow: #aaaaaa 0 0 0.5rem;
 }
 
-/* 利用穿透，设置input边框隐藏。 '>>>' 是vue的深度选择器，*/
-.input-title>>>.el-input__inner {
-    border: 0;
-    width: 100%;
-    height: 100%;
-}
-
-.input-content>>>.el-textarea__inner {
+.shorthand-textarea-content .el-textarea__inner {
     border: 0;
     width: 100%;
     height: 8rem;
@@ -189,11 +181,11 @@ export default {
 }
 
 .el-icon-edit:hover{
-    color: #00CCFF;
+    color: @brand-color;
 }
 
 .el-icon-delete:hover{
-    color: red;
+    color: @danger-color;
 }
 
 

@@ -51,7 +51,7 @@ const routes = [
 					{ path: 'toDoList', meta: {requireAuth: true}, name:'toDoList', component: ()=> import(/* webpackChunkName: "individual" */ '../views/individual/toDoList.vue') },
 					{ path: 'shorthand', meta: {requireAuth: true}, name:'shorthand', component: ()=> import(/* webpackChunkName: "individual" */ '../views/individual/shorthand.vue') },
 					{ path: 'taskStats', meta: {requireAuth: true}, name:'taskStats', component: ()=> import(/* webpackChunkName: "individual" */ '../views/individual/taskStats.vue') },
-					{ path: 'contributions', meta: {requireAuth: true}, name:'contribution', component: ()=> import(/* webpackChunkName: "individual" */ '../views/individual/contributions.vue') },
+					// { path: 'contributions', meta: {requireAuth: true}, name:'contribution', component: ()=> import(/* webpackChunkName: "individual" */ '../views/individual/contributions.vue') },
 				]
 			},
 			{
@@ -60,7 +60,7 @@ const routes = [
 		]
 	},
 	{ path: '/personalInfo', meta: {requireAuth: true}, component: ()=> import(/* webpackChunkName: "user" */ '../views/profile/personalInfo.vue') },
-	{ path: '/notification', meta: {requireAuth: true}, component: ()=> import(/* webpackChunkName: "user" */ '../views/profile/notification.vue') },
+	// { path: '/notification', meta: {requireAuth: true}, component: ()=> import(/* webpackChunkName: "user" */ '../views/profile/notification.vue') },
 	{ path: '/common/team/createTeam', meta: {requireAuth: true}, component: ()=> import(/* webpackChunkName: "team" */ '../views/team/createTeam.vue') },
 	{ path: '/common/team/joinTeam', meta: {requireAuth: true}, component: ()=> import(/* webpackChunkName: "team" */ '../views/team/joinTeam.vue') },
 	{ path: '/common/team/createProject', meta: {requireAuth: true}, component: ()=> import(/* webpackChunkName: "team" */ '../views/team/createProject.vue') },
@@ -73,7 +73,7 @@ const routes = [
 	{ path: '/common/project/finishTask/:id', meta: {requireAuth: true}, component: ()=> import(/* webpackChunkName: "project" */ '../views/project/finishTask.vue') },
 	{ path: '/common/project/resourceDetail/:id', meta: {requireAuth: true}, component: ()=> import(/* webpackChunkName: "project" */ '../views/project/resourceDetail.vue') },
 	{ path: '/common/individual/editShorthand/:id', meta: {requireAuth: true}, component: ()=> import(/* webpackChunkName: "individual" */ '../views/individual/editShorthand.vue') },
-	{ path: '/common/individual/checkEvents', meta: {requireAuth: true}, component: ()=> import(/* webpackChunkName: "individual" */ '../views/individual/checkEvents.vue') },
+	// { path: '/common/individual/checkEvents', meta: {requireAuth: true}, component: ()=> import(/* webpackChunkName: "individual" */ '../views/individual/checkEvents.vue') },
 	{ path: '/common/individual/addEvent', meta: {requireAuth: true}, component: ()=> import(/* webpackChunkName: "individual" */ '../views/individual/addEvent.vue') },
 	{ path: '*', name: 'error', component: () => import('../components/error.vue') }, 
 ]

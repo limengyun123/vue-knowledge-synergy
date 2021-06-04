@@ -4,7 +4,7 @@
             <el-menu-item index="/common/individual/toDoList">待办事项</el-menu-item>
             <el-menu-item index="/common/individual/shorthand/">想法速记</el-menu-item>
             <el-menu-item index="/common/individual/taskStats/">任务统计</el-menu-item>
-            <el-menu-item index="/common/individual/contributions/">个人贡献</el-menu-item>
+            <!-- <el-menu-item index="/common/individual/contributions/">个人贡献</el-menu-item> -->
         </el-menu>
     
         <router-view class="individual-page-content"/>

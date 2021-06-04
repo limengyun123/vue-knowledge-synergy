@@ -2,26 +2,18 @@
     <div class='task-statistics-page'>
         <div class='task-chart-item'>
             <el-select v-model="taskUrgentType" slot="prepend" @change="selectUrgentChange" class='task-chart-select'>
-                <el-option label="紧急任务" :value="1"></el-option>
-                <el-option label="非紧急任务" :value="2"></el-option>
+                <!-- <el-option label="紧急任务" :value="1"></el-option> -->
+                <!-- <el-option label="非紧急任务" :value="2"></el-option> -->
                 <el-option label="任务总数" :value="3"></el-option>
             </el-select>
             <div id="task-by-urgent" class='task-chart-area'></div>
         </div>
-        <!-- <div class='task-chart-item'>
-            <div>任务总数</div>
-            <div id="urgent" class="task-chart-area"></div>
-        </div>
-        <div class='task-chart-item'>
-            <div>任务总数</div>
-            <div id="disurgent" class="task-chart-area"></div>
-        </div> -->
         <div class='task-chart-item'>
             <el-select v-model="taskTimeRange" slot="prepend" @change="selectTimeChange" class='task-chart-select'>
                 <el-option label="近一周任务完成情况" :value="1"></el-option>
                 <el-option label="近一月任务完成情况" :value="2"></el-option>
                 <el-option label="近一年任务完成情况" :value="3"></el-option>
-                <el-option label="近三年任务完成情况" :value="4"></el-option>
+                <!-- <el-option label="所有任务完成情况" :value="4"></el-option> -->
             </el-select>
             <div id="task-by-time" class="task-chart-area"></div>
         </div>
@@ -30,6 +22,7 @@
 </template>
 
 <script>
+import {getTaskByUrgentApi, getTaskByTimeApi} from '../../api/individual';
 import * as echarts from 'echarts/core';
 import { BarChart, PieChart} from 'echarts/charts';
 import { TooltipComponent, LegendComponent, GridComponent } from 'echarts/components';
@@ -52,75 +45,101 @@ export default {
     },
     mounted(){
         this.initCharts();
-        this.generatePieCharts(chartTaskByUrgent, this.getTaskByUrgentAll());
-        this.generateBarCharts(chartTaskByTime, this.getTaskByTime());  
+        //this.generatePieCharts(chartTaskByUrgent, this.getTaskByUrgentAll());
+        // this.generateBarCharts(chartTaskByTime, this.getTaskByTime());  
+        this.getTaskByUrgent();
+        this.getTaskByTime();
+    },
+    destroyed(){
+        chartTaskByUrgent = chartTaskByTime = null;
     },
     methods:{
         initCharts(){
             chartTaskByUrgent = echarts.init(document.getElementById('task-by-urgent'));
             chartTaskByTime = echarts.init(document.getElementById('task-by-time'));
         },
-        getTaskByUrgentAll(){
-            let data = [
-                {value:43, name:'未逾期  已完成'},
-                {value:6, name:'逾期  已完成'},
-                {value:8, name:'未逾期  未完成'},
-                {value:3, name:'逾期  未完成'},
-            ];
-            let legend = ['任务总数']
-            return {
-                legend: legend,
-                totalNum: 60,
-                serie: {
-                    name: legend[0],
-                    type: 'pie',
-                    radius: ['40%', '70%'],
-                    data: data
+        getTaskByUrgent(){
+            getTaskByUrgentApi({type: this.taskUrgentType}).then((result)=>{
+                let data = result.data;
+                if(data && data.length>0){
+                    let afterData = this.processUrgentData(data);
+                    this.generatePieCharts(chartTaskByUrgent, afterData);
                 }
-            }
-        },
-        getTaskByUrgentTrue(){
-            let data = [
-                {value:7, name:'未逾期  已完成'},
-                {value:1, name:'逾期  已完成'},
-                {value:2, name:'未逾期  未完成'},
-                {value:0, name:'逾期  未完成'},
-            ];
-            let legend = ['紧急任务']
-            return {
-                legend: legend,
-                totalNum: 10,
-                serie: {
-                    name: legend[0],
-                    type: 'pie',
-                    radius: ['40%', '70%'],
-                    data: data
-                }
-            }
-        },
-        getTaskByUrgentFalse(){
-            let data = [
-                {value:36, name:'未逾期  已完成'},
-                {value:5, name:'逾期  已完成'},
-                {value:6, name:'未逾期  未完成'},
-                {value:3, name:'逾期  未完成'},
-            ];
-            let legend = ['非紧急任务'];
-            return {
-                legend: legend,
-                totalNum: 50,
-                serie: {
-                    name: legend[0],
-                    type: 'pie',
-                    radius: ['40%', '70%'],
-                    data: data
-                }
-            }
+
+            }).catch((reason)=>{
+                this.$message.error(reason);
+            });
         },
         getTaskByTime(){
-            let data = [[2, 3, 4, 1, 5, 2, 5, 7, 1, 3, 4, 5], [0, 1, 0, 1, 1, 2, 0, 3, 1, 1, 0, 2]];
-            let xAxis = ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"];
+            getTaskByTimeApi({type: this.taskTimeRange}).then((result)=>{
+                let data = result.data;
+                console.log(data);
+                if(data){
+                    let afterData = this.processTimeData(data);
+                    console.log(afterData);
+                    this.generateBarCharts(chartTaskByTime, afterData);
+                }
+
+            }).catch((reason)=>{
+                this.$message.error(reason);
+            });
+        },
+        processUrgentData(preData){
+            let totalNum = preData.reduce((total, value)=>{return value + total;});
+            let data = [
+                {value:preData[0], name:'未逾期  已完成'},
+                {value:preData[1], name:'逾期  已完成'},
+                {value:preData[2], name:'未逾期  未完成'},
+                {value:preData[3], name:'逾期  未完成'},
+            ];
+            let legend = [];
+            switch(this.taskUrgentType){
+                case 1:
+                    legend = ['紧急任务'];
+                    break;
+                case 2:
+                    legend = ['非紧急任务'];
+                    break;
+                default:
+                    legend = ['任务总数'];
+            }
+            return {
+                legend: legend,
+                totalNum: totalNum,
+                serie: {
+                    name: legend[0],
+                    type: 'pie',
+                    radius: ['40%', '70%'],
+                    data: data
+                }
+            }
+        },
+        processTimeData(preData){
+            console.log(1);
+            let data = [preData.finished, preData.unfinished];
+            let week = ["周一", "周二", "周三", "周四", "周五", "周六", "周日"];
+            let year= ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"];
             let legend = ['已完成', '未完成'];
+            let xAxis = [];
+            let currentTime = new Date();
+            console.log(2);
+            switch(this.taskTimeRange){
+                case 1:
+                    let currentDay = currentTime.getDay();
+                    let weekR = week.splice(0, (currentDay+6)%7);
+                    xAxis = week.concat(weekR);
+                    break;
+                case 2:
+                    // let currentDate = currentTime.getDate();
+                    for(let index=1;index<=preData.finished.length;index++)
+                        xAxis.push(index+'号');
+                    break;
+                default:
+                    let currentMonth = currentTime.getMonth();
+                    let yearR = year.splice(0, currentMonth);
+                    xAxis = year.concat(yearR);
+            }
+            console.log(xAxis);
             return {
                 legend: legend,
                 xAxis: {data: xAxis},
@@ -134,6 +153,8 @@ export default {
                 })
             }
         },
+
+        
         generatePieCharts(chart, param){
             chart.setOption({
                 title: { text: param.title },
@@ -166,20 +187,12 @@ export default {
                 series: param.series
             });
         },
-        selectUrgentChange(e){
-            switch(e){
-                case 1:
-                    this.generatePieCharts(chartTaskByUrgent, this.getTaskByUrgentTrue());
-                    break;
-                case 2:
-                    this.generatePieCharts(chartTaskByUrgent, this.getTaskByUrgentFalse());
-                    break;
-                default:
-                    this.generatePieCharts(chartTaskByUrgent, this.getTaskByUrgentAll());
-                    break;
-            }
+        selectUrgentChange(){
+            this.getTaskByUrgent();
         },
-        selectTimeChange(e){}
+        selectTimeChange(){
+            this.getTaskByTime();
+        }
     }
 }
 </script>

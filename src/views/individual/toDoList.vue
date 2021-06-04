@@ -4,7 +4,7 @@
             <el-col :span="12" class='todo-overview-left-half'>
                 <div class='todo-overview-title'>团队任务</div>
                 <div class='todo-overview-body'>
-                    <div class='todo-overview-item'><p>重要任务</p><div class='blue-text'>{{task.important}}</div></div>
+                    <!-- <div class='todo-overview-item'><p>重要任务</p><div class='blue-text'>{{task.important}}</div></div> -->
                     <div class='todo-overview-item'><p>紧急任务</p><div class='red-text'>{{task.urgent}}</div></div>
                     <div class='todo-overview-item'><p>非紧急任务</p><div class='green-text'>{{task.leisure}}</div></div>
                 </div>
@@ -27,23 +27,35 @@
                         <el-option v-for="item in timeOptions" :key="item" :label="item" :value="item">
                         </el-option>
                     </el-select>
-                    <el-button type="primary" @click="checkEvents" class='add-event-button'>查看事项</el-button>
+                    <el-button type="primary" @click="checkEvents" class='add-event-button'>新建事项</el-button>
                 </div>
                 <div class='todo-detail-body' @click="finishEvent">
                     <!-- 事件重要程度：a>b>c -->
-                    <div v-for="item in toDoList" :key="item.eId" class='todo-detail-item'>
-                        <span :class="'el-icon-s-opportunity '+item.type"></span>
-                        {{item.description}} <span class="todo-detail-time">{{item.startTime}}->{{item.deadline}}</span>
-                        <span :index="item.eId" class="el-icon-circle-check"></span>
+                    <div v-for="item in toDoList" :key="item.taskId" class='todo-detail-item'>
+                        <!-- <span :class="'el-icon-s-opportunity '+item.type"></span> -->
+                        <span :index="item.taskId" class="el-icon-circle-check finish-event-icon"></span>
+                        {{item.description}} <span class="todo-detail-time">{{item.deadline}}截止</span>
                     </div>
                 </div>
             </div>
+            <el-pagination
+                @size-change="handleSizeChange"
+                @current-change="handleCurrentChange"
+                :current-page="paginationInfo.currentPage"
+                :page-sizes="[10, 20, 30, 40]"
+                :page-size="paginationInfo.pageSize"
+                layout="total, sizes, prev, pager, next, jumper"
+                :total="paginationInfo.totalNum"
+                :pager-count="paginationInfo.paperCount"
+                hide-on-single-page
+            >
+            </el-pagination>
         </div>
     </div>
 </template>
 
 <script>
-import {getToDoOverviewApi, getToDoListApi,finishToDoApi} from '../../api/individual'
+import {getToDoOverviewApi, getToDoListApi,deleteToDoApi} from '../../api/individual'
 export default {
     name: "ToDoList",
     data(){
@@ -52,14 +64,13 @@ export default {
             task: {},
             selfEvent: {},
             timeOptions:["近一周","近半月","近一月","近三月","近一年","所有"],
-            toDoList:[
-                {eId: 1, startTime: '2020-03-02', deadline: '2020-03-04', type: 'b', description: '完成待办事项界面设计'},
-                {eId: 2, startTime: '2020-03-03', deadline: '2020-03-07', type: 'c', description: '完成开题报告'},
-                {eId: 3, startTime: '2020-03-07', deadline: '2020-06-20', type: 'a', description: '考驾照'},
-                {eId: 4, startTime: '2020-03-11', deadline: '2020-04-20', type: 'b', description: '准备生日礼物，并于阴历4月20送出'},
-                {eId: 5, startTime: '2020-05-04', deadline: '2020-05-06', type: 'a', description: '再次参观武汉市植物园'},
-                {eId: 6, startTime: '2020-06-10', deadline: '2020-06-10', type: 'b', description: '和室友吃韩式料理'},
-            ]
+            toDoList:[],
+            paginationInfo:{
+                totalNum: 0,
+                currentPage: 1,
+                pageSize: 10,
+                pagerCount: 7
+            },
         }
     },
     created(){
@@ -73,7 +84,11 @@ export default {
     },
     methods:{
         getToDoList(){
-            getToDoListApi(this.chosenTime).then((result)=>{
+            getToDoListApi({
+                timeOptions: this.chosenTime,
+                currentPage: this.paginationInfo.currentPage,
+                pageSize: this.paginationInfo.currentPage
+            }).then((result)=>{
                 this.toDoList = result.data;
             }).catch((reason)=>{
                 this.$message.error(reason);
@@ -83,19 +98,29 @@ export default {
             this.getToDoList();
         },
         checkEvents(){
-            this.$router.push('/common/individual/checkEvents');
+            this.$router.push('/common/individual/addEvent');
         },
         finishEvent(e){
-            let index = e.target.getAttribute('index');
+            let index = e.target.getAttribute("index");
+            console.log(e.target, index);
             if(index!=null){
                 index = parseInt(index);
-                finishToDoApi({index:index}).then(()=>{
-                    // this.$message.success("完成一件待办事项");
+                deleteToDoApi({eventId:index}).then(()=>{
+                    this.$message.success("已完成此待办事项");
+                    this.getToDoList();
                 }).catch((reason)=>{
                     this.$message.error(reason);
                 });
             }
-        }
+        },
+        handleSizeChange(val){
+            this.paginationInfo.pageSize = val;
+            this.getResource();
+        },
+        handleCurrentChange(val){
+            this.paginationInfo.currentPage = val;
+            this.getResource();
+        },
     }
 }
 </script>
@@ -151,6 +176,17 @@ export default {
 
 .green-text{
     color: @success-color;
+}
+
+.finish-event-icon{
+    margin: auto .5rem;
+    font-size: 1.2rem;
+    border-radius: 50%;
+}
+
+.finish-event-icon:hover{
+    color: white;
+    background-color: @support-color-ps;
 }
 
 

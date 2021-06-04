@@ -29,9 +29,9 @@
                     </el-badge>
                 </span>
                 <el-dropdown-menu slot="dropdown">
-                    <el-dropdown-item command="/notification">
+                    <!-- <el-dropdown-item command="/notification">
                         通知<el-badge :value="noticeNum" :max="99" class="notice-item"></el-badge>
-                    </el-dropdown-item>
+                    </el-dropdown-item> -->
                     <el-dropdown-item command="/personal">个人档案</el-dropdown-item>
                     <el-dropdown-item :divided=true command="exit">退出</el-dropdown-item>
                 </el-dropdown-menu>
@@ -61,9 +61,9 @@ export default {
                 case '/personal':
                     this.$router.push('/personalInfo');
                     break;
-                case '/notification':
-                    this.$router.push('/notification');
-                    break;
+                // case '/notification':
+                //     this.$router.push('/notification');
+                //     break;
                 default:
                     logoutApi().then(()=>{
                         this.$message.success("成功退出");

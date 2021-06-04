@@ -133,17 +133,23 @@ Mock.mock("http://localhost:8080/project/deleteComment", "post", projectApi.dele
 Mock.mock("http://localhost:8080/project/getResourceDetail", "post", projectApi.get_resource_detail_suc);
 // Mock.mock("http://localhost:8080/project/getResourceDetail", "post", projectApi.get_resource_detail_fai);
 
-Mock.mock("http://localhost:8080/individual/getToDoOverview", "post", individualApi.get_todo_overview_suc);
-// Mock.mock("http://localhost:8080/individual/getToDoOverview", "post", individualApi.get_todo_overview_fai);
+Mock.mock("http://localhost:8080/individual/getTodoOverview", "post", individualApi.get_todo_overview_suc);
+// Mock.mock("http://localhost:8080/individual/getTodoOverview", "post", individualApi.get_todo_overview_fai);
 
-Mock.mock("http://localhost:8080/individual/getToDoList", "post", individualApi.get_todo_list_suc);
-// Mock.mock("http://localhost:8080/individual/getToDoList", "post", individualApi.get_todo_list_fai);
+Mock.mock("http://localhost:8080/individual/getTodoList", "post", individualApi.get_todo_list_suc);
+// Mock.mock("http://localhost:8080/individual/getTodoList", "post", individualApi.get_todo_list_fai);
+
+Mock.mock("http://localhost:8080/individual/deleteTodo", "post", individualApi.get_todo_list_suc);
+// Mock.mock("http://localhost:8080/individual/deleteTodo", "post", individualApi.get_todo_list_fai);
 
 Mock.mock("http://localhost:8080/individual/getShorthands", "post", individualApi.get_shorthands_suc);
 // Mock.mock("http://localhost:8080/individual/getShorthands", "post", individualApi.get_shorthands_fai);
 
-Mock.mock("http://localhost:8080/individual/saveShorthand", "post", individualApi.save_shorthand_suc);
-// Mock.mock("http://localhost:8080/individual/saveShorthand", "post", individualApi.save_shorthand_fai);
+Mock.mock("http://localhost:8080/individual/addShorthand", "post", individualApi.save_shorthand_suc);
+// Mock.mock("http://localhost:8080/individual/addShorthand", "post", individualApi.save_shorthand_fai);
+
+Mock.mock("http://localhost:8080/individual/deleteShorthand", "post", individualApi.save_shorthand_suc);
+// Mock.mock("http://localhost:8080/individual/deleteShorthand", "post", individualApi.save_shorthand_fai);
 
 Mock.mock("http://localhost:8080/individual/getAshorthand", "post", individualApi.get_a_shorthand_suc);
 // Mock.mock("http://localhost:8080/individual/getAshorthand", "post", individualApi.get_a_shorthand_fai);
@@ -153,6 +159,12 @@ Mock.mock("http://localhost:8080/individual/editShorthand", "post", individualAp
 
 Mock.mock("http://localhost:8080/individual/getContributions", "post", individualApi.get_contributions_suc);
 // Mock.mock("http://localhost:8080/individual/getContributions", "post", individualApi.get_contributions_fai);
+
+Mock.mock("http://localhost:8080/individual/getTaskByUrgent", "post", individualApi.get_task_urgent_suc);
+// Mock.mock("http://localhost:8080/individual/getTaskByUrgent", "post", individualApi.get_task_urgent_fai);
+
+Mock.mock("http://localhost:8080/individual/getTaskByTime", "post", individualApi.get_task_time_suc);
+// Mock.mock("http://localhost:8080/individual/getTaskByTime", "post", individualApi.get_task_time_fai);
 
 Mock.mock("http://localhost:8080/message/getPrivateChat", "post", messageApi.get_private_chat_suc);
 // Mock.mock("http://localhost:8080/message/getPrivateChat", "post", messageApi.get_private_chat_fai);

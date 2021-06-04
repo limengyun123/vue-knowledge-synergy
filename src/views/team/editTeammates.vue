@@ -12,7 +12,7 @@
                     </template>
             </el-table-column>
             <el-table-column prop="email" label="邮箱"></el-table-column>
-            <el-table-column prop="enterTime" label="入群时间" width="150"></el-table-column>
+            <el-table-column prop="enterTime" label="入群时间" width="180"></el-table-column>
             <el-table-column prop="authority" label="成员权限" >
                 <el-table-column label="设置团员权限" width="110">
                     <template slot-scope="scope">
