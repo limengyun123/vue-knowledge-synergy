@@ -13,8 +13,8 @@ const contributions = [
 ];
 
 const shorthands = [
-    {sId: 1, title:"市场分析", content: "是否需要考虑适用人群", time: '2020-03-12'},
-    {sId: 2, title:"前端数据存储", content: "sessionstorage和localstorage合理使用", time: '2020-04-05'},
+    {shorthandId: 1, title:"市场分析", content: "是否需要考虑适用人群", time: '2020-03-12'},
+    {shorthandId: 2, title:"前端数据存储", content: "sessionstorage和localstorage合理使用", time: '2020-04-05'},
     // {sId: 3, title:"", content: "那河畔的金柳，是夕阳中的新娘；", time: '2020-03-22'},
     // {sId: 4, title:"", content: "波光里的艳影，在我的心头荡漾。", time: '2020-03-22'},
     // {sId: 5, title:"", content: "软泥上的青荇，油油的在水底招摇；", time: '2020-03-22'},
@@ -39,7 +39,7 @@ export default{
             code: 200,
             msg: "查询成功",
             data: {
-                task: {important: 3, urgent: 2, leisure: 10},
+                task: {urgent: 2, leisure: 10},
                 selfEvent: {important: 3, urgent: 1, leisure: 4}
             }
         }
@@ -175,7 +175,7 @@ export default{
         }
     },
     get_task_urgent_suc:(param)=>{
-        let type = param.body;
+        let type = JSON.parse(param.body).type;
         let data = [];
         switch(type){
             case 1:
@@ -200,17 +200,17 @@ export default{
         }
     },
     get_task_time_suc:(param)=>{
-        let type = param.body;
+        let type = JSON.parse(param.body).type;
         let data = [];
         switch(type){
             case 1:
-                data = [[0, 1, 0, 0, 1, 1, 1, 0 ], [0, 1, 0, 0, 1, 0, 1, 0 ]];
+                data = {finished:[0, 1, 0, 0, 1, 1, 1, 0 ],unfinished: [0, 1, 0, 0, 1, 0, 1, 0 ]};
                 break;
             case 2:
-                data = [[0, 1, 1, 0 ],[0, 0, 0, 0]];
+                data = {finished:[0, 1, 1, 0 ],unfinished: [0, 0, 0, 0]};
                 break;
             default:
-                data = [[2, 3, 4, 1, 5, 2, 5, 7, 1, 3, 4, 5], [0, 1, 0, 1, 1, 2, 0, 3, 1, 1, 0, 2]];
+                data = {finished:[2, 3, 4, 1, 5, 2, 5, 7, 1, 3, 4, 5], unfinished: [0, 1, 0, 1, 1, 2, 0, 3, 1, 1, 0, 2]};
         }
         return {
             code: 200,

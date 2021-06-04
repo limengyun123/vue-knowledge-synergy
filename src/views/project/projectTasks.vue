@@ -28,7 +28,7 @@
                     </el-select>
                 </div>
                 <div class='task-detail-body' @click="finishTask">
-                    <div v-for="task in showedTasksIndividual" :key="task.tId" :index="task.tId" class='task-detail-item'>
+                    <div v-for="task in showedTasksIndividual" :key="task.taskId" :index="task.taskId" class='task-detail-item'>
                         <div class='task-detail-item-info'>
                             <div>{{task.startTime}}</div>
                             <div class='content-dash'></div>
@@ -70,7 +70,7 @@
                 <div>
                     <div class='task-detail-head'>
                         <label>选择查看方式:  </label>
-                        <el-select v-model="chosenMethodTeam" @change='changeMethodTeam' class='task-select'>
+                        <!-- <el-select v-model="chosenMethodTeam" @change='changeMethodTeam' class='task-select'>
                             <el-option-group
                             v-for="group in checkMethods"
                             :key="group.label"
@@ -82,11 +82,16 @@
                                     :value="item.value">
                                 </el-option>
                             </el-option-group>
+                        </el-select> -->
+                        <el-select v-model="chosenMethodTeam" @change='changeMethodTeam' class='task-select'>
+                            <el-option v-for="item in checkMethods[0].options"
+                                :key="item.value" :label="item.label" :value="item.value">
+                            </el-option>
                         </el-select>
-
                     </div>
                     <div>
-                        <div v-if="taskClassifierChosen" class='task-detail-body'>
+                        <!-- <div v-if="taskClassifierChosen" class='task-detail-body'> -->
+                        <div class='task-detail-body'>
                             <div v-for="task in showedTasksTeam" :key="task.tId" class='task-detail-item'>
                                 <div class='task-detail-item-info'>
                                     <div>{{task.startTime}}</div>
@@ -101,11 +106,11 @@
                                     <div class='content-dash'></div>
                                     <div class='el-icon-message'></div>
                                     <div class='content-dash'></div>
-                                    <!-- <div>> {{task.assigned}}</div> -->
+                                    <div>> {{task.assigned}}</div>
                                 </div>                        
                             </div>
                         </div>
-                        <div v-else>
+                        <!-- <div v-else>
                             <div v-for="(tasks,key,index) in showedTasksTeam" :key="index">
                                 <p class='task-detail-individual-name'>{{key}}</p>
                                 <div class='task-detail-body'>
@@ -122,11 +127,12 @@
                                             <div>{{task.assigner}}</div>
                                             <div class='content-dash'></div>>
                                             <div class='el-icon-message'></div>
+                                            <div>> {{task.assigned}}</div>
                                         </div>                        
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
 
@@ -202,8 +208,16 @@ export default {
             let index = tg.getAttribute('index') || tg.parentNode.getAttribute('index') || tg.parentNode.parentNode.getAttribute('index');
             if(index!=null){
                 index = parseInt(index);
+                this.$store.commit('SET_TASK', this.getTaskById(index));
                 this.$router.push('/common/project/finishTask/'+index);
             }
+        },
+        getTaskById(index){
+            for(let item of this.showedTasksIndividual){
+                if(item.taskId == index)
+                    return item;
+            }
+            return {};
         },
         changeMethodIndividual(){
             this.getIndividualTasksDetail();

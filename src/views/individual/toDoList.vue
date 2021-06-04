@@ -63,7 +63,7 @@ export default {
             chosenTime: "所有",
             task: {},
             selfEvent: {},
-            timeOptions:["近一周","近半月","近一月","近三月","近一年","所有"],
+            timeOptions:["近一周","近一月","近一年","所有"],
             toDoList:[],
             paginationInfo:{
                 totalNum: 0,
@@ -87,7 +87,7 @@ export default {
             getToDoListApi({
                 timeOptions: this.chosenTime,
                 currentPage: this.paginationInfo.currentPage,
-                pageSize: this.paginationInfo.currentPage
+                pageSize: this.paginationInfo.pageSize
             }).then((result)=>{
                 this.toDoList = result.data;
             }).catch((reason)=>{
@@ -102,7 +102,6 @@ export default {
         },
         finishEvent(e){
             let index = e.target.getAttribute("index");
-            console.log(e.target, index);
             if(index!=null){
                 index = parseInt(index);
                 deleteToDoApi({eventId:index}).then(()=>{

@@ -63,7 +63,7 @@ export default {
             this.$refs['todo'].validate((valid)=>{
                 if(valid){
                     //console.log(this.todo);
-                    addToDoApi({...this.todo, deadline:"2021-03-12 12:30"}).then((result)=>{
+                    addToDoApi({...this.todo, deadline:"2021-03-12 12:30"}).then(()=>{
                         this.$message.success("成功新建事项");
                         this.$refs["todo"].resetFields();
                     }).catch((reason)=>{

@@ -70,13 +70,11 @@ export default {
         },
         handleTeamChosen(e){
             let tId = e.target.getAttribute('index')||e.target.parentNode.getAttribute('index');
-            console.log(tId);
             if(tId){
                 tId = parseInt(tId);
                 this.joinInfo.searchInput = this.getTeamNameById(tId);
                 this.teamChosen = tId;
                 this.searchedTeams = [];
-                console.log(tId);
             }
         },
         getTeamNameById(tId){
@@ -92,10 +90,10 @@ export default {
             this.$refs["joinInfo"].validate((valid)=>{
                 if(valid){
                     if(this.teamChosen!=-1)
-                        joinTeamApi({teamId: this.teamChosen, reason: this.joinInfo.joinReason}).then((result)=>{
+                        joinTeamApi({teamId: this.teamChosen, reason: this.joinInfo.joinReason}).then(()=>{
                             this.$message({
                                 type: 'success',
-                                message: result,
+                                message: "已发送申请",
                                 duration: 1000,
                                 onClose:()=>{
                                     this.$router.push('/common/team');

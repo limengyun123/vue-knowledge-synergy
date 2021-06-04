@@ -5,7 +5,7 @@
         <el-button type="primary" @click="changeState" :class="['change-permission-button', isEditing?'el-icon-download':'el-icon-edit']"></el-button>
         <el-table :data="teammates" class="team-permission-table" @cell-click="changePermission">
             <el-table-column prop="actualName" label="姓名" width="80"></el-table-column>
-            <el-table-column prop="sex" label="性别" width="80">
+            <el-table-column prop="sex" label="性别" width="50">
                 <template slot-scope="scope">
                         <span v-if="scope.row.sex">男</span>
                         <span v-else>女</span>

@@ -99,7 +99,6 @@ export default {
             this.$router.push('/common/individual/editShorthand/'+e);
         },
         deleteShorthand:function(e){            
-            console.log(e);
             this.$confirm('您将永久删除该速记, 是否继续?', '提示', {
                 confirmButtonText: '确定',
                 cancelButtonText: '取消',

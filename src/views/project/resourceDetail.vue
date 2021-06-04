@@ -6,7 +6,7 @@
             <div class="resource-detail-description">
                 <!-- 资源简略信息 -->
                 <div class="resource-detail-description-pic">
-                    <img :src="require('@/assets/img/fileIcons/doc.png')" class='resource-cover-page'/>
+                    <img :src="getResourceType(resourceInfo.resourceName)" class='resource-cover-page'/>
                 </div>
                 <div class="resource-detail-description-text">
                     <div><b>名    称： </b>{{resourceInfo.resourceName}}</div>
@@ -113,6 +113,12 @@ export default {
             }).catch((reason)=>{
                 this.$message.error(reason);
             })
+        },
+        getResourceType(type){
+            type = type.split('.').pop().toLowerCase();
+            let validFileType = ['pdf', 'ppt', 'pptx', 'doc', 'docx', 'txt', 'xls', 'xlsx', 'jpg', 'jpeg', 'png', 'zip', 'rar'];
+            if(validFileType.indexOf(type)==-1) return require("@/assets/img/fileIcons/undefined.png");
+            return require(`@/assets/img/fileIcons/${type}.png`);
         },
         seperateCmtAndRpl(comments){
             let commentsReturned = [];

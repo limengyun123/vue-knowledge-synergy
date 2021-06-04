@@ -19,10 +19,7 @@
             <el-table :data="resources" class="resource-table">
                 <el-table-column prop="resourceType" label="类型" width="80">
                     <template slot-scope="scope">
-                        <img v-if="scope.row.resourceId==2" :src="require('@/assets/img/fileIcons/xls.png')" class="reource-type-img" :index="scope.row.resourceId" />
-                        <img v-else-if="scope.row.resourceId==4" :src="require('@/assets/img/fileIcons/pdf.png')" class="reource-type-img" :index="scope.row.resourceId" />
-                        <img v-else-if="scope.row.resourceId==5" :src="require('@/assets/img/fileIcons/rar.png')" class="reource-type-img" :index="scope.row.resourceId" />
-                        <img v-else :src="getResourceType(scope.row.resourceName)" class="reource-type-img" :index="scope.row.resourceId" />
+                        <img :src="getResourceType(scope.row.resourceName)" class="reource-type-img" :index="scope.row.resourceId" />
                     </template>
                 </el-table-column>
                 <el-table-column prop="resourceName" label="名称" width="300"></el-table-column>
@@ -45,7 +42,7 @@
         </div>
         <div v-else-if="resources.length" class="resource-square">
             <div v-for="item in resources" :key="item.resourceId" class="resource-square-item">
-                <div class="resource-square-pic"></div>
+                <img :src="getResourceType(item.resourceName)" class="resource-square-pic" />
                 <div class="resource-square-name">
                     <span>{{item.resourceName}}</span>
                 </div>
@@ -117,19 +114,19 @@ export default {
             getResourcesApi({
                 projectId: this.$route.params.id,
                 currentPage: this.paginationInfo.currentPage,
-                pageSize: this.paginationInfo.currentPage
+                pageSize: this.paginationInfo.pageSize
             }).then((result)=>{
                 this.resources = result.data.resources;
+                console.log(this.resources);
                 this.paginationInfo.totalNum = result.data.totalNum;
             }).catch((reason=>{
                 this.$message.error(reason);
             }));
         },
         getResourceType(type){
-            type = type.split('.').pop();
-            let validFileType = ['pdf', 'doc', 'docx', 'txt', 'xls', 'xlsx', 'jpg', 'jpeg', 'png'];
+            type = type.split('.').pop().toLowerCase();
+            let validFileType = ['pdf', 'ppt', 'pptx', 'doc', 'docx', 'txt', 'xls', 'xlsx', 'jpg', 'jpeg', 'png', 'zip', 'rar'];
             if(validFileType.indexOf(type)==-1) return require("@/assets/img/fileIcons/undefined.png");
-            
             return require(`@/assets/img/fileIcons/${type}.png`);
         },
         handleDownload(e){
@@ -223,7 +220,6 @@ export default {
 }
 
 .resource-square-pic{
-    background-image: url('../../assets/img/fileIcons/xls.png');
     background-size: 4rem 4rem;
     width: 4rem;
     height: 4rem;

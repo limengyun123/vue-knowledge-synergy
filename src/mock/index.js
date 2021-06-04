@@ -59,7 +59,7 @@ Mock.mock("http://localhost:8080/team/getContacts", "post", teamApi.get_contacts
 // Mock.mock("http://localhost:8080/team/getContacts", "post", teamApi.get_contacts_fai);
 
 Mock.mock("http://localhost:8080/team/searchUser", "post", teamApi.search_user_suc);
-// Mock.mock("http://localhost:8080/team/searchUser", "post", teamApi.search_user_fai);addTeammates
+// Mock.mock("http://localhost:8080/team/searchUser", "post", teamApi.search_user_fai);
 
 Mock.mock("http://localhost:8080/team/addMember", "post", teamApi.add_teammates_suc);
 // Mock.mock("http://localhost:8080/team/addMember", "post", teamApi.add_teammates_fai);
@@ -133,11 +133,14 @@ Mock.mock("http://localhost:8080/project/deleteComment", "post", projectApi.dele
 Mock.mock("http://localhost:8080/project/getResourceDetail", "post", projectApi.get_resource_detail_suc);
 // Mock.mock("http://localhost:8080/project/getResourceDetail", "post", projectApi.get_resource_detail_fai);
 
-Mock.mock("http://localhost:8080/individual/getTodoOverview", "post", individualApi.get_todo_overview_suc);
-// Mock.mock("http://localhost:8080/individual/getTodoOverview", "post", individualApi.get_todo_overview_fai);
+Mock.mock("http://localhost:8080/individual/getTodoOverview", "get", individualApi.get_todo_overview_suc);
+// Mock.mock("http://localhost:8080/individual/getTodoOverview", "get", individualApi.get_todo_overview_fai);
 
 Mock.mock("http://localhost:8080/individual/getTodoList", "post", individualApi.get_todo_list_suc);
 // Mock.mock("http://localhost:8080/individual/getTodoList", "post", individualApi.get_todo_list_fai);
+
+Mock.mock("http://localhost:8080/individual/addTodo", "post", individualApi.get_todo_list_suc);
+// Mock.mock("http://localhost:8080/individual/addTodo", "post", individualApi.get_todo_list_fai);
 
 Mock.mock("http://localhost:8080/individual/deleteTodo", "post", individualApi.get_todo_list_suc);
 // Mock.mock("http://localhost:8080/individual/deleteTodo", "post", individualApi.get_todo_list_fai);

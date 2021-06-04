@@ -18,6 +18,7 @@ export default new Vuex.Store({
 		},
 		projectInfo:{},
 		shortHandChosen:{},
+		taskInfo:{},
 		chatInfo:{
 			isTeam: false,
 			chatId: 0
@@ -69,6 +70,9 @@ export default new Vuex.Store({
 		SET_SHORTHAND(state, shorthand){
 			state.shortHandChosen = shorthand;
 		},
+		SET_TASK(state, task){
+			state.taskInfo = task;
+		},
 		SET_CHAT_INFO:(state, chat)=>{
 			state.chatInfo.isTeam = chat.isTeam;
 			state.chatInfo.chatId = chat.chatId;
@@ -85,6 +89,7 @@ export default new Vuex.Store({
 			state.teamInfo.teammates = [];
 			state.projectInfo={};
 			state.shortHandChosen={};
+			state.taskInfo={};
 			state.chatInfo.isTeam = false;
 			state.chatInfo.chatId = 0;
 		},

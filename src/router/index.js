@@ -75,7 +75,8 @@ const routes = [
 	{ path: '/common/individual/editShorthand/:id', meta: {requireAuth: true}, component: ()=> import(/* webpackChunkName: "individual" */ '../views/individual/editShorthand.vue') },
 	// { path: '/common/individual/checkEvents', meta: {requireAuth: true}, component: ()=> import(/* webpackChunkName: "individual" */ '../views/individual/checkEvents.vue') },
 	{ path: '/common/individual/addEvent', meta: {requireAuth: true}, component: ()=> import(/* webpackChunkName: "individual" */ '../views/individual/addEvent.vue') },
-	{ path: '*', name: 'error', component: () => import('../components/error.vue') }, 
+	{ path: '/error403', name: 'error403', component: () => import('../components/error403.vue') }, 
+	{ path: '*', name: 'error404', component: () => import('../components/error404.vue') }, 
 ]
 
 const router = new VueRouter({

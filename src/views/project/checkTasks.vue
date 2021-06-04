@@ -90,7 +90,7 @@ export default {
         },
         deleteTaskFromMemory(id){
             this.tasks = this.tasks.filter((task)=>{
-                return task.tId!=id;
+                return task.taskId!=id;
             })
         },
         addTask(){
