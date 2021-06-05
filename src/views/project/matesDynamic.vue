@@ -52,7 +52,7 @@ export default {
     methods:{
         getMatesDynamics(){
             getDynamicsApi(this.paginationInfo).then((result)=>{
-                this.dynamics = result.data.dynamics;
+                this.dynamics = result.data.dynamics||[];
                 this.paginationInfo.totalNum = result.data.totalNum;
             }).catch((reason=>{
                 this.$message.error(reason);

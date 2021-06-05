@@ -89,7 +89,7 @@ export default {
                 currentPage: this.paginationInfo.currentPage,
                 pageSize: this.paginationInfo.pageSize
             }).then((result)=>{
-                this.toDoList = result.data;
+                this.toDoList = result.data||[];
             }).catch((reason)=>{
                 this.$message.error(reason);
             });

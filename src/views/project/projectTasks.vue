@@ -49,7 +49,7 @@
 
         <div class='task-overview-part'>
             <div class='task-overview-title'><h3>团队任务</h3></div>
-            <el-button type="primary" @click='checkTasks' class='check-task-button'>查看任务</el-button>
+            <el-button type="primary" v-if="getTeamAuth['TASK']" @click='checkTasks' class='check-task-button'>查看任务</el-button>
             <div class='task-overview-body'>
                 <div class='task-overview-item'>
                     <p>总任务</p><div class='blue-text'>{{taskOverviewTeam.total}}</div>
@@ -168,7 +168,10 @@ export default {
         }
     },
     computed:{
-        getProjectId(){ return this.$route.params.id; }
+        getProjectId(){ return this.$route.params.id; },
+        getTeamAuth(){
+            return this.$store.state.teamInfo.authority;
+        }
     },
     created(){
         this.getTasksOverview();

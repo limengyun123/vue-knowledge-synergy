@@ -9,7 +9,7 @@ const routes = [
 	{ 
 		path: '/user', 
 		name: 'user',
-		component: ()=> import('../views/user/index.vue'),
+		component: ()=> import(/* webpackChunkName: "user" */ '../views/user/index.vue'),
 		redirect: '/user/login',
 		children:[
 			{ path: 'login', name: 'loginIn', component: () => import(/* webpackChunkName: "user" */ '../views/user/login.vue') },
@@ -31,7 +31,7 @@ const routes = [
 					{ 
 						path: 'project/:id', 
 						name: 'project',
-						component: ()=> import('../views/project/project.vue'),
+						component: ()=> import(/* webpackChunkName: "project" */ '../views/project/project.vue'),
 						redirect: 'project/:id/resources', 
 						children:[
 							{ path: 'resources', meta: {requireAuth: true}, name:'resources', component: ()=> import(/* webpackChunkName: "project" */ '../views/project/projectResources.vue') },
@@ -45,7 +45,7 @@ const routes = [
 			{ 
 				path: 'individual', 
 				name: 'individual', 
-				component: ()=> import('../views/individual/individual.vue'),
+				component: ()=> import(/* webpackChunkName: "individual" */ '../views/individual/individual.vue'),
 				redirect: '/common/individual/toDoList',
 				children:[
 					{ path: 'toDoList', meta: {requireAuth: true}, name:'toDoList', component: ()=> import(/* webpackChunkName: "individual" */ '../views/individual/toDoList.vue') },

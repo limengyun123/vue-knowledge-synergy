@@ -23,10 +23,8 @@
                 </router-link>
             </div>
             <el-dropdown @command="handleCommand" class="common-nav-avatar" placement="right-end">
-                <span>
-                    <el-badge :value="noticeNum" :max="99" class="notice-item">
+                <span>                   
                         <div class='common_nav_avatar'>{{getUser}}</div>
-                    </el-badge>
                 </span>
                 <el-dropdown-menu slot="dropdown">
                     <!-- <el-dropdown-item command="/notification">

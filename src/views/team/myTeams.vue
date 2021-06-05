@@ -199,7 +199,7 @@ export default {
                         this.timer = setTimeout(()=>{
                             clearTimeout(this.timer);
                             this.timer=null;
-                            if(this.getTeamAuth['TEAM']) this.$router.push('/common/team/editTeammates');
+                            if(this.getTeamAuth['AUTH']) this.$router.push('/common/team/editTeammates');
                         }, 300);
                     }
                     else if(this.chatWith!=index){
@@ -208,7 +208,7 @@ export default {
                         this.timer = setTimeout(()=>{
                             clearTimeout(this.timer);
                             this.timer=null;
-                            if(this.getTeamAuth['TEAM']) this.$router.push('/common/team/editTeammates');
+                            if(this.getTeamAuth['AUTH']) this.$router.push('/common/team/editTeammates');
                         }, 300);
                     }
                     else{

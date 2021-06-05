@@ -63,7 +63,7 @@ export default {
                 currentPage: this.paginationInfo.currentPage, 
                 pageSize: this.paginationInfo.pageSize
             }).then((result)=>{
-                this.notices = result.data.notices;
+                this.notices = result.data.notices||[];
                 this.paginationInfo.totalNum = result.data.totalNum;
             }).catch((reason=>{
                 this.$message.error(reason);

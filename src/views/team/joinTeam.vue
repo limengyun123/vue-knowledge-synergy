@@ -58,11 +58,11 @@ export default {
             let content = this.joinInfo.searchInput.trim();
             if(content!=''){
                 searchTeamsApi({input: content}).then((result)=>{
-                    if(result.data.length==0) this.$message.info("未搜索到团队");
+                    if(!result.data || result.data.length==0) this.$message.info("未搜索到团队");
                     else this.searchedTeams = result.data;
                 }).catch((reason)=>{
                     this.$message.error(reason);
-                })
+                });
             }
             else{
                 this.searchedTeams=[];

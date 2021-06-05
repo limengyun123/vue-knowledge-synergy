@@ -65,7 +65,7 @@ export default {
     methods: {
         getShorthands(){
             getShorthandsApi(this.paginationInfo).then((result)=>{
-                this.myShorthands = result.data.shorthands;
+                this.myShorthands = result.data.shorthands||[];
                 this.paginationInfo.totalNum = result.data.totalNum;
             }).catch((reason)=>{
                 this.$message.error(reason);

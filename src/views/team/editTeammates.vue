@@ -89,7 +89,7 @@ export default {
                 let len = mate.authority.length;
                 mate.authority = mate.authority+'0'.repeat(7-len);
             }
-            console.log(this.teammates);
+            // console.log(this.teammates);
         }).catch((reason)=>{
             this.$message.error(reason);
         })

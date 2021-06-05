@@ -60,7 +60,7 @@ export default {
     methods:{
         getEvents(){
             getMyTasksApi(this.paginationInfo).then((result)=>{
-                this.events = result.data.tasks;
+                this.events = result.data.tasks||[];
                 this.paginationInfo.totalNum = result.data.totalNum;
             }).catch((reason)=>{
                 this.$message.error(reason);

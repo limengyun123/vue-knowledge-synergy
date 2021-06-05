@@ -116,7 +116,7 @@ export default {
                 currentPage: this.paginationInfo.currentPage,
                 pageSize: this.paginationInfo.pageSize
             }).then((result)=>{
-                this.resources = result.data.resources;
+                this.resources = result.data.resources||[];
                 console.log(this.resources);
                 this.paginationInfo.totalNum = result.data.totalNum;
             }).catch((reason=>{

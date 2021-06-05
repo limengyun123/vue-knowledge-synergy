@@ -64,7 +64,7 @@ export default {
                 currentPage: this.paginationInfo.currentPage,
                 pageSize: this.paginationInfo.pageSize
             }).then((result)=>{
-                this.tasks = result.data;
+                this.tasks = result.data||[];
             }).catch((reason)=>{
                 this.$message.error(reason);
             });

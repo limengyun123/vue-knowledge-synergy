@@ -69,7 +69,7 @@ export default {
     methods:{
         getContributions(){
             getContributionsApi(this.paginationInfo).then((result)=>{
-                this.contributions = result.data.contributions;
+                this.contributions = result.data.contributions||[];
                 this.paginationInfo.totalNum = result.data.totalNum;
             }).catch((reason=>{
                 this.$message.error(reason);

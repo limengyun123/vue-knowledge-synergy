@@ -108,17 +108,19 @@ export default {
         getResourceDetail(){
             getResourceDetailApi({resourceId: this.getResourceId}).then((result)=>{
                 // console.log()
-                this.resourceInfo = result.data.resource;
-                this.comments = this.seperateCmtAndRpl(result.data.comments);
+                this.resourceInfo = result.data.resource||{};
+                this.comments = this.seperateCmtAndRpl(result.data.comments||[]);
             }).catch((reason)=>{
                 this.$message.error(reason);
             })
         },
         getResourceType(type){
-            type = type.split('.').pop().toLowerCase();
-            let validFileType = ['pdf', 'ppt', 'pptx', 'doc', 'docx', 'txt', 'xls', 'xlsx', 'jpg', 'jpeg', 'png', 'zip', 'rar'];
-            if(validFileType.indexOf(type)==-1) return require("@/assets/img/fileIcons/undefined.png");
-            return require(`@/assets/img/fileIcons/${type}.png`);
+            if(type){
+                type = type.split('.').pop().toLowerCase();
+                let validFileType = ['pdf', 'ppt', 'pptx', 'doc', 'docx', 'txt', 'xls', 'xlsx', 'jpg', 'jpeg', 'png', 'zip', 'rar'];
+                if(validFileType.indexOf(type)==-1) return require("@/assets/img/fileIcons/undefined.png");
+                return require(`@/assets/img/fileIcons/${type}.png`);
+            }
         },
         seperateCmtAndRpl(comments){
             let commentsReturned = [];
@@ -137,7 +139,7 @@ export default {
                     }
                 }
             }
-            console.log(commentsReturned);
+            // console.log(commentsReturned);
             return commentsReturned;
         },
         deleteResource(){

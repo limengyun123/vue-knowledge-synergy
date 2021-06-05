@@ -64,7 +64,7 @@ export default {
         searchUser(){
             if(this.inputEmail){
                 searchUserApi({teamId: this.teamId, email:this.inputEmail}).then((result)=>{
-                    if(result.data.length==0) this.$message.info("未搜索到用户");
+                    if(!result.data || result.data.length==0) this.$message.info("未搜索到用户");
                     else this.searchedUsers = result.data;
                 }).catch((reason)=>{
                     this.$message.error(reason);
