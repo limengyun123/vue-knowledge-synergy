@@ -6,7 +6,7 @@
             <div class="resource-detail-description">
                 <!-- 资源简略信息 -->
                 <div class="resource-detail-description-pic">
-                    <img :src="getResourceType(resourceInfo.resourceName)" class='resource-cover-page'/>
+                    <img :src="require(`@/assets/img/fileIcons/${resourceInfo.resourceType}.png`)" class='resource-cover-page'/>
                 </div>
                 <div class="resource-detail-description-text">
                     <div><b>名    称： </b>{{resourceInfo.resourceName}}</div>
@@ -21,13 +21,14 @@
             <div class='resource-detail-title'><h3>资源预览</h3></div>
             <div class="resource-detail-show">
                 <div class="resource-detail-overview">
-                    <iframe class='resource-detail-overview-frame' src="https://view.officeapps.live.com/op/view.aspx?src=newteach.pbworks.com%2Ff%2Fele%2Bnewsletter.docx">
+                    <!-- <iframe class='resource-detail-overview-frame' src="https://view.officeapps.live.com/op/view.aspx?src=newteach.pbworks.com%2Ff%2Fele%2Bnewsletter.docx">
                         <p>您的浏览器不支持在线预览，请下载后查看。</p>
-                    </iframe>
+                    </iframe> -->
                     <!-- <div class="resource-detail-overview-frame">
                         <img src="~@/assets/img/big_img.jpg" alt="Paris" />
                     </div> -->
-                    
+                    <img v-if="!(['jpg', 'jpeg', 'png'].indexOf(resourceInfo.resourceType)==-1)" :src="'/download'+resourceInfo.resourceContent" :alt="'图片《'+resourceInfo.resourceName+'》'" />
+                    <p v-else>此文件不支持在线预览，请下载后查看。</p>
                 </div>
                 <div class="resource-detail-comments">
                     <!-- 评论 -->
@@ -108,19 +109,17 @@ export default {
         getResourceDetail(){
             getResourceDetailApi({resourceId: this.getResourceId}).then((result)=>{
                 // console.log()
-                this.resourceInfo = result.data.resource||{};
+                let res = result.data.resource||{};
+                let validFileType = ['pdf', 'ppt', 'pptx', 'doc', 'docx', 'txt', 'xls', 'xlsx', 'jpg', 'jpeg', 'png', 'zip', 'rar'];
+                let type = (res.resourceName||"").split('.').pop().toLowerCase(); 
+                if(validFileType.indexOf(type)==-1) return type = 'undefined';
+                res.resourceType = type;
+
+                this.resourceInfo = res;
                 this.comments = this.seperateCmtAndRpl(result.data.comments||[]);
             }).catch((reason)=>{
                 this.$message.error(reason);
             })
-        },
-        getResourceType(type){
-            if(type){
-                type = type.split('.').pop().toLowerCase();
-                let validFileType = ['pdf', 'ppt', 'pptx', 'doc', 'docx', 'txt', 'xls', 'xlsx', 'jpg', 'jpeg', 'png', 'zip', 'rar'];
-                if(validFileType.indexOf(type)==-1) return require("@/assets/img/fileIcons/undefined.png");
-                return require(`@/assets/img/fileIcons/${type}.png`);
-            }
         },
         seperateCmtAndRpl(comments){
             let commentsReturned = [];

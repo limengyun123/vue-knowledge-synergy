@@ -22,7 +22,7 @@
                         <button @click="submitUpload" class="upload-resource-button">上传</button>
                     </div>
                     <div class="choose-resource-tooltip">
-                        只能上传1个pdf/ppt/pptx/doc/docx/txt/xls/xlsx/jpg/jpeg/png/rar/zip文件，且不超过3M
+                        只能上传1个pdf/ppt/pptx/doc/docx/xls/xlsx/jpg/jpeg/png/rar/zip文件，且不超过3M
                     </div>
                     <div class='upload-resource-show'>{{taskFile.name}}</div>
                 </el-form-item>
@@ -56,7 +56,7 @@ export default {
         },
         chooseFile(e){
             e.preventDefault();
-            const validFileType = ['pdf', 'doc', 'docx','ppt', 'pptx', 'txt', 'xls', 'xlsx', 'jpg', 'jpeg', 'png'];
+            const validFileType = ['pdf', 'doc', 'docx','ppt', 'pptx', 'xls', 'xlsx', 'jpg', 'jpeg', 'png'];
             let files = e.target.files;
             
             if(files.length>1){

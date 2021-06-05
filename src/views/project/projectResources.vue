@@ -19,7 +19,7 @@
             <el-table :data="resources" class="resource-table">
                 <el-table-column prop="resourceType" label="类型" width="80">
                     <template slot-scope="scope">
-                        <img :src="getResourceType(scope.row.resourceName)" class="reource-type-img" :index="scope.row.resourceId" />
+                        <img :src="require(`@/assets/img/fileIcons/${scope.row.resourceType}.png`)" class="reource-type-img" :index="scope.row.resourceId" />
                     </template>
                 </el-table-column>
                 <el-table-column prop="resourceName" label="名称" width="300"></el-table-column>
@@ -28,21 +28,20 @@
                 <el-table-column prop="resourceSize" label="大小" width="60"></el-table-column>
                 <el-table-column fixed="right" label="详情" width="60">
                     <template slot-scope="scope">
-                        <!-- <a :index="scope.row.resourceId" target="_blank" href='https://view.officeapps.live.com/op/view.aspx?src=newteach.pbworks.com%2Ff%2Fele%2Bnewsletter.docx'><span class="el-icon-view"></span></a> -->
                         <a target="_parent" :href="'/common/project/resourceDetail/'+scope.row.resourceId"><span class="el-icon-view"></span></a>
                     </template>
                 </el-table-column>
                 <el-table-column fixed="right" label="下载" width="60">
                     <template slot-scope="scope">
-                        <span @click="handleDownload(scope.row.resourceContent)" class="el-icon-download"></span>
-                        <!-- <a :index="scope.row.resourceId" href='' download="http://81.68.71.40:8080/resource/2818254e-be51-4eb5-a9e6-bf9923e3c806-doc.png"><span class="el-icon-download"></span></a> -->
+                        <a v-if="isPicType(scope.row.resourceType)" :href="'/download'+scope.row.resourceContent" :download="scope.row.resourceName"><span class="el-icon-download"></span></a>
+                        <a v-else target='_blank' :href='baseURL+scope.row.resourceContent' :download='scope.row.resourceName'><span class="el-icon-download"></span></a>
                     </template>
                 </el-table-column>
             </el-table>
         </div>
         <div v-else-if="resources.length" class="resource-square">
             <div v-for="item in resources" :key="item.resourceId" class="resource-square-item">
-                <img :src="getResourceType(item.resourceName)" class="resource-square-pic" />
+                <img :src="require(`@/assets/img/fileIcons/${item.resourceType}.png`)" class="resource-square-pic" />
                 <div class="resource-square-name">
                     <span>{{item.resourceName}}</span>
                 </div>
@@ -52,7 +51,8 @@
                 <div>{{item.resourceCreateTime}}</div>
                 <div class="resource-square-operate">
                     <a target="_parent" :href="'/common/project/resourceDetail/'+item.resourceId"><span class="el-icon-view resource-operate-icon"></span></a>
-                    <a href='http%3a%2f%2fvideo.ch9.ms%2fbuild%2f2011%2fslides%2fTOOL-532T_Sutter.pptx' download='http%3a%2f%2fvideo.ch9.ms%2fbuild%2f2011%2fslides%2fTOOL-532T_Sutter.pptx'><span class="el-icon-download resource-operate-icon"></span></a>
+                    <a v-if="isPicType(item.resourceType)" :href="'/download'+item.resourceContent" :download="item.resourceName"><span class="el-icon-download resource-operate-icon"></span></a>
+                    <a v-else target='_blank' :href='baseURL+item.resourceContent' :download='item.resourceName'><span class="el-icon-download resource-operate-icon"></span></a>
                 </div>
             </div>
         </div>
@@ -104,37 +104,35 @@ export default {
         }
     },
     created(){
-        // console.log(this.$route.params.id);
         this.projectId = this.$route.params.id;
         this.getResource();
     },
     methods:{
         getResource(){
-            // console.log(getResourcesApi(this.paginationInfo));
             getResourcesApi({
                 projectId: this.$route.params.id,
                 currentPage: this.paginationInfo.currentPage,
                 pageSize: this.paginationInfo.pageSize
             }).then((result)=>{
-                this.resources = result.data.resources||[];
-                console.log(this.resources);
+                let res = result.data.resources||[];
+                let validFileType = ['pdf', 'ppt', 'pptx', 'doc', 'docx', 'txt', 'xls', 'xlsx', 'jpg', 'jpeg', 'png', 'zip', 'rar'];
+                let type = '';
+                for(let item of res){
+                    type = (item.resourceName||"").split('.').pop().toLowerCase(); 
+                    if(validFileType.indexOf(type)==-1) return type = 'undefined';
+                    item.resourceType = type;
+                }
+                console.log(res);
+                this.resources = res;
                 this.paginationInfo.totalNum = result.data.totalNum;
             }).catch((reason=>{
                 this.$message.error(reason);
             }));
         },
-        getResourceType(type){
-            type = type.split('.').pop().toLowerCase();
-            let validFileType = ['pdf', 'ppt', 'pptx', 'doc', 'docx', 'txt', 'xls', 'xlsx', 'jpg', 'jpeg', 'png', 'zip', 'rar'];
-            if(validFileType.indexOf(type)==-1) return require("@/assets/img/fileIcons/undefined.png");
-            return require(`@/assets/img/fileIcons/${type}.png`);
-        },
-        handleDownload(e){
-            let a = document.createElement('a');
-            a.href = "";
-            a.download = "http://81.68.71.40:8080"+e;
-            a.click();
-
+        isPicType(type){
+            // 幽灵4倍调用
+            let picType = ['jpg', 'jpeg', 'png'];
+            return !(picType.indexOf(type)==-1);
         },
         handleSizeChange(val){
             this.paginationInfo.pageSize = val;
